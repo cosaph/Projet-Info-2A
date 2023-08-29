@@ -7,7 +7,7 @@
 git branch <nom_de_branche>
 ```
 
-#Changement de branche
+# Changement de branche
 
 Pour passer à une autre branche :
 
