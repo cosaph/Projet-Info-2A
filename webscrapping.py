@@ -6,10 +6,9 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 15:10:14 by cosaph            #+#    #+#              #
-#    Updated: 2023/09/01 22:39:21 by cosaph           ###   ########.fr        #
+#    Updated: 2023/09/12 09:33:49 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 # --- Library --- #
 
@@ -17,12 +16,25 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-url = 'https://www.stage.fr/jobs/?q=data&l='
+
+
+
+
+# https://www.stage.fr/jobs/?q=data&l=paris&stage=data&location=paris&radius=10
+
+
+# --- Demande utilisateur --- #
+query_input = input("Enter what type of internship you want: ")
+location_input = input("In which location? ")
+radius_input = input("Within how many km? ")
+
+params = {'q': query_input, 'l': location_input,'stage': query_input, 'location': location_input,'radius':radius_input}
+url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
+
 response = requests.get(url)
-""" 
-soup = BeautifulSoup(response.text, 'html.parser')
-[print((str(li) + '\n')) for li in liste]
- """
+
+
+# --- Parsing pour mon tableau --- #
 
 soup = BeautifulSoup(response.text, 'html.parser')
 div_elements = soup.find_all('div', class_='media-heading listing-item__title')
