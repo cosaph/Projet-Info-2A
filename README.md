@@ -1,71 +1,31 @@
-# Projet-Info-2A
-
-# Pour créer une nouvelle branche basée sur la branche actuelle :
 
 
-```
-git branch <nom_de_branche>
-```
+# Test projet avec FastAPI
 
-# Changement de branche
+Voici les grandes étapes pour mettre en place une telle API :
 
-Pour passer à une autre branche :
+# 1. Scraper les sites d'emploi pour récupérer les offres
 
-```
-git checkout <nom_de_branche>
+- Utiliser des bibliothèques comme BeautifulSoup, Selenium, Requests, etc pour scraper le contenu des pages web et extraire les informations sur les offres d'emploi (titre, description, lieu, etc)
 
-```
+# 2. Stocker les données dans une base SQLite
 
-# Fusion de branches
+- Créer une base de données SQLite avec les tables nécessaires pour stocker les offres
+- Ecrire les données scrapées dans la base à l'aide de SQLAlchemy
 
-Pour fusionner une branche spécifique dans la branche actuelle :
-bash
+# 3. Créer l'API avec FastAPI 
 
-```
-git merge <nom_de_branche>
-```
+- Définir des routes dans FastAPI pour récupérer les offres de la base, en créer de nouvelles, etc
+- Utiliser SQLAlchemy pour requêter la base de données
+- Retourner les résultats au format JSON 
 
+# 4. Scheduler le scraping 
 
+- Utiliser un scheduler comme Celery ou Apache Airflow pour lancer le scraping des sites à intervalles réguliers (pour mettre à jour les offres)
 
-# Vérification de l'état
+# 5. Déployer l'API
 
-Pour afficher l'état actuel de votre référentiel Git :
+- Servir l'API FastAPI avec Uvicorn
+- Déployer sur un service comme Heroku ou un VPS
 
-```
-git status
-```
-
-# Ajout de fichiers modifiés
-
-Pour ajouter les modifications de fichiers spécifiques à l'index :
-
-```
-git add <nom_fichier1> <nom_fichier2> ...
-```
-
-# Validation des modifications
-
-Pour valider les modifications ajoutées à l'index :
-
-```
-git commit -m "Message de validation"
-```
-
-# Récupération des dernières modifications
-
-Pour récupérer les dernières modifications du référentiel distant et les fusionner avec votre branche actuelle :
-bash
-
-```
-git pull origin <nom_de_branche>
-```
-
-# Envoi des modifications locales
-
-
-Pour envoyer vos modifications locales vers le référentiel distant :
-bash
-
-```
-git push origin <nom_de_branche>
-```
+En résume, scraper les sites, stocker dans SQLite, créer l'API pour requêter la base, et scheduler le scraping. Les outils Python comme FastAPI, SQLAlchemy, Celery etc permettent de mettre en place assez facilement ce genre d'architecture.
