@@ -1,6 +1,6 @@
 from scr.prof import Prof
 
-class Admin ( Prof ):
+class Admin(Prof):
     """ Un Admin hérite de la classe Prof 
     il a les même varactéristique qu'un Prof et dispose de fonctions
     supplémentaires

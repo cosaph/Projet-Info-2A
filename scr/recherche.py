@@ -11,7 +11,7 @@ class Recherche:
         #self.date_recherche = today
     
     # Retourne une liste de stage à partir de la base sql
-    def requeteSql_stage(self) :
+    def requeteSql_stage(self):
         pass
 
     #La recherche est sauvegardée dans  l'historique
