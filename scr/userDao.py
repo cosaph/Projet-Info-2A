@@ -71,6 +71,4 @@ class UserDao():
         #         cursor.execute(
         #         #faire
         #         )
-                
-
         return trouve

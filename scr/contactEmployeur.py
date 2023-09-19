@@ -5,5 +5,3 @@ class ContactEmployeur:
     def __str__(self):
         return "nom: {}\nPrénom: {}\nEmail: {}\nTel: {} ".format(self.nom, self.prenom, self.email, self.tel)
 
-unContact = ContactEmployeur("b", "d")
-print(unContact)
