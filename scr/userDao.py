@@ -15,7 +15,6 @@ class UserDao():
                     "(%(id)s, %(mdp)s, %(email)s, %(code_insee_residence)s, %(souhaite_alertes)b, %(stage_trouve)b;    "
                     ,
                     {
-                        # je ne sais pas encore associer la liste de stage
                         "id": unUser.id,
                         "mdp": unUser.mdp,
                         "email": unUser.email,
