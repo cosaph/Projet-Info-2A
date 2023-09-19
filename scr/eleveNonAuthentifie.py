@@ -1,6 +1,6 @@
 from scr.critere import Critere
-from scr.eleveAuthentifie import EleveAuthentifie
-from scr.userDao import UserDao
+# from scr.eleveAuthentifie import EleveAuthentifie
+# from scr.userDao import UserDao
 
 
 
@@ -11,9 +11,9 @@ class EleveNonAuthentifie:
     def __init__(self, unCritere: Critere):
         self.critere = unCritere
 
-    def creer_compte(self, id, mdp, email, code_insee_residence, souhaite_alertes):
-        unEleveAuthentifie = EleveAuthentifie(id, mdp, email, code_insee_residence, souhaite_alertes)
-        return UserDao().add_user(unEleveAuthentifie)
+    # def creer_compte(self, id, mdp, email, code_insee_residence, souhaite_alertes):
+    #     unEleveAuthentifie = EleveAuthentifie(id, mdp, email, code_insee_residence, souhaite_alertes)
+    #     return UserDao().add_user(unEleveAuthentifie)
     
     def rechercher_stage(self):
         pass
