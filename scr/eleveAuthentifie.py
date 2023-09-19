@@ -1,6 +1,6 @@
 from scr.eleveNonAuthentifie import EleveNonAuthentifie
 from scr.stage import Stage
-from scr.userDao import UserDao
+#from scr.userDao import UserDao
 
 class EleveAuthentifie(EleveNonAuthentifie):
     """
@@ -11,28 +11,29 @@ class EleveAuthentifie(EleveNonAuthentifie):
     trouvé un stage ou pas
     """
 
-    def __init__(self, id, mdp, email, code_insee_residence, souhaite_alertes):
-        if UserDao().exist_id(id):
-            raise ("il faut choisir un autre identifiant")
-        if not UserDao().exist_id(id):
-            self.id = id
-            self.mdp = mdp
-            self.email = email
-            self.list_envie = list()
-            self.code_insee_residence = code_insee_residence
-            self.souhaite_alertes = souhaite_alertes
-            self.stage_trouve = False
+    def __init__(self, critere, id, mdp, email, code_insee_residence, souhaite_alertes):
+        # if UserDao().exist_id(id):
+        #     raise ("il faut choisir un autre identifiant") 
+       # if not UserDao().exist_id(id):
+        super().__init__(critere)
+        self.id = id
+        self.mdp = mdp
+        self.email = email
+        self.list_envie = list()
+        self.code_insee_residence = code_insee_residence
+        self.souhaite_alertes = souhaite_alertes
+        self.stage_trouve = False
 
 
     # ok pour les alertes ou pas
-    def set_souhaite_alertes(self, reponse) :
+    def set_souhaite_alertes(self, reponse):
         self.souhaite_alertes = reponse
         
     # l'éleve informe qu'il a trouvé un stage
-    def set_stage_trouve(self, reponse) :
+    def set_stage_trouve(self, reponse):
         self.stage_trouve = reponse
 
-    def postule(self, unStage : Stage ):
+    def postule(self, unStage: Stage):
         pass
 
     def exporter_list_envie(self):
@@ -40,3 +41,7 @@ class EleveAuthentifie(EleveNonAuthentifie):
 
     def supprimer_compte(self):
         pass
+    def __str__(self):
+        res = "id: {}\nemail: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.id, self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
+        return self.critere.__str__() + "\n" + res
+

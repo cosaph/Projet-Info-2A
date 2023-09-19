@@ -66,11 +66,11 @@ class UserDao():
         Vérifie si l'id existe dans la bdd
         """
         trouve = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                #faire
-                )
+        # with DBConnection().connection as connection:
+        #     with connection.cursor() as cursor:
+        #         cursor.execute(
+        #         #faire
+        #         )
                 
 
         return trouve
