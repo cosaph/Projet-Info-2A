@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 15:10:14 by cosaph            #+#    #+#              #
-#    Updated: 2023/09/12 09:33:49 by cosaph           ###   ########.fr        #
+#    Updated: 2023/09/21 12:01:01 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
+import psycopg2
+
 
 
 
@@ -55,7 +57,7 @@ for i in range(len(div_elements)):
 
 
 # Exporter le tableau dans un fichier CSV
-with open('resultats.csv', 'w', newline='') as fichier_csv:
+with open('jobs.csv', 'w', newline='') as fichier_csv:
     writer = csv.writer(fichier_csv)
     writer.writerow(['Titre', 'URL', 'Location'])  # Écrire les en-têtes des colonnes
     writer.writerows(tableau)
