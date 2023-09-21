@@ -5,8 +5,8 @@ class Admin(Prof):
     il a les même varactéristique qu'un Prof et dispose de fonctions
     supplémentaires
     """
-    def __init__(self, critere, id, mdp, email, code_insee_residence, souhaite_alertes: bool):
-        super().__init__(critere, id, mdp, email, code_insee_residence, souhaite_alertes)
+    def __init__(self, critere, email, mdp, code_insee_residence, souhaite_alertes: bool):
+        super().__init__(critere, email, mdp, code_insee_residence, souhaite_alertes)
     
     def supprime_user(self, idUser: str):
         pass

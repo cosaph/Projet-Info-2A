@@ -1,4 +1,5 @@
 from scr.contactEmployeur import ContactEmployeur
+from dao.db_connection import DBConnection
 
 class ContactemployeurDAO:
 
@@ -26,39 +27,39 @@ class ContactemployeurDAO:
             caPasse = True
         return caPasse
 
-    def update(self, unContact: ContactEmployeur) -> bool:
-        """
-        modifier un utilisateur dans la base de données
-        """
-        caPasse = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                #faire
-                )
-                res = cursor.fetchone()
-        if res:
-            caPasse = True
+    # def update(self, unContact: ContactEmployeur) -> bool:
+    #     """
+    #     modifier un utilisateur dans la base de données
+    #     """
+    #     caPasse = False
+    #     with DBConnection().connection as connection:
+    #         with connection.cursor() as cursor:
+    #             cursor.execute(
+    #             #faire
+    #             )
+    #             res = cursor.fetchone()
+    #     if res:
+    #         caPasse = True
 
-        return caPasse
+    #     return caPasse
 
-    def delete(self, unContact: ContactEmployeur) -> bool:
-        """
-        Supprimer un utilisateur dans la base de données
-        """
-        caPasse = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                #faire
-                )
-                res = cursor.fetchone()
-        if res:
-            caPasse = True
+    # def delete(self, unContact: ContactEmployeur) -> bool:
+    #     """
+    #     Supprimer un utilisateur dans la base de données
+    #     """
+    #     caPasse = False
+    #     with DBConnection().connection as connection:
+    #         with connection.cursor() as cursor:
+    #             cursor.execute(
+    #             #faire
+    #             )
+    #             res = cursor.fetchone()
+    #     if res:
+    #         caPasse = True
 
-        return caPasse
+    #     return caPasse
 
-    def exist_id(email)-> bool:
+    def exist_id(email) -> bool:
         """
         Vérifie si l'id existe dans la bdd
         """

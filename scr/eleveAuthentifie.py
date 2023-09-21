@@ -11,12 +11,11 @@ class EleveAuthentifie(EleveNonAuthentifie):
     trouvé un stage ou pas
     """
 
-    def __init__(self, critere, id, mdp, email, code_insee_residence, souhaite_alertes):
+    def __init__(self, critere, email, mdp,  code_insee_residence, souhaite_alertes):
         # if UserDao().exist_id(id):
         #     raise ("il faut choisir un autre identifiant") 
        # if not UserDao().exist_id(id):
         super().__init__(critere)
-        self.id = id
         self.mdp = mdp
         self.email = email
         self.list_envie = list()
@@ -42,6 +41,6 @@ class EleveAuthentifie(EleveNonAuthentifie):
     def supprimer_compte(self):
         pass
     def __str__(self):
-        res = "id: {}\nemail: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.id, self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
+        res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
         return self.critere.__str__() + "\n" + res
 
