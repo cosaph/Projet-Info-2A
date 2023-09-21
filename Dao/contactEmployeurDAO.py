@@ -1,6 +1,6 @@
 from scr.contactEmployeur import ContactEmployeur
 
-class ContactemployeurDAO: 
+class ContactemployeurDAO:
 
     def add(self, unContact: ContactEmployeur) -> bool:
         """

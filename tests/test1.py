@@ -5,7 +5,8 @@ from scr.prof import Prof
 from scr.admin import Admin
 from scr.contactEmployeur import ContactEmployeur
 
-unCritere = Critere("47001", "dataS", 3, 6, "blabla", "pme")
+unCritere = Critere("idd","47001", "dataS", 3, 6, "pme")
+
 unEleve = EleveNonAuthentifie(unCritere)
 deuxEleve = EleveAuthentifie(unCritere, "unid", "mdp", "mail", "47001", True)
 unProf = Prof(unCritere, "unid", "mdp", "mail", "47001", True)
