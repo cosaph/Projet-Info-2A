@@ -10,17 +10,17 @@ class StageDao():
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.stage (id_stage, url, specialite, code_insee_residence, site_recherche, date_publication)"
+                    "INSERT INTO projetInfo.stage (id_stage, lien, specialite, code_insee, date_debut, email_employeur)"
                     "VALUES       "                                              
-                    "(%(id_stage)s, %(url)s, %(specialite)s, %(code_insee_residence)s, %(site_recherche)b, %(date_publication)s;    "
+                    "(%(id_stage)s, %(lien)s, %(specialite)s, %(code_insee)s, %(date_debut)s, %(email_employeur)s); "
                     ,
                     {
                         "id_stage": unStage.id,
-                        "url": unStage.url,
+                        "lien": unStage.lien,
                         "specialite": unStage.specialite,
-                        "code_insee_residence": unStage.code_insee_residence,
-                        "site_recherche": unStage.site_recherche,
-                        "date_publication": unStage.date_publication
+                        "code_insee": unStage.code_insee,
+                        "date_debut": unStage.date_debut,
+                        "email_employeur": unStage.contact_employeur.email
                     },
                 )
                 res = cursor.fetchone()

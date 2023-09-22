@@ -2,7 +2,7 @@ from scr.critere import Critere
 # from scr.eleveAuthentifie import EleveAuthentifie
 # from scr.userDao import UserDao
 
-class EleveNonAuthentifie:
+class EleveNonAuthentifie():
     '''
     Un eleve  non authentifie est composé d'un critere de recherchce de stage
     '''
