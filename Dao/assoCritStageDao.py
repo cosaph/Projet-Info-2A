@@ -8,7 +8,7 @@ from utils.singleton import Singleton
 class AssoCritStageDao:
     # def __init__(self):
     #     self.zz = "zz"
-    def add(self,unCrit : Critere, unStage : Stage) -> bool:
+    def add(self, unCrit: Critere, unStage: Stage) -> bool:
         """
         Rajouter un utilisateur dans la base de données
         """
@@ -16,13 +16,12 @@ class AssoCritStageDao:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.user(id_crit, id_stage)"
+                    "INSERT INTO projetInfo.association_critere_stage(id_crit, id_stage)"
                     "VALUES       "                                              
-                    "(%(id_crit)s, %(id_stage)s);    "
-                    ,
+                    "(%(id_crit)i, %(id_stage)i);",
                     {
-                        "email": unCrit.id,
-                        "mdp": unStage.id_stage
+                        "id_crit": unCrit.id,
+                        "id_stage": unStage.id_stage
                     },
                 )
                 res = cursor.fetchone()
@@ -62,14 +61,3 @@ class AssoCritStageDao:
 
     #     return caPasse
 
-    def exist_id(id) -> bool:
-        """
-        Vérifie si l'id existe dans la bdd
-        """
-        trouve = False
-        # with DBConnection().connection as connection:
-        #     with connection.cursor() as cursor:
-        #         cursor.execute(
-        #         #faire
-        #         )
-        return trouve

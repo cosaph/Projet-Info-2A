@@ -2,20 +2,6 @@ DROP SCHEMA IF EXISTS projetInfo CASCADE;
 CREATE SCHEMA projetInfo;
 
 --------------------------------------------------------------
--- Les utilisateurs
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.utilisateur CASCADE ;
-CREATE TABLE projetInfo.utilisateur (
-    email text PRIMARY KEY,
-    mdp text NOT NULL,
-    code_insee_residence text,
-    souhaite_alertes boolean,
-    stage_trouve boolean
-);
-
-
---------------------------------------------------------------
 -- Critere
 --------------------------------------------------------------
 
@@ -27,13 +13,36 @@ CREATE TABLE projetInfo.critere (
     specialite text,
     duree_min integer,
     duree_max integer
-    -- id_attack_type integer REFERENCES tp.attack_type(id_attack_type),
-    -- power integer,
-    -- accuracy integer,
-    -- element text,
-    -- attack_name text UNIQUE NOT NULL,
-    -- attack_description text
 );
+
+--------------------------------------------------------------
+-- Les utilisateurs
+--------------------------------------------------------------
+
+DROP TABLE IF EXISTS projetInfo.utilisateur CASCADE ;
+CREATE TABLE projetInfo.utilisateur (
+    email text PRIMARY KEY,
+    mdp text NOT NULL,
+    code_insee_residence text,
+    souhaite_alertes boolean,
+    stage_trouve boolean,
+    id_crit integer REFERENCES projetInfo.critere(id_crit)
+);
+
+
+--------------------------------------------------------------
+-- contactEmployeur
+--------------------------------------------------------------
+
+DROP TABLE IF EXISTS projetInfo.contact_employeur CASCADE;
+
+CREATE TABLE projetInfo.contact_employeur (
+    email text PRIMARY KEY,
+    prenom text,
+    nom text,
+    tel text
+);
+
 
 
 --------------------------------------------------------------
@@ -48,35 +57,25 @@ CREATE TABLE projetInfo.stage  (
     specialite text,
     code_insee text,
     date_debut text,
-    email_employeur text
+    email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
 
 
---------------------------------------------------------------
--- contactEmployeur
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.contactEmployeur CASCADE;
-
-CREATE TABLE projetInfo.contactEmployeur (
-    email text PRIMARY KEY,
-    prenom text,
-    nom text,
-    tel text,
-);
 
 --------------------------------------------------------------
 -- associationCitereStage
 --------------------------------------------------------------
 
-DROP TABLE IF EXISTS projetInfo.associationCitereStage CASCADE;
+DROP TABLE IF EXISTS projetInfo.association_critere_stage CASCADE;
 
-CREATE TABLE projetInfo.associationCitereStage (
-    id_crit text,
-    id_stage text,
-    CONSTRAINT pk_asso PRIMARY KEY (id_crit,id_stage)
-);
-
+CREATE TABLE projetInfo.association_critere_stage (
+    id_crit integer,
+    id_stage integer,
+    CONSTRAINT pk_asso PRIMARY KEY (id_crit,id_stage),
+    CONSTRAINT fk_asso1 FOREIGN KEY (id_crit)
+        REFERENCES projetInfo.critere(id_crit),
+    CONSTRAINT fk_asso2 FOREIGN KEY (id_stage)
+        REFERENCES projetInfo.stage(id_stage));
 
 
 

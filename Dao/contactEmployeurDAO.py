@@ -11,7 +11,7 @@ class ContactemployeurDAO:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.ContactEmployeur (email, nom, prenom,  tel)"
+                    "INSERT INTO projetInfo.Contact_employeur (email, nom, prenom,  tel)"
                     "VALUES       "                                           
                     "(%(email)s, %(nom)s, %(prenom)s, %(tel)s;    "
                     ,

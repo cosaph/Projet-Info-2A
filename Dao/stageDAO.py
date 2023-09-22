@@ -12,7 +12,7 @@ class StageDao():
                 cursor.execute(
                     "INSERT INTO projetInfo.stage (id_stage, lien, specialite, code_insee, date_debut, email_employeur)"
                     "VALUES       "                                              
-                    "(%(id_stage)s, %(lien)s, %(specialite)s, %(code_insee)s, %(date_debut)s, %(email_employeur)s); "
+                    "(%(id_stage)i, %(lien)s, %(specialite)s, %(code_insee)s, %(date_debut)s, %(email_employeur)s); "
                     ,
                     {
                         "id_stage": unStage.id,

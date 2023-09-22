@@ -1,23 +1,24 @@
 from scr.eleveAuthentifie import EleveAuthentifie
 from scr.critere import Critere
+from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
 class UserDao(metaclass=Singleton):
-    # def __init__(self):
-    #     self.zz = "zz"
-    def add_user(self, unUser: EleveAuthentifie) -> bool:
+    def add_user(self, unUser: EleveAuthentifie):
         """
         Rajouter un utilisateur dans la base de données
         """
-        caPasse = False
+        caPasse = "Echec d'enregistrement"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.user(email, mdp, code_insee_residence, souhaite_alertes, stage_trouve, id_crit)"
+                    "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
+                    "souhaite_alertes, stage_trouve, id_crit)"
                     "VALUES       "                                              
-                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, %(souhaite_alertes)s, %(stage_trouve)s,%(id_crit)s);    "
-                    ,
+                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, %(souhaite_alertes)s,"
+                    "%(stage_trouve)s,%(id_crit)s)"
+                    "RETURNING email;    ",
                     {
                         "email": unUser.email,
                         "mdp": unUser.mdp,
@@ -29,65 +30,77 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchone()
         if res:
-            caPasse = True
+            caPasse = unUser.email + " est enregistré dans la base de données"
         return caPasse
 
-    # def update_user(self, unUser: EleveAuthentifie) -> bool:
-    #     """
-    #     modifier un utilisateur dans la base de données
-    #     """
-    #     caPasse = False
-    #     with DBConnection().connection as connection:
-    #         with connection.cursor() as cursor:
-    #             cursor.execute(
-    #             #faire
-    #             )
-    #             res = cursor.fetchone()
-    #     if res:
-    #         caPasse = True
+    def update_user(self, unUser: EleveAuthentifie):
+        """
+        modifier un utilisateur dans la base de données
+        """
+        caPasse = "Echec modification"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "update projetinfo.utilisateur "
+                    "set "
+                    "mdp = %(mdp)s, "
+                    "code_insee_residence = %(code_insee_residence)s, "
+                    "souhaite_alertes = %(souhaite_alertes)s, "
+                    "stage_trouve =  %(stage_trouve)s, "
+                    "id_crit = %(id_crit)s"
+                    "where email = email "
+                    "RETURNING email;",
+                    {
+                        "mdp": unUser.mdp,
+                        "code_insee_residence": unUser.code_insee_residence,
+                        "souhaite_alertes": unUser.souhaite_alertes,
+                        "stage_trouve": unUser.stage_trouve,
+                        "id_crit": unUser.critere.id,
+                        "email": unUser.email
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = "Les infomations de {} ont bien été modifiées".format(unUser.email)
 
-    #     return caPasse
+        return caPasse
 
-    # def delete_user(self, unUser: EleveAuthentifie) -> bool:
-    #     """
-    #     Supprimer un utilisateur dans la base de données
-    #     """
-    #     caPasse = False
-    #     with DBConnection().connection as connection:
-    #         with connection.cursor() as cursor:
-    #             cursor.execute(
-    #             #faire
-    #             )
-    #             res = cursor.fetchone()
-    #     if res:
-    #         caPasse = True
+    def delete_user(self, unUser: EleveAuthentifie):
+        """
+        Supprimer un utilisateur dans la base de données
+        """
+        caPasse = "Echec delete "
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.utilisateur "
+                    "where email = email "
+                    "RETURNING email; ",
+                    {
+                        "email": unUser.email
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = "L'utilisateur {} a été supprimé".format(unUser.email)
+        return caPasse
 
-    #     return caPasse
-
-    def exist_id(id) -> bool:
+    def exist_id(self, unUser: EleveAuthentifie) -> bool:
         """
         Vérifie si l'id existe dans la bdd
         """
         trouve = False
-        # with DBConnection().connection as connection:
-        #     with connection.cursor() as cursor:
-        #         cursor.execute(
-        #         #faire
-        #         )
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur "
+                    "where email = email;",
+                    {
+                        "email": unUser.email
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            trouve = True
         return trouve
-
-
-if __name__ == "__main__":
-    # Pour charger les variables d'environnement contenues dans le fichier .env
-    import dotenv
-    dotenv.load_dotenv(override=True)
-
-    # Création d'une attaque et ajout en BDD
-    unCritere = Critere("idd", "47001", "dataS", 3, 6, "pme")
-    deuxEleve = EleveAuthentifie(unCritere, "mail", "mdp", "47001", True)
-   
-    succes = UserDao().add_user(deuxEleve)
-    print(succes)
-
-
-    
