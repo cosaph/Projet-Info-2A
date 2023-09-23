@@ -8,14 +8,15 @@ from dao.critereDAO import CritereDAO
 from dao.userDao import UserDao
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
+#pip install python-dotenv
+import dotenv
+
 
 if __name__ == "__main__":
-    # Pour charger les variables d'environnement contenues dans le fichier .env
-    import dotenv
+    
     dotenv.load_dotenv(override=True)
-
-    # Création d'une attaque et ajout en BDD
     unCritere = Critere(681, '47001', 'dataS', 3, 6)
+    print(CritereDAO().exist_id(unCritere))
     # print(unCritere)
     # succes1 = CritereDAO().add(unCritere)
     # print(succes1)

@@ -10,7 +10,8 @@ class CritereDAO:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, specialite, duree_min, duree_max)"
+                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, "
+                    "specialite, duree_min, duree_max)"
                     "Values"                                     
                     "(%(id_crit)s, %(code_insee_cible)s, %(specialite)s, %(duree_min)s,"
                     "%(duree_max)s)"
@@ -28,46 +29,72 @@ class CritereDAO:
             caPasse = True
         return caPasse
 
-    # def update(self, unCritere: Critere) -> bool:
-    #     """
-    #     modifier un utilisateur dans la base de données
-    #     """
-    #     caPasse = False
-    #     with DBConnection().connection as connection:
-    #         with connection.cursor() as cursor:
-    #             cursor.execute(
-    #             #faire
-    #             )
-    #             res = cursor.fetchone()
-    #     if res:
-    #         caPasse = True
+    def update(self, unCritere: Critere):
+        """
+        modifier un utilisateur dans la base de données
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "update projetinfo.utilisateur "
+                    "set "
+                    "code_insee_cible = %(code_insee_cible)s, "
+                    "specialite = %(specialite)s, "
+                    "duree_min = %(duree_min)s, "
+                    "duree_max = %(duree_max)s, "
+                    "where id_crit = id_crit "
+                    "RETURNING id_crit;",
+                    {
+                        "id_crit": unCritere.id,
+                        "code_insee_cible": unCritere.code_insee_cible,
+                        "specialite": unCritere.specialite,
+                        "duree_min": unCritere.duree_min,
+                        "duree_max": unCritere.duree_max
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
 
-    #     return caPasse
+        return caPasse
 
-    # def delete(self, unCritere: Critere) -> bool:
-    #     """
-    #     Supprimer un utilisateur dans la base de données
-    #     """
-    #     caPasse = False
-    #     with DBConnection().connection as connection:
-    #         with connection.cursor() as cursor:
-    #             cursor.execute(
-    #             #faire
-    #             )
-    #             res = cursor.fetchone()
-    #     if res:
-    #         caPasse = True
+    def delete(self, unCritere: Critere) -> bool:
+        """
+        Supprimer un utilisateur dans la base de données
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.critere "
+                    "where id_crit = id_crit "
+                    "RETURNING email; ",
+                    {
+                        "id_crit": unCritere.id
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
+        return caPasse
 
-    #     return caPasse
-
-    def exist_id(id) -> bool:
+    def exist_id(self, unCrit: Critere) -> bool:
         """
         Vérifie si l'id existe dans la bdd
         """
         trouve = False
-        # with DBConnection().connection as connection:
-        #     with connection.cursor() as cursor:
-        #         cursor.execute(
-        #         #faire
-        #         )
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT id_crit "
+                    "FROM projetinfo.critere "
+                    "where id_crit = id_crit;",
+                    {
+                        "id_crit": unCrit.id
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            trouve = True
         return trouve
