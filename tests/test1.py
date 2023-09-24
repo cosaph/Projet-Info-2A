@@ -12,12 +12,11 @@ from utils.singleton import Singleton
 import dotenv
 
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__": 
     dotenv.load_dotenv(override=True)
-    unCritere = Critere(681, '47001', 'dataS', 3, 6)
+    unCritere = Critere('00001', 'dataS', 3, 6)
+    print(unCritere)
     print(CritereDAO().exist_id(unCritere))
-    # print(unCritere)
     # succes1 = CritereDAO().add(unCritere)
     # print(succes1)
     deuxEleve = EleveAuthentifie(unCritere, "av@sdggd.com", "mdp", "33338", True)
@@ -26,8 +25,8 @@ if __name__ == "__main__":
     succes = UserDao().add_user(deuxEleve)
     print(succes)
     succes = UserDao().update_user(deuxEleve)
-    print(succes)
-    print(UserDao().exist_id(deuxEleve))
-    succes = UserDao().delete_user(deuxEleve)
-    print(succes)
-    print(UserDao().exist_id(deuxEleve))
+    # print(succes)
+    # print(UserDao().exist_id(deuxEleve))
+    # succes = UserDao().delete_user(deuxEleve)
+    # print(succes)
+    # print(UserDao().exist_id(deuxEleve))

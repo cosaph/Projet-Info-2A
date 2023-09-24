@@ -14,7 +14,8 @@ class StageDao():
                     "code_insee, date_debut, email_employeur) "
                     "VALUES       "                                              
                     "(%(id_stage)i, %(lien)s, %(specialite)s, %(code_insee)s, "
-                    "%(date_debut)s, %(email_employeur)s); ",
+                    "%(date_debut)s, %(email_employeur)s)"
+                    "RETURNING id_stage;    ",
                     {
                         "id_stage": unStage.id,
                         "lien": unStage.lien,
