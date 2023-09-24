@@ -45,7 +45,7 @@ class StageDao():
                     "code_insee = %(code_insee)s, "
                     "date_debut =   %(date_debut)s,  "
                     "email_employeur = %(email_employeur)s "
-                    "where id_stage = id_stage "
+                    "where id_stage = %(id_stage)s "
                     "RETURNING id_stage;",
                     {
                         "lien": unStage.lien, 
@@ -71,7 +71,7 @@ class StageDao():
             with connection.cursor() as cursor:
                 cursor.execute(
                     "delete from projetinfo.stage "
-                    "where id_stage = id_stage "
+                    "where id_stage = %(id_stage)s "
                     "RETURNING id_stage; ",
                     {
                         "id_stage": unStage.id_stage
@@ -93,7 +93,7 @@ class StageDao():
                 cursor.execute(
                     "SELECT id_stage "
                     "FROM projetinfo.stage "
-                    "where id_stage = id_stage;",
+                    "where id_stage = %(id_stage)s;",
                     {
                         "id_stage": unStage.id_stage
                     },

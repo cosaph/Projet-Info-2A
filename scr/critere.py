@@ -22,3 +22,6 @@ class Critere:
     def __str__(self):
         res = "id: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
         return res
+        
+    def recherche_stage(self):
+        pass

@@ -9,6 +9,9 @@ class UserDao(metaclass=Singleton):
         """
         Rajouter un utilisateur dans la base de données
         """
+        if self.exist_id(unUser):
+            raise "L'utilisateur a déjà un compte"
+        
         caPasse = "Echec d'enregistrement"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
@@ -32,10 +35,29 @@ class UserDao(metaclass=Singleton):
         if res:
             caPasse = unUser.email + " est enregistré dans la base de données"
         return caPasse
+    
+    def charger_user(self, email, mdp):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur "
+                    "where email = %(email)s and mdp = %(mdp)s;",
+                    {
+                        "email": email,
+                        "mdp": mdp
+                    },
+                )
+                res = cursor.fetchone()
+        
+        return res
+        
 
     def update_user(self, unUser: EleveAuthentifie):
         """
-        modifier un utilisateur dans la base de données
+        Modifier un utilisateur dans la base de données
         """
         caPasse = "Echec modification"
         with DBConnection().connection as connection:
@@ -48,7 +70,7 @@ class UserDao(metaclass=Singleton):
                     "souhaite_alertes = %(souhaite_alertes)s, "
                     "stage_trouve =  %(stage_trouve)s, "
                     "id_crit = %(id_crit)s"
-                    "where email = email "
+                    "where email = %(email)s "
                     "RETURNING email;",
                     {
                         "mdp": unUser.mdp,
@@ -95,7 +117,7 @@ class UserDao(metaclass=Singleton):
                 cursor.execute(
                     "SELECT email "
                     "FROM projetinfo.utilisateur "
-                    "where email = email;",
+                    "where email = %(email)s;",
                     {
                         "email": unUser.email
                     },

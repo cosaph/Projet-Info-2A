@@ -6,6 +6,8 @@ class CritereDAO:
         """
         Rajouter un utilisateur dans la base de données
         """
+        if self.exist_id(unCritere):
+            raise "Le critere est déjà enregistré dans la base de données"
         caPasse = False
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
