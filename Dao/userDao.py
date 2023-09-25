@@ -42,17 +42,23 @@ class UserDao(metaclass=Singleton):
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT email "
-                    "FROM projetinfo.utilisateur "
-                    "where email = %(email)s and mdp = %(mdp)s;",
+                    "SELECT * "
+                    "from projetinfo.utilisateur "
+                    "inner join  projetinfo.critere "
+	                "   on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
+                    "where email = %(email)s and %(mdp)s = 'mdp';",
                     {
                         "email": email,
                         "mdp": mdp
                     },
                 )
                 res = cursor.fetchone()
+        if not res:
+            raise "email ou mdp incorrect"
         
-        return res
+        unCritere = Critere(res["code_insee_cible"], res["specialite"], res["duree_min"], res["duree_max"])
+        unUser = EleveAuthentifie(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
+        return unUser
         
 
     def update_user(self, unUser: EleveAuthentifie):
