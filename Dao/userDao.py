@@ -45,7 +45,7 @@ class UserDao(metaclass=Singleton):
                     "SELECT * "
                     "from projetinfo.utilisateur "
                     "inner join  projetinfo.critere "
-	                "   on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
+	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
                     "where email = %(email)s and %(mdp)s = 'mdp';",
                     {
                         "email": email,

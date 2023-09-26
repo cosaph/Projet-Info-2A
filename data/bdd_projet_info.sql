@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS projetInfo.critere CASCADE;
 CREATE TABLE projetInfo.critere (
     id_crit integer PRIMARY KEY,
     code_insee_cible text,
+    rayon_km float,
     specialite text,
     duree_min integer,
     duree_max integer
@@ -52,10 +53,9 @@ CREATE TABLE projetInfo.contact_employeur (
 DROP TABLE IF EXISTS projetInfo.stage CASCADE;
 
 CREATE TABLE projetInfo.stage  (
-    id_stage integer PRIMARY KEY,
-    lien text,
-    specialite text,
-    code_insee text,
+    url_stage text PRIMARY KEY, 
+    titre text,
+    ville text,
     date_debut text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
@@ -70,33 +70,10 @@ DROP TABLE IF EXISTS projetInfo.association_critere_stage CASCADE;
 
 CREATE TABLE projetInfo.association_critere_stage (
     id_crit integer,
-    id_stage integer,
-    CONSTRAINT pk_asso PRIMARY KEY (id_crit,id_stage),
+    url_stage text,
+    CONSTRAINT pk_asso PRIMARY KEY (id_crit,url_stage),
     CONSTRAINT fk_asso1 FOREIGN KEY (id_crit)
         REFERENCES projetInfo.critere(id_crit),
-    CONSTRAINT fk_asso2 FOREIGN KEY (id_stage)
-        REFERENCES projetInfo.stage(id_stage));
+    CONSTRAINT fk_asso2 FOREIGN KEY (url_stage)
+        REFERENCES projetInfo.stage(url_stage));
         
-INSERT INTO projetInfo.critere(id_crit, code_insee_cible, specialite, duree_min, duree_max) values 
-(12, '47001','blabla', 3, 4)
-;
-	
-update projetinfo.utilisateur 
-set 
-mdp = 'gfgfg',
-code_insee_residence = '13055', 
-souhaite_alertes  = True,
-stage_trouve =False, 
-id_crit = 11
-where email = 'bvbvbv@sdgdggd.com'
-RETURNING email;
-
-delete from projetinfo.utilisateur 
-where email = 'bvbvbv@sdgdggd.com'
-RETURNING email;
-
-
-SELECT email
-FROM projetinfo.utilisateur 
-where email = 'gfgfggf'
-

@@ -10,5 +10,5 @@ class Admin(Prof):
     
     def supprime_user(self, idUser: str):
         pass
-    def supprime_recherche(self, idRecherche):
+    def supprime_critere(self, idCrit: str):
         pass

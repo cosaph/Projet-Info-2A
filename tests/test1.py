@@ -14,7 +14,7 @@ import dotenv
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    unUser = UserDao().charger_user("aveeee@sdggd.com", "mdp")
+    unUser = UserDao().charger_user("av@sdggd.com", "mdp")
     print(unUser)
     # unCritere = Critere('00001', 'dataS', 3, 6)
     # print(unCritere)
