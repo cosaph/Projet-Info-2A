@@ -12,15 +12,17 @@ class CritereDAO:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, "
+                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, rayon_km, "
                     "specialite, duree_min, duree_max)"
                     "Values"                                     
-                    "(%(id_crit)s, %(code_insee_cible)s, %(specialite)s, %(duree_min)s,"
+                    "(%(id_crit)s, %(code_insee_cible)s, %(rayon_km)s, "
+                    "%(specialite)s, %(duree_min)s, "
                     "%(duree_max)s)"
                     "RETURNING id_crit;",
                     {
                         "id_crit": unCritere.id,
                         "code_insee_cible": unCritere.code_insee_cible,
+                        "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
                         "duree_min": unCritere.duree_min,
                         "duree_max": unCritere.duree_max
@@ -118,11 +120,13 @@ class CritereDAO:
                     "SELECT id_crit "
                     "FROM projetinfo.critere "
                     "where code_insee_cible = %(code_insee_cible)s and "
+                    "rayon_km = %(rayon_km)s and "
                     "specialite = %(specialite)s and "
                     "duree_min = %(duree_min)s and "
                     "duree_max = %(duree_max)s;",
                     {
                         "code_insee_cible": unCritere.code_insee_cible,
+                        "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
                         "duree_min": unCritere.duree_min,
                         "duree_max": unCritere.duree_max
@@ -134,10 +138,10 @@ class CritereDAO:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT max(id_crit) "
+                    "SELECT max(id_crit) as id_crit "
                     "FROM projetinfo.critere; "
                 )
                 res = cursor.fetchone()
-        if res:
-            return res["max"] + 1
+        if res["id_crit"]:
+            return res["id_crit"] + 1
         return 1

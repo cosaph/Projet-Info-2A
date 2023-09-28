@@ -12,22 +12,37 @@ from utils.singleton import Singleton
 import dotenv
 
 
+
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    unUser = UserDao().charger_user("av@sdggd.com", "mdp")
-    print(unUser)
-    # unCritere = Critere('00001', 'dataS', 3, 6)
-    # print(unCritere)
+
+
+    # unUser = UserDao().charger_user("av@sdggd.com", "mdp")
+    # print(unUser)
+    unCritere = Critere('35000', 10, 'lalalal', 3, 6)
+    #print(unCritere)
+    deuxEleve = EleveAuthentifie(unCritere, "fffssgd@tatat.com", "mrp", "111138", True)
+    #print(UserDao().exist_id(deuxEleve))
+    #print(deuxEleve)
+    #succes = UserDao().add_user(deuxEleve)
+
     # print(CritereDAO().exist_id(unCritere))
     # #succes1 = CritereDAO().add(unCritere)
-    # # print(succes1)
-    # deuxEleve = EleveAuthentifie(unCritere, "aveeeee@sdggd.com", "mrdp", "111138", True)
-    # print(UserDao().exist_id(deuxEleve))
-    # print(deuxEleve)
-    # #succes = UserDao().add_user(deuxEleve)
+    
+    
+    deuxCritere = Critere('75000', 2000, 'lal', 3, 6)
+    troisEleve = EleveAuthentifie(deuxCritere, "avee@sdggd.com", "mrdp", "118", True)
+    print(UserDao().exist_id(deuxEleve))
+    
+    #succes = UserDao().add_user(troisEleve)
     # #print(succes)
-    # succes = UserDao().update_user(deuxEleve)
-    # print(succes)
+
+    succes = UserDao().update_user(troisEleve)
+    print(succes)
+
+    troisUser = EleveAuthentifie.charger_user("avee@sdggd.com", "mrdp")
+    print(troisUser)
+
     # # print(UserDao().exist_id(deuxEleve))
     # # succes = UserDao().delete_user(deuxEleve)
     # print(succes)

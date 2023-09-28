@@ -1,16 +1,18 @@
-from scr.eleveAuthentifie import EleveAuthentifie
-from scr.critere import Critere
+#from scr.eleveAuthentifie import EleveAuthentifie
+#from scr.critere import Critere
 from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
 class UserDao(metaclass=Singleton):
-    def add_user(self, unUser: EleveAuthentifie):
+    def add_user(self, unUser):
         """
         Rajouter un utilisateur dans la base de données
         """
         if self.exist_id(unUser):
             raise "L'utilisateur a déjà un compte"
+        if not CritereDAO().exist_id(unUser.critere):
+            CritereDAO().add(unUser.critere)
         
         caPasse = "Echec d'enregistrement"
         with DBConnection().connection as connection:
@@ -19,7 +21,8 @@ class UserDao(metaclass=Singleton):
                     "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
                     "souhaite_alertes, stage_trouve, id_crit)"
                     "VALUES       "                                              
-                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, %(souhaite_alertes)s,"
+                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, "
+                    "%(souhaite_alertes)s, "
                     "%(stage_trouve)s,%(id_crit)s)"
                     "RETURNING email;    ",
                     {
@@ -46,7 +49,7 @@ class UserDao(metaclass=Singleton):
                     "from projetinfo.utilisateur "
                     "inner join  projetinfo.critere "
 	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
-                    "where email = %(email)s and %(mdp)s = 'mdp';",
+                    "where email = %(email)s and  mdp = %(mdp)s;",
                     {
                         "email": email,
                         "mdp": mdp
@@ -54,17 +57,17 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchone()
         if not res:
-            raise "email ou mdp incorrect"
-        
-        unCritere = Critere(res["code_insee_cible"], res["specialite"], res["duree_min"], res["duree_max"])
-        unUser = EleveAuthentifie(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
-        return unUser
+            return False
+        return res
         
 
-    def update_user(self, unUser: EleveAuthentifie):
+    def update_user(self, unUser):
         """
         Modifier un utilisateur dans la base de données
         """
+        if not CritereDAO().exist_id(unUser.critere):
+            CritereDAO().add(unUser.critere)
+        
         caPasse = "Echec modification"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
@@ -93,7 +96,7 @@ class UserDao(metaclass=Singleton):
 
         return caPasse
 
-    def delete_user(self, unUser: EleveAuthentifie):
+    def delete_user(self, unUser):
         """
         Supprimer un utilisateur dans la base de données
         """
@@ -113,7 +116,7 @@ class UserDao(metaclass=Singleton):
             caPasse = "L'utilisateur {} a été supprimé".format(unUser.email)
         return caPasse
 
-    def exist_id(self, unUser: EleveAuthentifie) -> bool:
+    def exist_id(self, unUser) -> bool:
         """
         Vérifie si l'id existe dans la bdd
         """

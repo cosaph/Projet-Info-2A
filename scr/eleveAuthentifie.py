@@ -1,5 +1,7 @@
 from scr.eleveNonAuthentifie import EleveNonAuthentifie
 from scr.stage import Stage
+from scr.critere import Critere
+from dao.userDao import UserDao
 #from scr.userDao import UserDao
 
 class EleveAuthentifie(EleveNonAuthentifie):
@@ -23,6 +25,13 @@ class EleveAuthentifie(EleveNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
+    @classmethod
+    def charger_user(self, email, mdp):
+        res = UserDao().charger_user(email, mdp)
+        if not res:
+            raise "email ou mdp incorrect"
+        unCritere = Critere(res["code_insee_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        return EleveAuthentifie(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
 
     # ok pour les alertes ou pas
     def set_souhaite_alertes(self, reponse):

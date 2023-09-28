@@ -7,7 +7,9 @@ class Critere:
     une duree min et max de stage et des tailles d'entreprises dans lesquelles l'utilisateur
     est disposé à faire un stage.
     """
-    def __init__(self, code_insee_cible: str, rayon_km : float, specialite: str, duree_min: int, duree_max: int):
+    def __init__(self, 
+                code_insee_cible: str, rayon_km : float, 
+                specialite: str, duree_min: int, duree_max: int):
         ''' Constructeur d'un objet Critere'''
         self.code_insee_cible = code_insee_cible
         # convertion en majuscule
