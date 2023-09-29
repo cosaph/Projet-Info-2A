@@ -1,4 +1,4 @@
-from dao.critereDAO import CritereDAO
+""" from dao.critereDAO import CritereDAO  """
 
 # ---- Library ---- #
 
@@ -33,7 +33,8 @@ class Critere:
         res = "id: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
         return res
         
-    def recherche_stage():
+    def recherche_stage(self):
+
         specialite_input = input("Entrez le type de stage que vous recherchez : ")
         location_input = input("Dans quelle localité ? ")
         radius_input = input("Dans un rayon de combien de kilomètres ? ")
