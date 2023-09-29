@@ -19,26 +19,25 @@ if __name__ == "__main__":
 
     # unUser = UserDao().charger_user("av@sdggd.com", "mdp")
     # print(unUser)
-    unCritere = Critere('35000', 10, 'lalalal', 3, 6)
-    #print(unCritere)
-    deuxEleve = EleveAuthentifie(unCritere, "fffssgd@tatat.com", "mrp", "111138", True)
-    #print(UserDao().exist_id(deuxEleve))
-    #print(deuxEleve)
-    #succes = UserDao().add_user(deuxEleve)
+    # unCritere = Critere('35000', 10, 'lalalal', 3, 6)
+    # #print(unCritere)
+    # deuxEleve = EleveAuthentifie(unCritere, "fffssgd@tatat.com", "mrp", "111138", True)
+    # #print(UserDao().exist_id(deuxEleve))
+    # #print(deuxEleve)
+    # #succes = UserDao().add_user(deuxEleve)
 
-    # print(CritereDAO().exist_id(unCritere))
-    # #succes1 = CritereDAO().add(unCritere)
+    # # print(CritereDAO().exist_id(unCritere))
+    # # #succes1 = CritereDAO().add(unCritere)
     
+    # deuxCritere = Critere('75000', 2000, 'lal', 3, 6)
+    # troisEleve = EleveAuthentifie(deuxCritere, "avee@sdggd.com", "mrdp", "118", True)
+    # print(UserDao().exist_id(deuxEleve))
     
-    deuxCritere = Critere('75000', 2000, 'lal', 3, 6)
-    troisEleve = EleveAuthentifie(deuxCritere, "avee@sdggd.com", "mrdp", "118", True)
-    print(UserDao().exist_id(deuxEleve))
-    
-    #succes = UserDao().add_user(troisEleve)
-    # #print(succes)
+    # #succes = UserDao().add_user(troisEleve)
+    # # #print(succes)
 
-    succes = UserDao().update_user(troisEleve)
-    print(succes)
+    # succes = UserDao().update_user(troisEleve)
+    # print(succes)
 
     troisUser = EleveAuthentifie.charger_user("avee@sdggd.com", "mrdp")
     print(troisUser)

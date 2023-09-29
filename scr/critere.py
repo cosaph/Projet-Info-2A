@@ -25,3 +25,12 @@ class Critere:
         
     def recherche_stage(self):
         pass
+
+    def enregistrer_critere(self):
+        pass
+    
+    def supprimer_critere(self):
+        pass
+
+    def recherche_stage(self, url_site):
+        pass

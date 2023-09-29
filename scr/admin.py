@@ -12,3 +12,5 @@ class Admin(Prof):
         pass
     def supprime_critere(self, idCrit: str):
         pass
+    def supprimer_stage(self):
+        pass
