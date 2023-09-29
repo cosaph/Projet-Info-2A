@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/25 15:59:34 by cosaph            #+#    #+#              #
-#    Updated: 2023/09/25 16:22:01 by cosaph           ###   ########.fr        #
+#    Updated: 2023/09/29 14:49:31 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,16 @@ import csv
 
 
 conn = psycopg2.connect(
-    dbname="postgres",
-    user="postgres",
-    password="0106200",
-    host="localhost",
+    dbname="id7335",
+    user="id7335",
+    password="id7335",
+    host="sgbd-eleves.domensai.ecole",
     port="5432"
 )
 
-
 cursor = conn.cursor()
 
+"""
 # -------- remplissage de la table -------- #    
 
   
@@ -45,22 +45,24 @@ with open('/home/cosaph/ENSAI2A/projet_info/projet/jobs.csv', 'r') as f:
        row
     )
         
-        
+
+"""        
 # -------- Valider les modifications et fermer la connexion -------- #
 
-conn.commit()
-cursor.close()
-conn.close()
 
 
 # -------- Affichage de la table -------- #
-""" cursor.execute("SELECT * FROM recherche_stages")
+
+cursor.execute("SELECT * FROM projetInfo.critere")
 rows = cursor.fetchall()
 
 for row in rows:
     print("titre:", row[0])
     print("URL:", row[1])
     print("location:", row[2])
-    print("-------------------") """
+    print("-------------------") 
         
 
+conn.commit()
+cursor.close()
+conn.close()

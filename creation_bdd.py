@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/20 19:19:17 by cosaph            #+#    #+#              #
-#    Updated: 2023/09/25 16:04:45 by cosaph           ###   ########.fr        #
+#    Updated: 2023/09/25 16:36:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,16 @@ cursor = conn.cursor()
 # -------- Creation de la table recherche_stages -------- #
 cursor.execute("""
   CREATE TABLE recherche_stages (
-       id TEXT,
        titre TEXT,
        URL TEXT,
        location TEXT
    )
 """) 
+
+# -------- Valider les modifications et fermer la connexion -------- #
+
+conn.commit()
+cursor.close()
+conn.close()
+
 
