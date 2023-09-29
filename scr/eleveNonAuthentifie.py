@@ -16,7 +16,7 @@ class EleveNonAuthentifie():
     def rechercher_stage(self):
         pass
     
-    def authentifier(self):
+    def creer_compte(self, email, mdp):
         pass
 
     def __str__(self):
