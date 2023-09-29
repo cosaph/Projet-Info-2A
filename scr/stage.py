@@ -16,7 +16,7 @@ class Stage:
     def sauvegarder_dans_listeenvie(self, idUser):
         pass
 
-     def enregistrer_stage(self):
+    def enregistrer_stage(self):
         pass
 
     def supprimer_stage(self):
