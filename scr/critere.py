@@ -1,5 +1,12 @@
 from dao.critereDAO import CritereDAO
 
+# ---- Library ---- #
+
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+
 
 class Critere:
     """
@@ -26,8 +33,38 @@ class Critere:
         res = "id: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
         return res
         
-    def recherche_stage(self):
-        pass
+    def recherche_stage():
+        specialite_input = input("Entrez le type de stage que vous recherchez : ")
+        location_input = input("Dans quelle localité ? ")
+        radius_input = input("Dans un rayon de combien de kilomètres ? ")
+
+        params = {'q': specialite_input, 'l': location_input, 'stage': specialite_input, 'location': location_input, 'radius': radius_input}
+        url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
+        """ url = requests.Request('GET', 'https://emploi.lefigaro.fr/', params=params).prepare().url """
+
+        response = requests.get(url)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        div_elements = soup.find_all('div', class_='media-heading listing-item__title')
+        span_elements = soup.find_all('span', class_='listing-item__info--item listing-item__info--item-location')
+
+        tableau = []
+
+        for i in range(len(div_elements)):
+            link_elements = div_elements[i].find_all('a')
+            location_element = span_elements[i].text
+
+        for link_element in link_elements:
+            title = link_element.text
+            url = link_element['href']
+            tableau.append([title, url, location_element])
+
+        with open('jobs.csv', 'w', newline='') as fichier_csv:
+            writer = csv.writer(fichier_csv)
+            writer.writerow(['Titre', 'URL', 'Location'])
+            writer.writerows(tableau)
+
+        print("Exportation vers le fichier CSV terminée.")
 
     def enregistrer_critere(self):
         pass
