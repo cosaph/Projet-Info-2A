@@ -1,11 +1,10 @@
-""" from dao.critereDAO import CritereDAO  """
 
 # ---- Library ---- #
 
 import requests
 from bs4 import BeautifulSoup
 import csv
-
+from dao.critereDAO import CritereDAO
 
 
 class Critere:
@@ -14,18 +13,14 @@ class Critere:
     une duree min et max de stage et des tailles d'entreprises dans lesquelles l'utilisateur
     est disposé à faire un stage.
     """
-    def __init__(self, 
-<<<<<<< HEAD
-                code_insee_cible: str,
-                rayon_km : float,
-                specialite: str,
-=======
-                code_insee_cible: str, 
-                rayon_km : float, 
-                specialite: str, 
->>>>>>> e53d40698734f993256eb13ec40f8a73c172c602
-                duree_min: int, 
-                duree_max: int):
+    def __init__(
+        self,
+        code_insee_cible: str,
+        rayon_km: float,
+        specialite: str,
+        duree_min: int,
+        duree_max: int
+            ):
         ''' Constructeur d'un objet Critere'''
         self.code_insee_cible = code_insee_cible
         # convertion en majuscule
@@ -33,17 +28,21 @@ class Critere:
         self.duree_min = duree_min
         self.duree_max = duree_max
         self.rayon_km = rayon_km
-        self.id = CritereDAO().calcul_id(self)
+        self.id_crit = CritereDAO().calcul_id(self)
     
     def __str__(self):
-        res = "id: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
+        res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
         return res
         
     def recherche_stage(self):
 
-        specialite_input = input("Entrez le type de stage que vous recherchez : ")
-        location_input = input("Dans quelle localité ? ")
-        radius_input = input("Dans un rayon de combien de kilomètres ? ")
+        # specialite_input = input("Entrez le type de stage que vous recherchez : ")
+        # location_input = input("Dans quelle localité ? ")
+        # radius_input = input("Dans un rayon de combien de kilomètres ? ")
+
+        specialite_input = self.specialite
+        location_input = self.code_insee_cible
+        radius_input = self.rayon_km
 
         params = {'q': specialite_input, 'l': location_input, 'stage': specialite_input, 'location': location_input, 'radius': radius_input}
         url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
@@ -73,11 +72,13 @@ class Critere:
 
         print("Exportation vers le fichier CSV terminée.")
 
-    def enregistrer_critere(self):
-        pass
-    
-    def supprimer_critere(self):
-        pass
+    def existe(self):
+        return CritereDAO().exist_id(self)
 
-    def recherche_stage(self, url_site):
-        pass
+    def enregistrer_critere(self):
+        if not self.existe():
+            CritereDAO().add(self)
+
+    def supprimer_critere(self):
+        if self.existe():
+            CritereDAO().delete(self)

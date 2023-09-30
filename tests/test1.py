@@ -1,9 +1,9 @@
-from scr.critere import Critere
-from scr.eleveNonAuthentifie import EleveNonAuthentifie
-from scr.eleveAuthentifie import EleveAuthentifie
-from scr.prof import Prof
-from scr.admin import Admin
-from scr.contactEmployeur import ContactEmployeur
+from metier.critere import Critere
+from metier.userNonAuthentifie import UserNonAuthentifie
+from metier.eleve import Eleve
+from metier.prof import Prof
+from metier.admin import Admin
+from metier.contactEmployeur import ContactEmployeur
 from dao.critereDAO import CritereDAO
 from dao.userDao import UserDao
 from dao.db_connection import DBConnection
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     # print(unUser)
     # unCritere = Critere('35000', 10, 'lalalal', 3, 6)
     # #print(unCritere)
-    # deuxEleve = EleveAuthentifie(unCritere, "fffssgd@tatat.com", "mrp", "111138", True)
+    # deuxEleve = Eleve(unCritere, "fffssgd@tatat.com", "mrp", "111138", True)
     # #print(UserDao().exist_id(deuxEleve))
     # #print(deuxEleve)
     # #succes = UserDao().add_user(deuxEleve)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # # #succes1 = CritereDAO().add(unCritere)
     
     # deuxCritere = Critere('75000', 2000, 'lal', 3, 6)
-    # troisEleve = EleveAuthentifie(deuxCritere, "avee@sdggd.com", "mrdp", "118", True)
+    # troisEleve = Eleve(deuxCritere, "avee@sdggd.com", "mrdp", "118", True)
     # print(UserDao().exist_id(deuxEleve))
     
     # #succes = UserDao().add_user(troisEleve)
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     # succes = UserDao().update_user(troisEleve)
     # print(succes)
 
-    troisUser = EleveAuthentifie.charger_user("avee@sdggd.com", "mrdp")
+    troisUser = Eleve.charger_user("avee@sdggd.com", "mrdp")
     print(troisUser)
 
     # # print(UserDao().exist_id(deuxEleve))

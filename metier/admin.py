@@ -1,4 +1,4 @@
-from scr.prof import Prof
+from metier.prof import Prof
 
 class Admin(Prof):
     """ Un Admin hérite de la classe Prof 

@@ -1,5 +1,5 @@
-#from scr.critere import Critere
 from dao.db_connection import DBConnection
+
 
 class CritereDAO:
     def add(self, unCritere) -> bool:
@@ -20,7 +20,7 @@ class CritereDAO:
                     "%(duree_max)s)"
                     "RETURNING id_crit;",
                     {
-                        "id_crit": unCritere.id,
+                        "id_crit": unCritere.id_crit,
                         "code_insee_cible": unCritere.code_insee_cible,
                         "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
@@ -75,7 +75,7 @@ class CritereDAO:
                     "where id_crit = %(id_crit)s "
                     "RETURNING id_crit; ",
                     {
-                        "id_crit": unCritere.id
+                        "id_crit": unCritere.id_crit
                     },
                 )
                 res = cursor.fetchone()
@@ -95,12 +95,11 @@ class CritereDAO:
                     "FROM projetinfo.critere "
                     "where id_crit = %(id_crit)s;",
                     {
-                        "id_crit": unCrit.id
+                        "id_crit": unCrit.id_crit
                     },
                 )
                 res = cursor.fetchone()
         if res:
-            #print(str(res))
             trouve = True
         return trouve
         

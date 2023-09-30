@@ -57,6 +57,7 @@ CREATE TABLE projetInfo.stage  (
     titre text,
     ville text,
     date_debut text,
+    date_fin text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
 

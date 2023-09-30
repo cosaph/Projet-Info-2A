@@ -1,10 +1,10 @@
-from scr.eleveNonAuthentifie import EleveNonAuthentifie
-from scr.stage import Stage
-from scr.critere import Critere
+from metier.userNonAuthentifie import UserNonAuthentifie
+from metier.stage import Stage
+from metier.critere import Critere
 from dao.userDao import UserDao
-#from scr.userDao import UserDao
 
-class EleveAuthentifie(EleveNonAuthentifie):
+
+class Eleve(UserNonAuthentifie):
     """
     Un EleveAuthentifie hérite de la classe Eleve NonAuthentifie.
     Il est caractérisé par un identifiant, un mot de passe, un email, 
@@ -31,14 +31,37 @@ class EleveAuthentifie(EleveNonAuthentifie):
         if not res:
             raise "email ou mdp incorrect"
         unCritere = Critere(res["code_insee_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
-        return EleveAuthentifie(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
+        return Eleve(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
+
+    def existe(self):
+        return UserDao().exist_id(self)
+    
+    def modifier(self):
+        if self.existe():
+            UserDao().update_user(self)
+
+    def enregistrer(self):
+        if not self.existe():
+            UserDao().add_user(self)
+        else:
+            self.modifier()
+    
+    def supprimer_compte(self):
+        if self.existe():
+            UserDao().delete_user(self)
+
+    def __str__(self):
+        res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
+        res2 = "\nLes critères par défaut de l'utilisateur sont : \n{} \n\nLes caractéristiques de l'utilisateurs sont : \n{}".format(self.critere.__str__(),res)
+        self.critere.__str__() + "\n" + res
+        return res2
 
     # ok pour les alertes ou pas
-    def set_souhaite_alertes(self, reponse):
+    def set_souhaite_alertes(self, reponse: bool):
         self.souhaite_alertes = reponse
         
     # l'éleve informe qu'il a trouvé un stage
-    def set_stage_trouve(self, reponse):
+    def set_stage_trouve(self, reponse: bool):
         self.stage_trouve = reponse
 
     def postule(self, unStage: Stage):
@@ -47,9 +70,4 @@ class EleveAuthentifie(EleveNonAuthentifie):
     def exporter_list_envie(self):
         pass
 
-    def supprimer_compte(self):
-        pass
-    def __str__(self):
-        res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
-        return self.critere.__str__() + "\n" + res
 
