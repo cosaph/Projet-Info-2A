@@ -12,16 +12,16 @@ class CritereDAO:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, rayon_km, "
+                    "INSERT INTO projetInfo.critere (id_crit, ville_cible, rayon_km, "
                     "specialite, duree_min, duree_max)"
                     "Values"                                     
-                    "(%(id_crit)s, %(code_insee_cible)s, %(rayon_km)s, "
+                    "(%(id_crit)s, %(ville_cible)s, %(rayon_km)s, "
                     "%(specialite)s, %(duree_min)s, "
                     "%(duree_max)s)"
                     "RETURNING id_crit;",
                     {
                         "id_crit": unCritere.id_crit,
-                        "code_insee_cible": unCritere.code_insee_cible,
+                        "ville_cible": unCritere.ville_cible,
                         "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
                         "duree_min": unCritere.duree_min,
@@ -43,7 +43,7 @@ class CritereDAO:
     #             cursor.execute(
     #                 "update projetinfo.utilisateur "
     #                 "set "
-    #                 "code_insee_cible = %(code_insee_cible)s, "
+    #                 "ville_cible = %(ville_cible)s, "
     #                 "specialite = %(specialite)s, "
     #                 "duree_min = %(duree_min)s, "
     #                 "duree_max = %(duree_max)s, "
@@ -51,7 +51,7 @@ class CritereDAO:
     #                 "RETURNING id_crit;",
     #                 {
     #                     "id_crit": unCritere.id,
-    #                     "code_insee_cible": unCritere.code_insee_cible,
+    #                     "ville_cible": unCritere.ville_cible,
     #                     "specialite": unCritere.specialite,
     #                     "duree_min": unCritere.duree_min,
     #                     "duree_max": unCritere.duree_max
@@ -118,13 +118,13 @@ class CritereDAO:
                 cursor.execute(
                     "SELECT id_crit "
                     "FROM projetinfo.critere "
-                    "where code_insee_cible = %(code_insee_cible)s and "
+                    "where ville_cible = %(ville_cible)s and "
                     "rayon_km = %(rayon_km)s and "
                     "specialite = %(specialite)s and "
                     "duree_min = %(duree_min)s and "
                     "duree_max = %(duree_max)s;",
                     {
-                        "code_insee_cible": unCritere.code_insee_cible,
+                        "ville_cible": unCritere.ville_cible,
                         "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
                         "duree_min": unCritere.duree_min,

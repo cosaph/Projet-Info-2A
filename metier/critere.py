@@ -15,14 +15,14 @@ class Critere:
     """
     def __init__(
         self,
-        code_insee_cible: str,
+        ville_cible: str,
         rayon_km: float,
         specialite: str,
         duree_min: int,
         duree_max: int
             ):
         ''' Constructeur d'un objet Critere'''
-        self.code_insee_cible = code_insee_cible
+        self.ville_cible = ville_cible
         # convertion en majuscule
         self.specialite = specialite.upper()
         self.duree_min = duree_min
@@ -31,7 +31,7 @@ class Critere:
         self.id_crit = CritereDAO().calcul_id(self)
     
     def __str__(self):
-        res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.code_insee_cible, self.specialite, self.duree_min, self.duree_max)
+        res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.ville_cible, self.specialite, self.duree_min, self.duree_max)
         return res
         
     def recherche_stage(self):
@@ -41,7 +41,7 @@ class Critere:
         # radius_input = input("Dans un rayon de combien de kilomètres ? ")
 
         specialite_input = self.specialite
-        location_input = self.code_insee_cible
+        location_input = self.ville_cible
         radius_input = self.rayon_km
 
         params = {'q': specialite_input, 'l': location_input, 'stage': specialite_input, 'location': location_input, 'radius': radius_input}

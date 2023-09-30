@@ -12,11 +12,13 @@ from utils.singleton import Singleton
 import dotenv
 
 
-
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-
-
+    unCritere = Critere("Rennes", 50, "sport", 3, 6)
+    unAdmin = Admin(unCritere, "rwarnod@yahoo.fr", "lalala", "35034", True)
+    print(unAdmin)
+    unAdmin.enregistrer()
+    
     # unUser = UserDao().charger_user("av@sdggd.com", "mdp")
     # print(unUser)
     # unCritere = Critere('35000', 10, 'lalalal', 3, 6)
@@ -39,8 +41,8 @@ if __name__ == "__main__":
     # succes = UserDao().update_user(troisEleve)
     # print(succes)
 
-    troisUser = Eleve.charger_user("avee@sdggd.com", "mrdp")
-    print(troisUser)
+    # troisUser = Eleve.charger_user("avee@sdggd.com", "mrdp")
+    # print(troisUser)
 
     # # print(UserDao().exist_id(deuxEleve))
     # # succes = UserDao().delete_user(deuxEleve)

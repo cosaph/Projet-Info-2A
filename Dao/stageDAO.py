@@ -1,8 +1,8 @@
-from scr.stage import Stage
+
 from dao.db_connection import DBConnection
 
 class StageDao():
-    def add(self, unStage: Stage) -> bool:
+    def add(self, unStage) -> bool:
         """
         Rajouter un utilisateur dans la base de données
         """
@@ -30,7 +30,7 @@ class StageDao():
             caPasse = True
         return caPasse
 
-    def update(self, unStage: Stage) -> bool:
+    def update(self, unStage) -> bool:
         """
         Modifier un stage dans la base de données
         """
@@ -62,7 +62,7 @@ class StageDao():
 
         return caPasse
 
-    def delete(self, unStage: Stage) -> bool:
+    def delete(self, unStage) -> bool:
         """
         Supprimer un stage dans la base de données
         """

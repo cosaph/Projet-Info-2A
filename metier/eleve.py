@@ -30,8 +30,8 @@ class Eleve(UserNonAuthentifie):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise "email ou mdp incorrect"
-        unCritere = Critere(res["code_insee_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
-        return Eleve(unCritere, res["email"], res["mdp"],res["code_insee_residence"], res["souhaite_alertes"])
+        unCritere = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        return Eleve(unCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
 
     def existe(self):
         return UserDao().exist_id(self)

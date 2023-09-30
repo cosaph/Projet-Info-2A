@@ -4,6 +4,7 @@ from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
+
 class UserDao(metaclass=Singleton):
     def add_user(self, unUser):
         """
@@ -19,11 +20,11 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
-                    "souhaite_alertes, stage_trouve, id_crit)"
+                    "souhaite_alertes, stage_trouve, profil, id_crit)"
                     "VALUES       "                                              
                     "(%(email)s, %(mdp)s, %(code_insee_residence)s, "
                     "%(souhaite_alertes)s, "
-                    "%(stage_trouve)s,%(id_crit)s)"
+                    "%(stage_trouve)s,%(profil)s,%(id_crit)s)"
                     "RETURNING email;    ",
                     {
                         "email": unUser.email,
@@ -31,7 +32,8 @@ class UserDao(metaclass=Singleton):
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
-                        "id_crit": unUser.critere.id
+                        "profil": str(type(unUser)),
+                        "id_crit": unUser.critere.id_crit
                     },
                 )
                 res = cursor.fetchone()
