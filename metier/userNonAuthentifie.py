@@ -1,8 +1,7 @@
-from scr.critere import Critere
-# from scr.eleveAuthentifie import EleveAuthentifie
+from metier.critere import Critere
 # from scr.userDao import UserDao
 
-class EleveNonAuthentifie():
+class UserNonAuthentifie():
     '''
     Un eleve  non authentifie est composé d'un critere de recherchce de stage
     '''
@@ -16,7 +15,7 @@ class EleveNonAuthentifie():
     def rechercher_stage(self):
         pass
     
-    def authentifier(self):
+    def creer_compte(self, email, mdp):
         pass
 
     def __str__(self):

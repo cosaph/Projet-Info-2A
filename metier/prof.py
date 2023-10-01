@@ -1,7 +1,7 @@
-from scr.eleveAuthentifie import EleveAuthentifie
-from scr.stage import Stage
+from metier.eleve import Eleve
+from metier.stage import Stage
 
-class Prof(EleveAuthentifie):
+class Prof(Eleve):
     """ Un Admin hérite de la classe EleveAuthentnifie
     il a les même varactéristique qu'un EleveAuthentifie et dispose de fonctions
     supplémentaires

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS projetInfo.critere CASCADE;
 
 CREATE TABLE projetInfo.critere (
     id_crit integer PRIMARY KEY,
-    code_insee_cible text,
+    ville_cible text,
     rayon_km float,
     specialite text,
     duree_min integer,
@@ -27,6 +27,7 @@ CREATE TABLE projetInfo.utilisateur (
     code_insee_residence text,
     souhaite_alertes boolean,
     stage_trouve boolean,
+    profil text,
     id_crit integer REFERENCES projetInfo.critere(id_crit)
 );
 
@@ -57,6 +58,7 @@ CREATE TABLE projetInfo.stage  (
     titre text,
     ville text,
     date_debut text,
+    date_fin text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
 
