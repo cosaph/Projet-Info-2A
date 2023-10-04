@@ -61,7 +61,23 @@ class UserDao(metaclass=Singleton):
         if not res:
             return False
         return res
-        
+
+    def charger_all_user(self):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.utilisateur "
+                    "left join  projetinfo.critere "
+	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit;"
+                )
+                res = cursor.fetchall()
+        if not res:
+            return False
+        return res
+    
 
     def update_user(self, unUser):
         """
@@ -88,7 +104,7 @@ class UserDao(metaclass=Singleton):
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
-                        "id_crit": unUser.critere.id,
+                        "id_crit": unUser.critere.id_crit,
                         "email": unUser.email
                     },
                 )

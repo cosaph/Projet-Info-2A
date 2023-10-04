@@ -18,9 +18,9 @@ class AssoCritStageDao:
                 cursor.execute(
                     "INSERT INTO projetInfo.association_critere_stage(id_crit, id_stage)"
                     "VALUES       "                                              
-                    "(%(id_crit)i, %(id_stage)i);",
+                    "(%(id_crit)s, %(id_stage)s);",
                     {
-                        "id_crit": unCrit.id,
+                        "id_crit": unCrit.id_crit,
                         "id_stage": unStage.id_stage
                     },
                 )
@@ -45,7 +45,7 @@ class AssoCritStageDao:
 
     #     return caPasse
 
-    # def delete_user(self, unUser: EleveAuthentifie) -> bool:
+    # def delete_user(self, unUser: Eleve) -> bool:
     #     """
     #     Supprimer un utilisateur dans la base de données
     #     """
