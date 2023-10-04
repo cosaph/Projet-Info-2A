@@ -11,8 +11,8 @@ class Recherche:
        # self.id_recherche= autoincrement
         self.user = unUser
         self.critere = unCritere
-        self.site = unSite.url
-        self.list_stage = unCritere.recherche_stage(unSite)
+        #self.site = unSite.url
+        #self.list_stage = unCritere.recherche_stage(unSite)
         #self.date_recherche = today
     
     #La recherche est sauvegardée dans  l'historique

@@ -10,7 +10,7 @@ msg['To'] = "rwarnod@yahoo.fr"
 
 # Envoi de l'email
 # server smtp 
-server = smtplib.SMTP('smtp.gmail.com')# peut etre que ca marche
+server = smtplib.SMTP('yahoo.fr')# peut etre que ca marche
 server.login("rwarnod@yahoo.fr", "password")
 server.sendmail("rwarnod@yahoo.fr", "rwarnod@yahoo.fr", msg.as_string())
 server.quit()

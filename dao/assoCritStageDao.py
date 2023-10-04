@@ -1,6 +1,3 @@
-
-from scr.critere import Critere
-from scr.stage import Stage
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 

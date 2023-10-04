@@ -25,16 +25,24 @@ if __name__ == "__main__":
     unProf = Prof(deuxCritere, "prof@yahoo.fr", "lalala", "35034", True)
     print(unProf)
     unProf.enregistrer()
-    test = UserDao().charger_all_user()
-    print(test)
 
-    test2 = CritereDAO().charger_all_critere()
-    print(test2)
+    unEleve = Eleve(deuxCritere, "eleve1@yahoo.fr", "lalala", "47054", False)
+    unEleve.enregistrer()
+    
+    troisCritere = Critere("Paris", 50, "lololo", 3, 6)
+    douzeEleve = Eleve(troisCritere, "eleve1@yahoo.fr", "lalala", "47054", False)
 
-    test3 = CritereDAO().charger_critere(1)
-    print(test3)
+    douzeEleve.enregistrer()
+    # test = UserDao().charger_all_user()
+    # print(test)
 
-    print(datetime.now())
+    # test2 = CritereDAO().charger_all_critere()
+    # print(test2)
+
+    # test3 = CritereDAO().charger_critere(1)
+    # print(test3)
+
+    # print(datetime.now())
 
     # unUser = UserDao().charger_user("av@sdggd.com", "mdp")
     # print(unUser)()
