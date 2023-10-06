@@ -3,9 +3,9 @@ from utils.singleton import Singleton
 
 
 class AssoCritStageDao:
-    # def __init__(self):
+    # def __init__(self)
     #     self.zz = "zz"
-    def add(self, unCrit: Critere, unStage: Stage) -> bool:
+    def add(self, unCrit, unStage) -> bool:
         """
         Rajouter un utilisateur dans la base de données
         """

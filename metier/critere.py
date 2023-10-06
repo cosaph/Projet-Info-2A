@@ -33,6 +33,9 @@ class Critere:
     def __str__(self):
         res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.ville_cible, self.specialite, self.duree_min, self.duree_max)
         return res
+    
+    def __eq__(self, other):
+        return self.id_crit == other.id_crit
         
     def recherche_stage(self):
 
@@ -82,3 +85,11 @@ class Critere:
     def supprimer_critere(self):
         if self.existe():
             CritereDAO().delete(self)
+    
+    @classmethod
+    def charger_critere(self, id_crit):
+        res = CritereDAO().charger_critere(id_crit)
+        if not res:
+            raise "L'identifiant n'existe pas"
+        return Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+

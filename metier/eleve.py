@@ -2,6 +2,9 @@ from metier.userNonAuthentifie import UserNonAuthentifie
 from metier.stage import Stage
 from metier.critere import Critere
 from dao.userDao import UserDao
+from dao.assoCritStageDao import AssoCritStageDao
+from dao.assoCritUserDAO import AssoCritUserDao
+from datetime import datetime
 
 
 class Eleve(UserNonAuthentifie):
@@ -25,16 +28,27 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
+    #modifier
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise "email ou mdp incorrect"
-        unCritere = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
-        return Eleve(unCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
+        #unCritere = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        #Critere.charger_critere()
+        listCritere = Eleve.charger_all_critere_mail(email)
+        return Eleve(listCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
 
-    def ajouter_critere(self, unCritere):
-        pass
+    def possede_critere(self, unCritere):
+        return AssoCritUserDao().exite_user_crit(self, unCritere)
+
+    def ajouter_critereAuser(self, unCritere):
+        if self.possede_critere(unCritere):
+            raise "L' utilisateur a déjà ce critere"
+        if not unCritere.existe():
+            unCritere.enregistrer_critere()
+        return AssoCritUserDao().add(unCritere, self, datetime.now())
+        
     
     def existe(self):
         return UserDao().exist_id(self)
@@ -72,5 +86,20 @@ class Eleve(UserNonAuthentifie):
 
     def exporter_list_envie(self):
         pass
+
+    def charger_all_critere(self):
+        res = AssoCritUserDao().unUser_all_id_crit(self)
+        listCritere = []
+        for k in res:
+            listCritere.append(Critere.charger_critere(k["id_crit"]))
+        return listCritere
+    @classmethod
+    def charger_all_critere_mail(self, email):
+        #res = AssoCritUserDao().unUser_all_id_crit(self)
+        res = AssoCritUserDao().unUser_all_id_crit_mail(email)
+        listCritere = []
+        for k in res:
+            listCritere.append(Critere.charger_critere(k["id_crit"]))
+        return listCritere 
 
 

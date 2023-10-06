@@ -43,6 +43,9 @@ class UserDao(metaclass=Singleton):
             caPasse = unUser.email + " est enregistré dans la base de données"
         return caPasse
     
+    # def charger_all_critere(self,unUser):
+    #     AssoCritUserDao().unUser_all_critere(unUser)
+
     def charger_user(self, email, mdp):
         # if not self.exist_id(unUser):
         #     raise "L'utilisateur a déjà un compte"
@@ -51,9 +54,7 @@ class UserDao(metaclass=Singleton):
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.utilisateur "
-                    "inner join  projetinfo.critere "
-	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
-                    "where email = %(email)s and  mdp = %(mdp)s;",
+                    "where email = %(email)s and mdp = %(mdp)s;",
                     {
                         "email": email,
                         "mdp": mdp
@@ -87,9 +88,14 @@ class UserDao(metaclass=Singleton):
         """
         Modifier un utilisateur dans la base de données
         """
+
         if not CritereDAO().exist_id(unUser.critere):
             CritereDAO().add(unUser.critere)
-        
+        oldCritere = CritereDAO().charger_critere(self.charger_user(unUser.email,unUser.mdp).critere.id_crit)
+        if not (unUser.critere == oldCritere):
+            AssoCritUserDao().add(unUser.critere, unUser, datetime.now())
+
+
         caPasse = "Echec modification"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
