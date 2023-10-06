@@ -16,10 +16,15 @@ class Eleve(UserNonAuthentifie):
     trouvé un stage ou pas
     """
 
-    def __init__(self, critere, email, mdp,  code_insee_residence, souhaite_alertes):
-        # if UserDao().exist_id(id):
-        #     raise ("il faut choisir un autre identifiant") 
-       # if not UserDao().exist_id(id):
+    def __init__(
+        self,
+        critere,
+        email,
+        mdp,
+        code_insee_residence,
+        souhaite_alertes
+       ):
+
         super().__init__(critere)
         self.mdp = mdp
         self.email = email
@@ -28,14 +33,13 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
-    #modifier
+    # modifier
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise "email ou mdp incorrect"
-        #unCritere = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
-        #Critere.charger_critere()
+
         listCritere = Eleve.charger_all_critere_mail(email)
         return Eleve(listCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
 
@@ -48,15 +52,14 @@ class Eleve(UserNonAuthentifie):
         if not unCritere.existe():
             unCritere.enregistrer_critere()
         return AssoCritUserDao().add(unCritere, self, datetime.now())
-        
     
     def existe(self):
         return UserDao().exist_id(self)
-    
+
     def modifier(self):
         if self.existe():
             UserDao().update_user(self)
-
+            
     def enregistrer(self):
         if not self.existe():
             UserDao().add_user(self)
@@ -69,9 +72,10 @@ class Eleve(UserNonAuthentifie):
 
     def __str__(self):
         res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
-        res2 = "\nLes critères par défaut de l'utilisateur sont : \n{} \n\nLes caractéristiques de l'utilisateurs sont : \n{}".format(self.critere.__str__(),res)
-        self.critere.__str__() + "\n" + res
-        return res2
+        res3 = ""
+        for k in self.critere:
+            res3 = res3 + k.__str__() +"\n"
+        return "Les critères de l'utilisateur sont:\n{}Les caractéristiques de l'utilisateurs sont:\n{} ".format(res3, res)
 
     # ok pour les alertes ou pas
     def set_souhaite_alertes(self, reponse: bool):
@@ -93,13 +97,13 @@ class Eleve(UserNonAuthentifie):
         for k in res:
             listCritere.append(Critere.charger_critere(k["id_crit"]))
         return listCritere
+    
     @classmethod
     def charger_all_critere_mail(self, email):
-        #res = AssoCritUserDao().unUser_all_id_crit(self)
         res = AssoCritUserDao().unUser_all_id_crit_mail(email)
         listCritere = []
         for k in res:
             listCritere.append(Critere.charger_critere(k["id_crit"]))
-        return listCritere 
+        return listCritere
 
 
