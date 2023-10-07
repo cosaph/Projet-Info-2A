@@ -114,6 +114,26 @@ class CritereDAO:
         if res:
             caPasse = True
         return caPasse
+    
+    def delete_id(self, id_crit) -> bool:
+        """
+        Supprimer un utilisateur dans la base de données
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.critere "
+                    "where id_crit = %(id_crit)s "
+                    "RETURNING id_crit; ",
+                    {
+                        "id_crit": id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
+        return caPasse
 
     def exist_id(self, unCrit) -> bool:
         """

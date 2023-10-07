@@ -131,7 +131,7 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "delete from projetinfo.utilisateur "
-                    "where email = email "
+                    "where email = %(email)s "
                     "RETURNING email; ",
                     {
                         "email": unUser.email

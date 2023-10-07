@@ -2,6 +2,7 @@ from metier.userNonAuthentifie import UserNonAuthentifie
 from metier.stage import Stage
 from metier.critere import Critere
 from dao.userDao import UserDao
+from dao.critereDAO import CritereDAO
 from dao.assoCritStageDao import AssoCritStageDao
 from dao.assoCritUserDAO import AssoCritUserDao
 from datetime import datetime
@@ -44,15 +45,22 @@ class Eleve(UserNonAuthentifie):
         return Eleve(listCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
 
     def possede_critere(self, unCritere):
-        return AssoCritUserDao().exite_user_crit(self, unCritere)
+        return AssoCritUserDao().existe_user_crit(self, unCritere)
 
     def ajouter_critereAuser(self, unCritere):
         if self.possede_critere(unCritere):
             raise "L' utilisateur a déjà ce critere"
         if not unCritere.existe():
             unCritere.enregistrer_critere()
+        self.critere.append(unCritere)
         return AssoCritUserDao().add(unCritere, self, datetime.now())
     
+    def supprimer_critereAuser(self, id_crit):
+        if AssoCritUserDao().exist_id(self.email, id_crit):
+            AssoCritUserDao().delete(self, id_crit)
+        if not AssoCritUserDao().exist_id_crit(id_crit):
+            CritereDAO().delete_id(id_crit)
+
     def existe(self):
         return UserDao().exist_id(self)
 

@@ -52,28 +52,7 @@ class AssoCritUserDao:
             caPasse = True
 
         return caPasse
-    
-    def exist_id(self, unCrit, unUser) -> bool:
-        """
-        Vérifie si l'id existe dans la bdd
-        """
-        trouve = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT email "
-                    "FROM projetinfo.association_critere_user "
-                    "where email = %(email)s and %(id_crit)s;",
-                    {
-                        "email": unUser.email,
-                        "id_crit": unCrit.id_crit,
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            trouve = True
-        return trouve
-    
+
     def unUser_all_id_crit(self, unUser):
 
         with DBConnection().connection as connection:
@@ -103,7 +82,7 @@ class AssoCritUserDao:
                 res = cursor.fetchall()
         return res
 
-    def exite_user_crit(self, unUser, unCrit):
+    def existe_user_crit(self, unUser, unCrit):
         """
         Vérifie si l'association user critere existe dans la bdd
         """
@@ -124,3 +103,64 @@ class AssoCritUserDao:
             trouve = True
         return trouve
 
+    def exist_id(self, email, id_crit) -> bool:
+        """
+        Vérifie si l'id existe dans la bdd
+        """
+        trouve = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.association_critere_user "
+                    "where email = %(email)s and id_crit = %(id_crit)s;",
+                    {
+                        "email": email,
+                        "id_crit": id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            trouve = True
+        return trouve
+
+    def exist_id_crit(self, id_crit) -> bool:
+        """
+        Vérifie si l'id existe dans la bdd
+        """
+        trouve = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.association_critere_user "
+                    "where id_crit = %(id_crit)s;",
+                    {
+                        "id_crit": id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            trouve = True
+        return trouve
+    
+    def delete(self,  unUser, id_crit) -> bool:
+        """
+        supprime un couple
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.association_critere_user "
+                    "where email = %(email)s and id_crit = %(id_crit)s"
+                    "RETURNING email; ",
+                    {
+                        "email": unUser.email,
+                        "id_crit": id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
+        return caPasse

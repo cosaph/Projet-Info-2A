@@ -17,14 +17,15 @@ import dotenv
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
     unUser = Eleve.charger_user("rwarnod@yahoo.fr", "lalala")
-    print(unUser)
     
+    print(unUser)
     # unCritere = Critere("Rennes", 50, "sport", 3, 6)
-    # unAdmin = Admin(unCritere, "rwarnod@yahoo.fr", "lalala", "35034", True)
-    #unAdmin.enregistrer()
-
-    #trCritere = Critere("Metz", 100, "geggeg", 3, 6)
-    #unAdmin.ajouter_critereAuser(trCritere)
+    # unAdmin.enregistrer()
+    trCritere = Critere("Pino", 50, "geggeg", 1, 2)
+    print(unUser.supprimer_critereAuser(trCritere.id_crit))
+    print(unUser.ajouter_critereAuser(trCritere))
+    
+    
 
     # res = AssoCritUserDao().unUser_all_id_crit(unAdmin)
     
