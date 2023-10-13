@@ -1,69 +1,92 @@
+<<<<<<< HEAD
 #from metier.eleveimport Eleve
 #from metier.critere import Critere
+=======
+#from scr.eleveAuthentifie import EleveAuthentifie
+#from scr.critere import Critere
+
+import hashlib
+>>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 from dao.critereDAO import CritereDAO
-from dao.assoCritUserDAO import AssoCritUserDao
-from datetime import datetime
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
 
 class UserDao(metaclass=Singleton):
+
+
+    def chiffrer_mdp(self, mdp, email): 
+        # comme sel nous allons prendre l'email de l'utilisateur.
+        salt = email
+        return hashlib.sha256(salt.encode + mdp.encode('utf-8')).hexdigest()
+    
+
     def add_user(self, unUser):
+
+
+        self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
         """
         Rajouter un utilisateur dans la base de données
-        """
+        """        
+
         if self.exist_id(unUser):
             raise "L'utilisateur a déjà un compte"
         if not CritereDAO().exist_id(unUser.critere):
             CritereDAO().add(unUser.critere)
 
+        #chiffrement du mot de passe        
+        
         caPasse = "Echec d'enregistrement"
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
-                    "souhaite_alertes, stage_trouve, profil)"
+                    "souhaite_alertes, stage_trouve, profil, id_crit)"
                     "VALUES       "                                              
-                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, "
+                    "(%(email)s, %(mdp_chiffre)s, %(code_insee_residence)s, " #la il faut rajouter une méthode pour chiffrer les mdp.
                     "%(souhaite_alertes)s, "
-                    "%(stage_trouve)s,%(profil)s)"
+                    "%(stage_trouve)s,%(profil)s,%(id_crit)s)"
                     "RETURNING email;    ",
                     {
                         "email": unUser.email,
-                        "mdp": unUser.mdp,
+                        "mdp": unUser.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
-                        "profil": str(type(unUser))
+                        "profil": str(type(unUser)),
+                        "id_crit": unUser.critere.id_crit
                     },
                 )
                 res = cursor.fetchone()
         if res:
-            AssoCritUserDao().add(unUser.critere, unUser, datetime.now())
             caPasse = unUser.email + " est enregistré dans la base de données"
         return caPasse
     
-    # def charger_all_critere(self,unUser):
-    #     AssoCritUserDao().unUser_all_critere(unUser)
-
     def charger_user(self, email, mdp):
         # if not self.exist_id(unUser):
         #     raise "L'utilisateur a déjà un compte"
+
+        mdp_chiffre = self.chiffrer_mdp(mdp, email)
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.utilisateur "
-                    "where email = %(email)s and mdp = %(mdp)s;",
+                    "inner join  projetinfo.critere "
+	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
+                    "where email = %(email)s and  mdp = %(mdp_chiffre)s;", 
                     {
                         "email": email,
-                        "mdp": mdp
+                        "mdp": mdp_chiffre
                     },
                 )
                 res = cursor.fetchone()
         if not res:
             return False
         return res
+<<<<<<< HEAD
 
     # a modifier 
     def charger_all_user(self):
@@ -84,36 +107,40 @@ class UserDao(metaclass=Singleton):
     
     def ajouter_critere(self, unCrit):
         pass
+=======
+        
+>>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 
     def update_user(self, unUser):
         """
         Modifier un utilisateur dans la base de données
         """
 
+        self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
+
         if not CritereDAO().exist_id(unUser.critere):
             CritereDAO().add(unUser.critere)
-        oldCritere = CritereDAO().charger_critere(self.charger_user(unUser.email,unUser.mdp).critere.id_crit)
-        if not (unUser.critere == oldCritere):
-            AssoCritUserDao().add(unUser.critere, unUser, datetime.now())
-
-
+        
         caPasse = "Echec modification"
+        
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "update projetinfo.utilisateur "
+    .                "update projetinfo.utilisateur "
                     "set "
-                    "mdp = %(mdp)s, "
+                    "mdp = %(mdp_chiffre)s, "
                     "code_insee_residence = %(code_insee_residence)s, "
                     "souhaite_alertes = %(souhaite_alertes)s, "
-                    "stage_trouve =  %(stage_trouve)s "
+                    "stage_trouve =  %(stage_trouve)s, "
+                    "id_crit = %(id_crit)s"
                     "where email = %(email)s "
                     "RETURNING email;",
                     {
-                        "mdp": unUser.mdp,
+                        "mdp": unUser.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
+                        "id_crit": unUser.critere.id,
                         "email": unUser.email
                     },
                 )
@@ -132,7 +159,7 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "delete from projetinfo.utilisateur "
-                    "where email = %(email)s "
+                    "where email = email "
                     "RETURNING email; ",
                     {
                         "email": unUser.email

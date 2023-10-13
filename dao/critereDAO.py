@@ -2,6 +2,7 @@ from dao.db_connection import DBConnection
 
 
 class CritereDAO:
+    
     def add(self, unCritere) -> bool:
         """
         Rajouter un utilisateur dans la base de données
