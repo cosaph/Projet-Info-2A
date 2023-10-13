@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 #from metier.eleveimport Eleve
 #from metier.critere import Critere
-=======
-#from scr.eleveAuthentifie import EleveAuthentifie
-#from scr.critere import Critere
-
-import hashlib
->>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
+import hashlib
 
 
 class UserDao(metaclass=Singleton):
@@ -18,7 +12,7 @@ class UserDao(metaclass=Singleton):
     def chiffrer_mdp(self, mdp, email): 
         # comme sel nous allons prendre l'email de l'utilisateur.
         salt = email
-        return hashlib.sha256(salt.encode + mdp.encode('utf-8')).hexdigest()
+        return hashlib.sha256(salt.encode() + mdp.encode('utf-8')).hexdigest()
     
 
     def add_user(self, unUser):
@@ -42,20 +36,19 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
-                    "souhaite_alertes, stage_trouve, profil, id_crit)"
+                    "souhaite_alertes, stage_trouve, profil)"
                     "VALUES       "                                              
-                    "(%(email)s, %(mdp_chiffre)s, %(code_insee_residence)s, " #la il faut rajouter une méthode pour chiffrer les mdp.
+                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, " 
                     "%(souhaite_alertes)s, "
-                    "%(stage_trouve)s,%(profil)s,%(id_crit)s)"
+                    "%(stage_trouve)s,%(profil)s)"
                     "RETURNING email;    ",
                     {
                         "email": unUser.email,
-                        "mdp": unUser.mdp_chiffre,
+                        "mdp": self.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
-                        "profil": str(type(unUser)),
-                        "id_crit": unUser.critere.id_crit
+                        "profil": str(type(unUser))
                     },
                 )
                 res = cursor.fetchone()
@@ -68,15 +61,13 @@ class UserDao(metaclass=Singleton):
         #     raise "L'utilisateur a déjà un compte"
 
         mdp_chiffre = self.chiffrer_mdp(mdp, email)
-
+        print(mdp_chiffre)
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.utilisateur "
-                    "inner join  projetinfo.critere "
-	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
-                    "where email = %(email)s and  mdp = %(mdp_chiffre)s;", 
+                    "where email = %(email)s and  mdp = %(mdp)s;", 
                     {
                         "email": email,
                         "mdp": mdp_chiffre
@@ -86,7 +77,6 @@ class UserDao(metaclass=Singleton):
         if not res:
             return False
         return res
-<<<<<<< HEAD
 
     # a modifier 
     def charger_all_user(self):
@@ -107,9 +97,6 @@ class UserDao(metaclass=Singleton):
     
     def ajouter_critere(self, unCrit):
         pass
-=======
-        
->>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 
     def update_user(self, unUser):
         """
@@ -126,7 +113,7 @@ class UserDao(metaclass=Singleton):
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-    .                "update projetinfo.utilisateur "
+                    "update projetinfo.utilisateur "
                     "set "
                     "mdp = %(mdp_chiffre)s, "
                     "code_insee_residence = %(code_insee_residence)s, "

@@ -16,8 +16,16 @@ import dotenv
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
-    #unAdmin = Eleve.charger_user("eleve1@yahoo.fr", "lalala")
+
+    # trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
+
+    # deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
+
+    # deuxAdmin.enregistrer()
+    #unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+
+    unAdmin = Admin.charger_user(email="jfjfjfj", mdp="lalal")
+    print(unAdmin)
     #zozo = unAdmin.critere
     #print(zozo)
     #unUser = Prof.charger_user("prof@yahoo.fr", "lalala")
@@ -26,12 +34,12 @@ if __name__ == "__main__":
     #print(unAdmin)
     # unCritere = Critere("Rennes", 50, "sport", 3, 6)
     # unAdmin.enregistrer()
-    trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
+    # trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
     # print(trCritere)
     # print(unUser.supprimer_critereAuser(trCritere.id_crit))
     # print(unUser.ajouter_critereAuser(trCritere))
-    deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
-    print(deuxAdmin)
+    # deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
+    # print(deuxAdmin)
     # zozo = []
     # zozo.append(trCritere)
     # for k in zozo:
