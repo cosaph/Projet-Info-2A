@@ -1,15 +1,9 @@
-<<<<<<< HEAD
 #from metier.eleveimport Eleve
 #from metier.critere import Critere
-=======
-#from scr.eleveAuthentifie import EleveAuthentifie
-#from scr.critere import Critere
-
-import hashlib
->>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
+import hashlib
 
 
 class UserDao(metaclass=Singleton):
@@ -18,7 +12,7 @@ class UserDao(metaclass=Singleton):
     def chiffrer_mdp(self, mdp, email): 
         # comme sel nous allons prendre l'email de l'utilisateur.
         salt = email
-        return hashlib.sha256(salt.encode + mdp.encode('utf-8')).hexdigest()
+        return hashlib.sha256((salt.encode() + mdp.encode('utf-8'))).hexdigest()
     
 
     def add_user(self, unUser):
@@ -86,7 +80,6 @@ class UserDao(metaclass=Singleton):
         if not res:
             return False
         return res
-<<<<<<< HEAD
 
     # a modifier 
     def charger_all_user(self):
@@ -107,9 +100,6 @@ class UserDao(metaclass=Singleton):
     
     def ajouter_critere(self, unCrit):
         pass
-=======
-        
->>>>>>> 873719c243a4b4247bd792d0c01c397ff770d7bb
 
     def update_user(self, unUser):
         """
