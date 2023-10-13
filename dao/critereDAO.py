@@ -33,6 +33,38 @@ class CritereDAO:
         if res:
             caPasse = True
         return caPasse
+    
+    def charger_critere(self, id_crit):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.critere "
+                    "where id_crit = %(id_crit)s ;",
+                    {
+                        "id_crit": id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if not res:
+            return False
+        return res
+
+    def charger_all_critere(self):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.critere; "
+                )
+                res = cursor.fetchall()
+        if not res:
+            return False
+        return res
 
     # def update(self, unCritere):
     #     """
@@ -77,6 +109,26 @@ class CritereDAO:
                     "RETURNING id_crit; ",
                     {
                         "id_crit": unCritere.id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
+        return caPasse
+    
+    def delete_id(self, id_crit) -> bool:
+        """
+        Supprimer un utilisateur dans la base de données
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.critere "
+                    "where id_crit = %(id_crit)s "
+                    "RETURNING id_crit; ",
+                    {
+                        "id_crit": id_crit
                     },
                 )
                 res = cursor.fetchone()

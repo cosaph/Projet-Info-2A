@@ -10,33 +10,42 @@ from utils.singleton import Singleton
 class UserDao(metaclass=Singleton):
 
 
-    def chiffrer_mdp(self, mdp):
-        return hashlib.sha256(mdp.encode('utf-8')).hexdigest()
-
+    def chiffrer_mdp(self, mdp, email): 
+        # comme sel nous allons prendre l'email de l'utilisateur.
+        salt = email
+        return hashlib.sha256(salt.encode + mdp.encode('utf-8')).hexdigest()
+    
 
     def add_user(self, unUser):
+
+
+        self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
         """
         Rajouter un utilisateur dans la base de données
-        """
+        """        
+
         if self.exist_id(unUser):
             raise "L'utilisateur a déjà un compte"
         if not CritereDAO().exist_id(unUser.critere):
             CritereDAO().add(unUser.critere)
+
+        #chiffrement du mot de passe        
         
         caPasse = "Echec d'enregistrement"
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
                     "souhaite_alertes, stage_trouve, profil, id_crit)"
                     "VALUES       "                                              
-                    "(%(email)s, %(hash_mdp)s, %(code_insee_residence)s, " #la il faut rajouter une méthode pour chiffrer les mdp.
+                    "(%(email)s, %(mdp_chiffre)s, %(code_insee_residence)s, " #la il faut rajouter une méthode pour chiffrer les mdp.
                     "%(souhaite_alertes)s, "
                     "%(stage_trouve)s,%(profil)s,%(id_crit)s)"
                     "RETURNING email;    ",
                     {
                         "email": unUser.email,
-                        "mdp": unUser.hash_mdp,
+                        "mdp": unUser.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
@@ -52,6 +61,9 @@ class UserDao(metaclass=Singleton):
     def charger_user(self, email, mdp):
         # if not self.exist_id(unUser):
         #     raise "L'utilisateur a déjà un compte"
+
+        mdp_chiffre = self.chiffrer_mdp(mdp, email)
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -59,10 +71,10 @@ class UserDao(metaclass=Singleton):
                     "from projetinfo.utilisateur "
                     "inner join  projetinfo.critere "
 	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit "
-                    "where email = %(email)s and  mdp = %(mdp)s;", 
+                    "where email = %(email)s and  mdp = %(mdp_chiffre)s;", 
                     {
                         "email": email,
-                        "mdp": mdp
+                        "mdp": mdp_chiffre
                     },
                 )
                 res = cursor.fetchone()
@@ -75,16 +87,20 @@ class UserDao(metaclass=Singleton):
         """
         Modifier un utilisateur dans la base de données
         """
+
+        self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
+
         if not CritereDAO().exist_id(unUser.critere):
             CritereDAO().add(unUser.critere)
         
         caPasse = "Echec modification"
+        
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "update projetinfo.utilisateur "
+    .                "update projetinfo.utilisateur "
                     "set "
-                    "mdp = %(mdp)s, "
+                    "mdp = %(mdp_chiffre)s, "
                     "code_insee_residence = %(code_insee_residence)s, "
                     "souhaite_alertes = %(souhaite_alertes)s, "
                     "stage_trouve =  %(stage_trouve)s, "
@@ -92,7 +108,7 @@ class UserDao(metaclass=Singleton):
                     "where email = %(email)s "
                     "RETURNING email;",
                     {
-                        "mdp": unUser.mdp,
+                        "mdp": unUser.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
