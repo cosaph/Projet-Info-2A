@@ -7,8 +7,8 @@ class UserNonAuthentifie():
     Un eleve  non authentifie est composé d'un critere de recherchce de stage
     '''
     def __init__(self, unCritere):
-        #self.critere = [].append(unCritere)
-        self.critere = unCritere
+        self.critere = []
+        self.critere = self.critere.append(unCritere)
 
     # def creer_compte(self, id, mdp, email, code_insee_residence, souhaite_alertes):
     #     unEleveAuthentifie = EleveAuthentifie(id, mdp, email, code_insee_residence, souhaite_alertes)
@@ -16,7 +16,6 @@ class UserNonAuthentifie():
     
     def supprimer_critereAuser(self, id_crit):
         pass
-
 
     def rechercher_stage(self):
         pass

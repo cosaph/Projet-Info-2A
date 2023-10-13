@@ -22,11 +22,12 @@ class Eleve(UserNonAuthentifie):
         critere,
         email,
         mdp,
-        code_insee_residence,
-        souhaite_alertes
+        code_insee_residence=None,
+        souhaite_alertes=False
        ):
-
-        super().__init__(critere)
+    
+        #super().__init__(unCritere=critere)
+        self.critere = critere
         self.mdp = mdp
         self.email = email
         self.list_envie = list()
@@ -40,7 +41,8 @@ class Eleve(UserNonAuthentifie):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise "email ou mdp incorrect"
-
+        if "Eleve" not in res["profil"]:
+            raise "L'utilisateur n'est pas un eleve"
         listCritere = Eleve.charger_all_critere_mail(email)
         return Eleve(listCritere, res["email"], res["mdp"], res["code_insee_residence"], res["souhaite_alertes"])
 
@@ -109,6 +111,7 @@ class Eleve(UserNonAuthentifie):
     @classmethod
     def charger_all_critere_mail(self, email):
         res = AssoCritUserDao().unUser_all_id_crit_mail(email)
+        print(res)
         listCritere = []
         for k in res:
             listCritere.append(Critere.charger_critere(k["id_crit"]))

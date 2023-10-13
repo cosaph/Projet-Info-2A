@@ -6,31 +6,33 @@ class CritereDAO:
         """
         Rajouter un utilisateur dans la base de données
         """
-        if self.exist_id(unCritere):
-            raise "Le critere est déjà enregistré dans la base de données"
+        
         caPasse = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO projetInfo.critere (id_crit, ville_cible, rayon_km, "
-                    "specialite, duree_min, duree_max)"
-                    "Values"                                     
-                    "(%(id_crit)s, %(ville_cible)s, %(rayon_km)s, "
-                    "%(specialite)s, %(duree_min)s, "
-                    "%(duree_max)s)"
-                    "RETURNING id_crit;",
-                    {
-                        "id_crit": unCritere.id_crit,
-                        "ville_cible": unCritere.ville_cible,
-                        "rayon_km": unCritere.rayon_km,
-                        "specialite": unCritere.specialite,
-                        "duree_min": unCritere.duree_min,
-                        "duree_max": unCritere.duree_max
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            caPasse = True
+        if unCritere is not None:
+            if self.exist_id(unCritere):
+                raise "Le critere est déjà enregistré dans la base de données"
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO projetInfo.critere (id_crit, ville_cible, rayon_km, "
+                        "specialite, duree_min, duree_max)"
+                        "Values"                                     
+                        "(%(id_crit)s, %(ville_cible)s, %(rayon_km)s, "
+                        "%(specialite)s, %(duree_min)s, "
+                        "%(duree_max)s)"
+                        "RETURNING id_crit;",
+                        {
+                            "id_crit": unCritere.id_crit,
+                            "ville_cible": unCritere.ville_cible,
+                            "rayon_km": unCritere.rayon_km,
+                            "specialite": unCritere.specialite,
+                            "duree_min": unCritere.duree_min,
+                            "duree_max": unCritere.duree_max
+                        },
+                    )
+                    res = cursor.fetchone()
+            if res:
+                caPasse = True
         return caPasse
     
     def charger_critere(self, id_crit):
@@ -140,19 +142,20 @@ class CritereDAO:
         Vérifie si l'id existe dans la bdd
         """
         trouve = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT id_crit "
-                    "FROM projetinfo.critere "
-                    "where id_crit = %(id_crit)s;",
-                    {
-                        "id_crit": unCrit.id_crit
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            trouve = True
+        if unCrit:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_crit "
+                        "FROM projetinfo.critere "
+                        "where id_crit = %(id_crit)s;",
+                        {
+                            "id_crit": unCrit.id_crit
+                        },
+                    )
+                    res = cursor.fetchone()
+            if res:
+                trouve = True
         return trouve
         
     def calcul_id(self, unCritere):

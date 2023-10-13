@@ -16,16 +16,33 @@ import dotenv
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    unUser = Eleve.charger_user("rwarnod@yahoo.fr", "lalala")
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    #unAdmin = Eleve.charger_user("eleve1@yahoo.fr", "lalala")
+    #zozo = unAdmin.critere
+    #print(zozo)
+    #unUser = Prof.charger_user("prof@yahoo.fr", "lalala")
     
-    print(unUser)
+    
+    #print(unAdmin)
     # unCritere = Critere("Rennes", 50, "sport", 3, 6)
     # unAdmin.enregistrer()
-    trCritere = Critere("Pino", 50, "geggeg", 1, 2)
-    print(unUser.supprimer_critereAuser(trCritere.id_crit))
-    print(unUser.ajouter_critereAuser(trCritere))
-    
-    
+    trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
+    # print(trCritere)
+    # print(unUser.supprimer_critereAuser(trCritere.id_crit))
+    # print(unUser.ajouter_critereAuser(trCritere))
+    deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
+    print(deuxAdmin)
+    # zozo = []
+    # zozo.append(trCritere)
+    # for k in zozo:
+    #     print(k)
+
+    #print(deuxAdmin.critere)
+    #print(deuxAdmin)
+    #unAdmin.ajouter_user(deuxAdmin)
+    # unAdmin.ajouter_user(Prof(email="prof222@yahoo.fr", mdp="mdp"))
+
+
 
     # res = AssoCritUserDao().unUser_all_id_crit(unAdmin)
     

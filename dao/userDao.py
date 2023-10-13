@@ -1,5 +1,5 @@
-#from scr.eleveAuthentifie import EleveAuthentifie
-#from scr.critere import Critere
+#from metier.eleveimport Eleve
+#from metier.critere import Critere
 from dao.critereDAO import CritereDAO
 from dao.assoCritUserDAO import AssoCritUserDao
 from datetime import datetime
@@ -64,7 +64,8 @@ class UserDao(metaclass=Singleton):
         if not res:
             return False
         return res
-    #a modifier 
+
+    # a modifier 
     def charger_all_user(self):
         # if not self.exist_id(unUser):
         #     raise "L'utilisateur a déjà un compte"

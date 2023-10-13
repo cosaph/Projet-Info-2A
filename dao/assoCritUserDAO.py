@@ -9,22 +9,23 @@ class AssoCritUserDao:
         Rajouter un utilisateur dans la base de données
         """
         caPasse = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO projetInfo.association_critere_user(id_crit, email, date_recherche)"
-                    "VALUES       "                                              
-                    "(%(id_crit)s, %(email)s, %(date_recherche)s) "
-                    "RETURNING email;    ",
-                    {
-                        "id_crit": unCrit.id_crit,
-                        "email": unUser.email,
-                        "date_recherche": uneDate
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            caPasse = True
+        if unCrit is not None:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO projetInfo.association_critere_user(id_crit, email, date_recherche)"
+                        "VALUES       "                                              
+                        "(%(id_crit)s, %(email)s, %(date_recherche)s) "
+                        "RETURNING email;    ",
+                        {
+                            "id_crit": unCrit.id_crit,
+                            "email": unUser.email,
+                            "date_recherche": uneDate
+                        },
+                    )
+                    res = cursor.fetchone()
+            if res:
+                caPasse = True
         return caPasse
 
     def update(self, unCrit, unUser, uneDate):
