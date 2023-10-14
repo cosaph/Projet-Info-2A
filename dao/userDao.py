@@ -1,5 +1,5 @@
-#from metier.eleveimport Eleve
-#from metier.critere import Critere
+# from metier.eleve import Eleve
+# from metier.critere import Critere
 from dao.critereDAO import CritereDAO
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
@@ -7,22 +7,15 @@ import hashlib
 
 
 class UserDao(metaclass=Singleton):
-
-
     def chiffrer_mdp(self, mdp, email): 
         # comme sel nous allons prendre l'email de l'utilisateur.
         salt = email
         return hashlib.sha256(salt.encode() + mdp.encode('utf-8')).hexdigest()
-    
-
     def add_user(self, unUser):
-
-
         self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
         """
         Rajouter un utilisateur dans la base de données
-        """        
-
+        """
         if self.exist_id(unUser):
             raise "L'utilisateur a déjà un compte"
         if not CritereDAO().exist_id(unUser.critere):

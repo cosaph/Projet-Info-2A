@@ -17,9 +17,9 @@ import dotenv
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
 
-    # trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
+    trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
 
-    # deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
+    deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
 
     # deuxAdmin.enregistrer()
     #unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
