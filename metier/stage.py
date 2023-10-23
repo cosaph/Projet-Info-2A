@@ -27,7 +27,7 @@ class Stage:
         self.date_fin = date_fin
         self.contact_employeur = contact_employeur
     
-    def exite(self):
+    def existe(self):
         return StageDao().exist_id(self)
 
     def supprimer_stage(self):
@@ -43,6 +43,10 @@ class Stage:
             StageDao().add(self)
         else:
             StageDao().update(self)
+
+    def __str__(self):
+        res = "Specialite du stage: {} \nurl: {} \nLibellé du stage: {} \nLieu du stage: {}".format(self.specialite,self.url_stage, self.titre, self.code_insee)
+        return res
 
     def sauvegarder_dans_listeenvie(self, idUser):
         pass

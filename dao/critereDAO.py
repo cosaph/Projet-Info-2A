@@ -120,7 +120,7 @@ class CritereDAO:
     
     def delete_id(self, id_crit) -> bool:
         """
-        Supprimer un utilisateur dans la base de données
+        Supprimer un critere dans la base de données
         """
         caPasse = False
         with DBConnection().connection as connection:

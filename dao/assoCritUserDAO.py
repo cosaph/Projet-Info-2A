@@ -1,13 +1,15 @@
 from dao.db_connection import DBConnection
-from utils.singleton import Singleton
+from datetime import datetime
 
 
 class AssoCritUserDao:
 
-    def add(self, unCrit, unUser, uneDate) -> bool:
+    def add(self, unCrit, unUser) -> bool:
         """
-        Rajouter un utilisateur dans la base de données
+        Rajouter un couple utilisateur critere dans la base de données
         """
+        
+        uneDate = datetime.now()
         caPasse = False
         if unCrit is not None:
             with DBConnection().connection as connection:

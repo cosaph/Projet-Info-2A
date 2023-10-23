@@ -13,12 +13,12 @@ class AssoCritStageDao:
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.association_critere_stage(id_crit, id_stage)"
+                    "INSERT INTO projetInfo.association_critere_stage(id_crit, url_stage)"
                     "VALUES       "                                              
-                    "(%(id_crit)s, %(id_stage)s);",
+                    "(%(id_crit)s, %(url_stage)s);",
                     {
                         "id_crit": unCrit.id_crit,
-                        "id_stage": unStage.id_stage
+                        "url_stage": unStage.url_stage
                     },
                 )
                 res = cursor.fetchone()

@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 from dao.critereDAO import CritereDAO
+from metier.stage import Stage
 
 
 class Critere:
@@ -37,7 +38,7 @@ class Critere:
     def __eq__(self, other):
         return self.id_crit == other.id_crit
         
-    def recherche_stage(self):
+    def recherche_stage(self, verbose=False):
 
         # specialite_input = input("Entrez le type de stage que vous recherchez : ")
         # location_input = input("Dans quelle localité ? ")
@@ -58,23 +59,34 @@ class Critere:
         span_elements = soup.find_all('span', class_='listing-item__info--item listing-item__info--item-location')
 
         tableau = []
-
         for i in range(len(div_elements)):
             link_elements = div_elements[i].find_all('a')
+            # rrrrrrrrrrrrrr
             location_element = span_elements[i].text
+            for link_element in link_elements:
+                tableau.append(
+                    Stage(
+                        url_stage=link_element['href'],
+                        titre=link_element.text,
+                        specialite=specialite_input,
+                        code_commune=location_element
+                        )
+                            )
+                if verbose:
+                    print(tableau[len(tableau)-1])
+            # rrrrrrrrrrrrrrrrrrrrrrrrrr
 
-        for link_element in link_elements:
-            title = link_element.text
-            url = link_element['href']
-            tableau.append([title, url, location_element])
-
-        with open('jobs.csv', 'w', newline='') as fichier_csv:
-            writer = csv.writer(fichier_csv)
-            writer.writerow(['Titre', 'URL', 'Location'])
-            writer.writerows(tableau)
-
-        print("Exportation vers le fichier CSV terminée.")
-
+        # for link_element in link_elements:
+        #     title = link_element.text
+        #     url = link_element['href']
+        #     tableau.append([title, url, location_element])
+        # with open('jobs.csv', 'w', newline='') as fichier_csv:
+        #     writer = csv.writer(fichier_csv)
+        #     writer.writerow(['Titre', 'URL', 'Location'])
+        #     writer.writerows(tableau)
+        # print("Exportation vers le fichier CSV terminée.")
+        return tableau
+    
     def existe(self):
         return CritereDAO().exist_id(self)
 
@@ -87,9 +99,12 @@ class Critere:
             CritereDAO().delete(self)
     
     @classmethod
-    def charger_critere(self, id_crit):
+    def charger_critere(self, id_crit, verbose=False):
         res = CritereDAO().charger_critere(id_crit)
         if not res:
             raise "L'identifiant n'existe pas"
-        return Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        res = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        if verbose:
+            print(res)
+        return res
 

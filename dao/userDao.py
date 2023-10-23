@@ -1,6 +1,7 @@
 # from metier.eleve import Eleve
 # from metier.critere import Critere
 from dao.critereDAO import CritereDAO
+from dao.assoCritUserDAO import AssoCritUserDao
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 import hashlib
@@ -11,26 +12,26 @@ class UserDao(metaclass=Singleton):
         # comme sel nous allons prendre l'email de l'utilisateur.
         salt = email
         return hashlib.sha256(salt.encode() + mdp.encode('utf-8')).hexdigest()
+
     def add_user(self, unUser):
+        # chiffrement du mot de passe 
         self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
-        """
-        Rajouter un utilisateur dans la base de données
-        """
+     
         if self.exist_id(unUser):
             raise "L'utilisateur a déjà un compte"
-        if not CritereDAO().exist_id(unUser.critere):
-            CritereDAO().add(unUser.critere)
-
-        #chiffrement du mot de passe        
-        
+        if unUser.critere is not None:
+            if not CritereDAO().exist_id(unUser.critere):
+                CritereDAO().add(unUser.critere)
+            if not AssoCritUserDao.existe_user_crit(unUser, unUser.critere):
+                AssoCritUserDao.add(unUser.critere, unUser)       
         caPasse = "Echec d'enregistrement"
-
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.utilisateur(email, mdp, code_insee_residence, "
+                    "INSERT INTO "
+                    "projetInfo.utilisateur(email, mdp, code_insee_residence, "
                     "souhaite_alertes, stage_trouve, profil)"
-                    "VALUES       "                                              
+                    "VALUES "                                              
                     "(%(email)s, %(mdp)s, %(code_insee_residence)s, " 
                     "%(souhaite_alertes)s, "
                     "%(stage_trouve)s,%(profil)s)"
@@ -54,7 +55,6 @@ class UserDao(metaclass=Singleton):
         #     raise "L'utilisateur a déjà un compte"
 
         mdp_chiffre = self.chiffrer_mdp(mdp, email)
-        print(mdp_chiffre)
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -79,17 +79,12 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
-                    "from projetinfo.utilisateur "
-                    "left join  projetinfo.critere "
-	                "on projetinfo.utilisateur.id_crit = projetinfo.critere.id_crit;"
+                    "from projetinfo.utilisateur; "
                 )
                 res = cursor.fetchall()
         if not res:
             return False
         return res
-    
-    def ajouter_critere(self, unCrit):
-        pass
 
     def update_user(self, unUser):
         """
@@ -98,8 +93,11 @@ class UserDao(metaclass=Singleton):
 
         self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
 
-        if not CritereDAO().exist_id(unUser.critere):
-            CritereDAO().add(unUser.critere)
+        if unUser.critere is not None:
+            if not CritereDAO().exist_id(unUser.critere):
+                CritereDAO().add(unUser.critere)
+            if not AssoCritUserDao().existe_user_crit(unUser, unUser.critere):
+                AssoCritUserDao().add(unUser.critere, unUser)
         
         caPasse = "Echec modification"
         
@@ -108,19 +106,17 @@ class UserDao(metaclass=Singleton):
                 cursor.execute(
                     "update projetinfo.utilisateur "
                     "set "
-                    "mdp = %(mdp_chiffre)s, "
+                    "mdp = %(mdp)s, "
                     "code_insee_residence = %(code_insee_residence)s, "
                     "souhaite_alertes = %(souhaite_alertes)s, "
-                    "stage_trouve =  %(stage_trouve)s, "
-                    "id_crit = %(id_crit)s"
+                    "stage_trouve =  %(stage_trouve)s "
                     "where email = %(email)s "
                     "RETURNING email;",
                     {
-                        "mdp": unUser.mdp_chiffre,
+                        "mdp": self.mdp_chiffre,
                         "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
-                        "id_crit": unUser.critere.id,
                         "email": unUser.email
                     },
                 )
@@ -139,7 +135,7 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "delete from projetinfo.utilisateur "
-                    "where email = email "
+                    "where email = %(email)s "
                     "RETURNING email; ",
                     {
                         "email": unUser.email
@@ -153,7 +149,12 @@ class UserDao(metaclass=Singleton):
     def exist_id(self, unUser) -> bool:
         """
         Vérifie si l'id existe dans la bdd
+        unUser peut une adresse mail ou un utilsateur
         """
+        if isinstance(unUser, str):
+            var = unUser
+        else:
+            var = unUser.email
         trouve = False
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
@@ -162,7 +163,7 @@ class UserDao(metaclass=Singleton):
                     "FROM projetinfo.utilisateur "
                     "where email = %(email)s;",
                     {
-                        "email": unUser.email
+                        "email": var
                     },
                 )
                 res = cursor.fetchone()

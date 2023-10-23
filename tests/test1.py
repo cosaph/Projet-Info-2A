@@ -1,3 +1,4 @@
+from metier.stage import Stage
 from metier.critere import Critere
 from metier.userNonAuthentifie import UserNonAuthentifie
 from metier.eleve import Eleve
@@ -9,29 +10,52 @@ from dao.userDao import UserDao
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
-from datetime import datetime
-#pip install python-dotenv
+# pip install python-dotenv
 import dotenv
 
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
+    
+    unCrit = Critere("Paris", 500, "Sport", 3, 6)
+    res = UserNonAuthentifie(unCrit).rechercher_stage()
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    res = unAdmin.rechercher_stage(unCrit, verbose=True)
 
-    trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
+    unAdmin.supprimer_stageAuser(res[1].url_stage)
+    unAdmin.ajouter_stageAuser(res[1])
+    
+    # lesCrit = unAdmin.charger_all_critere(verbose=True)
 
-    deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
+    
 
+    # trCritere = Critere("Pino", 100, "dddeg", 1, 2)
+    # deuxAdmin = Admin(email="jfjfjfj", mdp="lalal", critere=trCritere)
     # deuxAdmin.enregistrer()
-    #unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    # unAdmin = Admin.charger_user(email="jfjfjfj", mdp="lalal")
+    # print(unAdmin)
+   
+    # Admin(email="rwarnod@yahoo.fr", mdp="lalala",code_insee_residence="0217").modifier()
+    # unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    # lesCrit = unAdmin.charger_all_critere()
+    # for k in lesCrit:
+    #     print(k)
+    # print(unAdmin)
 
-    unAdmin = Admin.charger_user(email="jfjfjfj", mdp="lalal")
-    print(unAdmin)
-    #zozo = unAdmin.critere
-    #print(zozo)
-    #unUser = Prof.charger_user("prof@yahoo.fr", "lalala")
-    
-    
-    #print(unAdmin)
+    # trCritere = Critere("Pino", 100, "aaaaaddd", 1, 2)
+    # unAdmin.modifier_user(Admin(email="admin222@yahoo.fr", mdp="mdp", code_insee_residence="35034", critere= trCritere))
+    # deuxAdmin = Admin.charger_user("admin222@yahoo.fr", "mdp")
+    # print(deuxAdmin)
+
+    # unEleve = Eleve(email="zozo@yahoo.fr", mdp="lalala")
+    # unEleve.enregistrer()
+    # unEleve = Eleve.charger_user("zozo@yahoo.fr", "lalala")
+    # trCritere = Critere("Paris", 100, "foot", 2, 4)
+    # unEleve.ajouter_critereAuser(trCritere)
+    # print(unEleve)
+
+    # unUser = Prof.charger_user("prof@yahoo.fr", "lalala")
+    # print(unAdmin)
     # unCritere = Critere("Rennes", 50, "sport", 3, 6)
     # unAdmin.enregistrer()
     # trCritere = Critere("Pino", 50, "geggdddeg", 1, 2)
@@ -45,12 +69,10 @@ if __name__ == "__main__":
     # for k in zozo:
     #     print(k)
 
-    #print(deuxAdmin.critere)
-    #print(deuxAdmin)
-    #unAdmin.ajouter_user(deuxAdmin)
+    # print(deuxAdmin.critere)
+    # print(deuxAdmin)
+    # unAdmin.ajouter_user(deuxAdmin)
     # unAdmin.ajouter_user(Prof(email="prof222@yahoo.fr", mdp="mdp"))
-
-
 
     # res = AssoCritUserDao().unUser_all_id_crit(unAdmin)
     

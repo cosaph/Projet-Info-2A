@@ -71,13 +71,12 @@ DROP TABLE IF EXISTS projetInfo.stage CASCADE;
 CREATE TABLE projetInfo.stage  (
     url_stage text PRIMARY KEY, 
     titre text,
+    specialite text,
     ville text,
     date_debut text,
     date_fin text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
-
-
 
 --------------------------------------------------------------
 -- associationCitereStage
@@ -92,5 +91,22 @@ CREATE TABLE projetInfo.association_critere_stage (
     CONSTRAINT fk_asso3 FOREIGN KEY (id_crit)
         REFERENCES projetInfo.critere(id_crit),
     CONSTRAINT fk_asso4 FOREIGN KEY (url_stage)
+        REFERENCES projetInfo.stage(url_stage));
+
+       
+ --------------------------------------------------------------
+-- associationStageUser
+--------------------------------------------------------------
+
+DROP TABLE IF EXISTS projetInfo.association_stage_user CASCADE;
+
+CREATE TABLE projetInfo.association_stage_user (
+    url_stage text,
+    email text,
+    date_recherche date,
+    CONSTRAINT pk_asso6 PRIMARY KEY (url_stage,email),
+    CONSTRAINT fk_asso7 FOREIGN KEY (email)
+        REFERENCES projetInfo.utilisateur(email),
+    CONSTRAINT fk_asso8 FOREIGN KEY (url_stage)
         REFERENCES projetInfo.stage(url_stage));
         
