@@ -56,11 +56,44 @@ class Admin(Prof):
                     souhaite_alertes=res["souhaite_alertes"]
                     )
 
-
-
-
-
-
+    def chargerUnAutreUser(self, email):
+        res = UserDao().charger_user_email(email)
+        if not res:
+            raise "email ou mdp incorrect"
+        listStage = []
+        listCritere = []
+        if AssoCritUserDao().exist_email(email):
+            listCritere = Admin.charger_all_critere_mail(email)
+        if AssoStageUserDao().exist_email(email):
+            listStage = Admin.charger_all_stage_mail(email)
+        if "Admin" in res["profil"]:
+            unUser = Admin(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        if "Prof" in res["profil"]:
+            unUser = Prof(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        if "Eleve" in res["profil"]:
+            unUser = Eleve(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        return unUser
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():

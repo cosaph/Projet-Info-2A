@@ -20,12 +20,16 @@ if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
     # test admin
 
-    unCrit = Critere("Paris", 500, "biologie", 3, 6)
-    res = UserNonAuthentifie(unCrit).rechercher_stage()
+    # unCrit = Critere("Paris", 500, "biologie", 3, 6)
+    # res = UserNonAuthentifie(unCrit).rechercher_stage()
     unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
-    res = unAdmin.rechercher_stage(unCrit, verbose=True)  
-    unAdmin.ajouter_stageAuser(res[1])
-    unAdmin.supprimer_stageAuser(res[1])
+    # res = unAdmin.rechercher_stage(unCrit, verbose=False)  
+    # unAdmin.ajouter_stageAuser(res[1])
+    # unAdmin.supprimer_stageAuser(res[1])
+    # print(unAdmin)
+
+    unUser = unAdmin.chargerUnAutreUser("eleve1@yahoo.fr")
+    print(unUser)
 
     # print(unAdmin.list_envie)
 
