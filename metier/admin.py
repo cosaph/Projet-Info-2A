@@ -107,7 +107,7 @@ class Admin(Prof):
         else:
             print("Le stage {} n'est pas enregistré".format(unStage.url_stage))
 
-    def ajouter_user(self, unUser: Eleve):
+    def ajouter_user(self, unUser):
         if not unUser.existe():
             unUser.enregistrer()
         else:
