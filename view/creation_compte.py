@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 16:35:13 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/25 16:59:43 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ from InquirerPy import prompt
 
 from view.abstract_view import AbstractView
 from view.session import Session
-from dao.userDao import *
+from metier.userNonAuthentifie import UserNonAuthentifie
 
 class Creation_compteView(AbstractView):
 
@@ -39,7 +39,7 @@ class Creation_compteView(AbstractView):
         ]
 
     def display_info(self):
-        print(f"Hello, please enter your email and your password.")
+        print(f"Bonjour, veuillez rentrer un email et un mot de passe :")
     
 
     def make_choice(self):
@@ -49,7 +49,7 @@ class Creation_compteView(AbstractView):
         password = answers["password"]
         alerte = answers["alerte"]
 
-        UserDao.add_user(email, password, alerte)
+        UserNonAuthentifie.creer_compte(email, password, alerte)
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
