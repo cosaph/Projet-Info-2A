@@ -53,8 +53,6 @@ class UserNonAuthentifie():
             raise "Les paramètre saisi n'est pas un critère"
         return critereChoix.recherche_stage()
 
-    def creer_compte(self, email, mdp):
-        pass
 
     def __str__(self):
         return self.critere.__str__()
