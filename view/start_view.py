@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 15:13:48 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/25 16:45:45 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,12 @@ class StartView(AbstractView):
 
             return ConnectionView()
 
-        """ elif reponse["choix"] == "Création Compte":
+        elif reponse["choix"] == "Création Compte":
             from view.creation_compte import Creation_compteView
 
-            return Creation_compteView() """
+            return Creation_compteView()
+        
+        elif reponse["choix"] == "Administrateur.e":
+            from view.creation_compte import Creation_compteView
+
+            return Creation_compteView()
