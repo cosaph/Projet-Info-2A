@@ -1,5 +1,5 @@
 from InquirerPy import prompt
-from .abstract_view import AbstractView
+from abstract_view import AbstractView
 
 class AccueilView(AbstractView):
     """Vue de l'accueil de l'application du Jeu de Rôle.

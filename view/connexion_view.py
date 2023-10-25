@@ -1,5 +1,5 @@
 from InquirerPy import prompt
-from .abstract_view import AbstractView
+from abstract_view import AbstractView
 from metier.eleve import Eleve 
 from metier.prof import Prof  
 
