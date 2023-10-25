@@ -69,7 +69,7 @@ class Critere:
                         url_stage=link_element['href'],
                         titre=link_element.text,
                         specialite=specialite_input,
-                        code_commune=location_element
+                        ville=location_element
                         )
                             )
                 if verbose:

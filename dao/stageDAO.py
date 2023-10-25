@@ -1,4 +1,3 @@
-
 from dao.db_connection import DBConnection
 
 
@@ -12,7 +11,8 @@ class StageDao():
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.stage (url_stage, titre, specialite, "
+                    "INSERT INTO projetInfo.stage (url_stage, titre, "
+                    "specialite, "
                     "ville, date_debut, date_fin, email_employeur) "
                     "VALUES       "                                              
                     "(%(url_stage)s, %(titre)s, %(specialite)s, %(ville)s, "
@@ -22,7 +22,7 @@ class StageDao():
                         "url_stage": unStage.url_stage,
                         "titre": unStage.titre,
                         "specialite": unStage.specialite,
-                        "ville": unStage.code_insee,
+                        "ville": unStage.ville,
                         "date_debut": unStage.date_debut,
                         "date_fin": unStage.date_fin,
                         "email_employeur": mailEmployeur
@@ -56,8 +56,8 @@ class StageDao():
                         "url_stage": unStage.url_stage,
                         "titre": unStage.titre, 
                         "specialite": unStage.specialite,
-                        "ville": unStage.code_insee,
-                        "date_debut":unStage.date_debut,
+                        "ville": unStage.ville,
+                        "date_debut": unStage.date_debut,
                         "email_employeur": unStage.email_employeur
                     },
                 )
@@ -127,3 +127,20 @@ class StageDao():
         if res:
             trouve = True     
         return trouve
+    
+    def charger_stage(self, url_stage):
+        """ Importe un stage de la bdd """
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.stage "
+                    "where url_stage = %(url_stage)s ;",
+                    {
+                        "url_stage": url_stage
+                    },
+                )
+                res = cursor.fetchone()
+        if not res:
+            return False
+        return res

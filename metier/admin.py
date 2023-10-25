@@ -3,6 +3,9 @@ from metier.eleve import Eleve
 from metier.critere import Critere
 from metier.stage import Stage
 from dao.userDao import UserDao
+from metier.listEnvie import ListEnvie
+from dao.assoCritUserDAO import AssoCritUserDao
+from dao.assoStageUserDao import AssoStageUserDao
 
 
 class Admin(Prof):
@@ -16,9 +19,17 @@ class Admin(Prof):
         mdp,
         critere=None,
         code_insee_residence=None,
+        list_envie=[],
         souhaite_alertes=False
             ):
-        super().__init__(critere=critere, email=email, mdp=mdp, code_insee_residence=code_insee_residence, souhaite_alertes=souhaite_alertes)
+        super().__init__(
+            critere=critere,
+            list_envie=list_envie,
+            email=email,
+            mdp=mdp,
+            code_insee_residence=code_insee_residence,
+            souhaite_alertes=souhaite_alertes
+            )
     
     @classmethod
     def charger_user(self, email, mdp):
@@ -27,8 +38,29 @@ class Admin(Prof):
             raise "email ou mdp incorrect"
         if "Admin" not in res["profil"]:
             raise "L'utilisateur n'est pas un administrateur"
-        listCritere = Eleve.charger_all_critere_mail(email)
-        return Admin(critere=listCritere, email=res["email"], mdp=res["mdp"], code_insee_residence=res["code_insee_residence"], souhaite_alertes=res["souhaite_alertes"])
+        listStage = []
+        listCritere = []
+        if AssoCritUserDao().exist_email(email):
+            listCritere = Admin.charger_all_critere_mail(email)
+        #     print(len(listCritere))
+        # print(AssoStageUserDao().exist_email(email))
+        if AssoStageUserDao().exist_email(email):
+            listStage = Admin.charger_all_stage_mail(email)
+   
+        return Admin(
+                    email=res["email"],
+                    mdp=res["mdp"],
+                    critere=listCritere,
+                    list_envie=listStage,
+                    code_insee_residence=res["code_insee_residence"],
+                    souhaite_alertes=res["souhaite_alertes"]
+                    )
+
+
+
+
+
+
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():

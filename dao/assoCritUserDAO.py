@@ -55,7 +55,25 @@ class AssoCritUserDao:
             caPasse = True
 
         return caPasse
-
+        
+    def exist_email(self, email):
+        """Vérifie si l'user existe dans la bdd"""
+        trouve = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.association_critere_user "
+                    "where email = %(email)s;",
+                    {
+                        "email": email
+                    },
+                )
+                res = cursor.fetchall()
+        if res:
+            trouve = True
+        return trouve
+    
     def unUser_all_id_crit(self, unUser):
 
         with DBConnection().connection as connection:

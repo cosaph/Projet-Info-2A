@@ -25,6 +25,7 @@ class Eleve(UserNonAuthentifie):
         email,
         mdp,
         critere=None,
+        list_envie=[],
         code_insee_residence=None,
         souhaite_alertes=False
        ):
@@ -33,7 +34,7 @@ class Eleve(UserNonAuthentifie):
         self.critere = critere
         self.mdp = mdp
         self.email = email
-        self.list_envie = list()
+        self.list_envie = ListEnvie(list_envie)
         self.code_insee_residence = code_insee_residence
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
@@ -46,10 +47,28 @@ class Eleve(UserNonAuthentifie):
             raise "email ou mdp incorrect"
         if "Eleve" not in res["profil"]:
             raise "L'utilisateur n'est pas un eleve"
-        listCritere = Eleve.charger_all_critere_mail(email)
-        return Eleve(email=res["email"],mdp= res["mdp"],critere=listCritere, code_insee_residence=res["code_insee_residence"],souhaite_alertes= res["souhaite_alertes"])
-    
+        listStage = []
+        listCritere = []
+        if AssoCritUserDao().exist_email(email):
+            listCritere = Eleve.charger_all_critere_mail(email)
+        #     print(len(listCritere))
+        # print(AssoStageUserDao().exist_email(email))
+        if AssoStageUserDao().exist_email(email):
+            listStage = Eleve.charger_all_stage_mail(email)
+            # listEnvie = ListEnvie(Eleve.charger_all_stage_mail(email))
+            # print(len(listEnvie))
+            
+        return Eleve(
+                    email=res["email"],
+                    mdp=res["mdp"],
+                    critere=listCritere,
+                    list_envie=listStage,
+                    code_insee_residence=res["code_insee_residence"],
+                    souhaite_alertes=res["souhaite_alertes"]
+                    )
+
     # Gestion des criteres
+
     def possede_critere(self, unCritere):
         return AssoCritUserDao().existe_user_crit(self, unCritere)
 
@@ -90,25 +109,41 @@ class Eleve(UserNonAuthentifie):
         for k in res:
             listCritere.append(Critere.charger_critere(k["id_crit"]))
         return listCritere
-    
+
     # Gestion des stages
+
+    def charger_all_stageAuser(self, verbose=False):
+        res = AssoStageUserDao().unUser_all_url_stage(self)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"], verbose))
+        return listStage
+
+    @classmethod
+    def charger_all_stage_mail(self, email):
+        res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"]))
+        return listStage
+
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
 
     def ajouter_stageAuser(self, unStage):
-        # self.list_envie.ajouter_stage(unStage)
         if self.possede_stage(unStage):
             raise "L' utilisateur a déjà ce stage dans la liste envie"
         if not unStage.existe():
             unStage.enregistrer_stage()
-        self.list_envie.append(unStage)
+        self.list_envie.ajouter_stage(unStage)
         return AssoStageUserDao().add(unStage, self)
 
-    def supprimer_stageAuser(self, url_stage):
-        if AssoStageUserDao().exist_id(self.email, url_stage):
-            AssoStageUserDao().delete(self, url_stage)
-        if not AssoStageUserDao().exist_url_stage(url_stage):
-            StageDao().delete_id(url_stage)
+    def supprimer_stageAuser(self, unStage):
+        if self.possede_stage(unStage):
+            AssoStageUserDao().delete(self, unStage.url_stage)
+        if not AssoStageUserDao().existe_stage(unStage):
+            StageDao().delete(unStage)
+        self.list_envie.supprimer_stage(unStage)
 
     def existe(self):
         return UserDao().exist_id(self)
@@ -133,7 +168,7 @@ class Eleve(UserNonAuthentifie):
         if self.critere is not None:
             if isinstance(self.critere, list):
                 for k in self.critere:
-                    res3 = res3 + k.__str__() +"\n"
+                    res3 = res3 + k.__str__() + "\n"
             else:
                 res3 = self.critere.__str__()
         return "Les critères de l'utilisateur sont:\n{}Les caractéristiques de l'utilisateurs sont:\n{} ".format(res3, res)
@@ -152,11 +187,13 @@ class Eleve(UserNonAuthentifie):
         Input
         -------
         critereChoix est None par défaut
-            S'il est renseigné alors on effectue la recherche de stage sur ce critère
-            Sinon sur le dernier critère renseigné
-            Si le critere n'est pas un critere de l'Eleve, on le rajoute à la liste
-        """
-        
+            S'il est renseigné alors on effectue la recherche de stage
+            sur ce critère
+            Sinon sur le dernier critère
+            renseigné
+            Si le critere n'est pas un critere de l'Eleve,
+            on le rajoute à la liste
+        """  
         if self.critere is None:
             raise "Pas de critères pas de recherches"
         if critereChoix is None:

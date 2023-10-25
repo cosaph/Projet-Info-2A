@@ -1,6 +1,9 @@
 from metier.eleve import Eleve
 from metier.stage import Stage
 from dao.userDao import UserDao
+from metier.listEnvie import ListEnvie
+from dao.assoCritUserDAO import AssoCritUserDao
+from dao.assoStageUserDao import AssoStageUserDao
 
 
 class Prof(Eleve):
@@ -13,10 +16,18 @@ class Prof(Eleve):
         email,
         mdp,
         critere=None,
+        list_envie=[],
         code_insee_residence=None,
         souhaite_alertes=False
             ):
-        super().__init__(critere=critere, email=email, mdp=mdp, code_insee_residence=code_insee_residence, souhaite_alertes=souhaite_alertes)
+        super().__init__(
+            critere=critere,
+            list_envie=list_envie,
+            email=email,
+            mdp=mdp,
+            code_insee_residence=code_insee_residence,
+            souhaite_alertes=souhaite_alertes
+            )
 
     @classmethod
     def charger_user(self, email, mdp):
@@ -25,8 +36,22 @@ class Prof(Eleve):
             raise "email ou mdp incorrect"
         if "Prof" not in res["profil"]:
             raise "L'utilisateur n'est pas un professeur"
-        listCritere = Prof.charger_all_critere_mail(email)
-        return Prof(critere=listCritere, email=res["email"], mdp=res["mdp"], code_insee_residence=res["code_insee_residence"], souhaite_alertes=res["souhaite_alertes"])
+        listStage = []
+        listCritere = []
+        if AssoCritUserDao().exist_email(email):
+            listCritere = Prof.charger_all_critere_mail(email)
+        #     print(len(listCritere))
+        # print(AssoStageUserDao().exist_email(email))
+        if AssoStageUserDao().exist_email(email):
+            listStage = Prof.charger_all_stage_mail(email) 
+        return Prof(
+                    email=res["email"],
+                    mdp=res["mdp"],
+                    critere=listCritere,
+                    list_envie=listStage,
+                    code_insee_residence=res["code_insee_residence"],
+                    souhaite_alertes=res["souhaite_alertes"]
+                    )
 
     def envoyer_offre(self, mail: str, unStage: Stage):
         pass
