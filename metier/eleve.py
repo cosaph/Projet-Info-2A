@@ -10,6 +10,8 @@ from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 # from datetime import datetime
 
+from loguru import logger
+
 
 class Eleve(UserNonAuthentifie):
     """
@@ -44,9 +46,9 @@ class Eleve(UserNonAuthentifie):
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
-            raise "email ou mdp incorrect"
+            raise "email ou mdp incorrect" # return  False 
         if "Eleve" not in res["profil"]:
-            raise "L'utilisateur n'est pas un eleve"
+            raise "L'utilisateur n'est pas un eleve" # return False
         listStage = []
         listCritere = []
         if AssoCritUserDao().exist_email(email):
@@ -57,7 +59,7 @@ class Eleve(UserNonAuthentifie):
             listStage = Eleve.charger_all_stage_mail(email)
             # listEnvie = ListEnvie(Eleve.charger_all_stage_mail(email))
             # print(len(listEnvie))
-            
+        logger.info("eleve crée")   
         return Eleve(
                     email=res["email"],
                     mdp=res["mdp"],
