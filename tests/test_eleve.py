@@ -178,6 +178,33 @@ class TestEleve(TestCase):
         self.assertFalse(eleve.existe())
 
 
+    #Tester la méthode __str__() 
+    def test_str_eleve_avec_critere_et_liste_stage(self):
+        # GIVEN
+        critere = Critere(specialite="Informatique", ville_cible="Paris", rayon_km=50)
+        stage1 = Stage(url_stage="url1", titre="Stage en Informatique", specialite="Informatique", ville="Paris")
+        stage2 = Stage(url_stage="url2", titre="Stage en Data Science", specialite="Data Science", ville="Paris")
+        list_envie = [stage1, stage2]
+        eleve = Eleve(email="test@example.com", mdp="password", critere=[critere], list_envie=list_envie, code_insee_residence="75000", souhaite_alertes=True)
+        
+        # WHEN
+        result = eleve.__str__()
+
+        # THEN
+        expected_str = '''Les critères de l'utilisateur sont:
+    Specialite: Informatique
+    Ville cible: Paris
+    Rayon: 50km
+    Les caractéristiques de l'utilisateurs sont:
+    email: test@example.com
+    Liste de stages : Stage en Informatique à Paris
+    Stage en Data Science à Paris
+    Commune de résidence: 75000
+    Souhaite alerte: True
+    A trouvé un stage: False'''
+        self.assertEqual(result, expected_str)
+
+
     #Tester la méthode set_souhaite_alertes()
     def test_set_souhaite_alertes(self):
         eleve = Eleve()  # Initialisez comme nécessaire
