@@ -7,7 +7,7 @@ class TestListEnvie(TestCase):
     #Tester la méthode __str__()
     def test___str__(self):
         # GIVEN
-        stage = Stage()  # Initialisez comme nécessaire
+        stage = Stage()  
         liste = ListEnvie([stage])
 
         # WHEN
@@ -29,7 +29,7 @@ class TestListEnvie(TestCase):
     def test_ajouter_stage(self):
         # GIVEN
         liste = ListEnvie()
-        stage = Stage()  # Initialisez comme nécessaire
+        stage = Stage()  
 
         # WHEN
         liste.ajouter_stage(stage)
@@ -40,7 +40,7 @@ class TestListEnvie(TestCase):
     #Tester la méthode supprimer_stage()
     def test_supprimer_stage(self):
         # GIVEN
-        stage = Stage()  # Initialisez comme nécessaire
+        stage = Stage()  
         liste = ListEnvie([stage])
 
         # WHEN
