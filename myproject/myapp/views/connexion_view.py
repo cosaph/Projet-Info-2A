@@ -19,9 +19,10 @@ class ConnexionView(AbstractView):
         
         if user:
             request.session['user'] = user.id  # Stocke l'utilisateur dans la session
-            return redirect('menu_utilisateur')  # Redirige vers la vue du menu utilisateur
+            request.session['role'] = user.role  # Supposant que vous avez un champ "role" dans votre modèle User!!!!!!!!!!!!!!!?
+            return redirect('menu_utilisateur') # Redirige vers la vue du menu utilisateur
         else:
-            return HttpResponse("Échec de la connexion.")  # Affiche un message d'erreur
+            return HttpResponse("Échec de la connexion.")
 
 
 #Lors de l'instanciation de cette classe, vous fourniriez le titre comme suit:

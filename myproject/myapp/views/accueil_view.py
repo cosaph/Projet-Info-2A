@@ -12,8 +12,8 @@ class AccueilView(AbstractView):
         return f"{self.title}: Bienvenue à l'application de recherche de stages."
         
     def make_choice(self, request):
-        # Votre logique ici
-        pass
+        return render(request, 'accueil.html')
+
 
 #Lorsque vous instancierez AccueilView, vous devrez fournir un titre :
 accueil = AccueilView("Page d'accueil")

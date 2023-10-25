@@ -13,30 +13,24 @@ class MenuUtilisateurView(AbstractView):
 
     def make_choice(self, request):
         user_id = request.session.get('user')
+        user_role = request.session.get('role')
+        
         if not user_id:
             return redirect('connexion')
         
-        user = User.objects.get(pk=user_id)
-        action = request.POST.get('action')
+        if user_role == 'eleve':
+            # Logique spécifique à l'élève
+            pass
 
-        if action == 'recherche':
-            # Implémentez la logique de recherche
-            return redirect('page_recherche')
-        elif action == 'historique':
-            # Récupérez et gérez l'historique
-            historique = Historique.objects.filter(user=user)
-            return render(request, 'historique.html', {'historique': historique})
-        elif action == 'modifier_compte':
-            # Implémentez la logique de modification du compte
-            return redirect('page_modification_compte')
-        elif action == 'alertes':
-            # Implémentez la logique d'alertes
-            return redirect('page_alertes')
-        elif action == 'signaler_stage':
-            # Implémentez la logique de signalisation de stage
-            return redirect('page_signaler_stage')
+        elif user_role == 'prof':
+            # Logique spécifique au prof
+            pass
+        
+        elif user_role == 'admin':
+            # Logique spécifique à l'administrateur
+            pass
         else:
-            return HttpResponse("Action non reconnue.")
+            return HttpResponse("Rôle non reconnu.")
 
 
 # display_info: Retourne une chaîne de caractères indiquant que la vue est pour le menu utilisateur.     
