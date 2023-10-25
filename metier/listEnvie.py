@@ -16,7 +16,6 @@ class ListEnvie:
         return res
 
     def ajouter_stage(self, unStage):
-        # print(unStage)
         if not isinstance(unStage, Stage):
             raise "Le paramètre doit etre un stage"
         self.listStage.append(unStage)

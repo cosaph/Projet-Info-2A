@@ -18,27 +18,30 @@ import dotenv
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    
-    # unCrit = Critere("Paris", 500, "sport", 3, 6)
-    # res = UserNonAuthentifie(unCrit).rechercher_stage()
-    # unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
-    # res = unAdmin.rechercher_stage(unCrit, verbose=False)
+    # test admin
 
-    # unAdmin.supprimer_stageAuser(res[1].url_stage)
-    # unAdmin.ajouter_stageAuser(res[1])
+    unCrit = Critere("Paris", 500, "biologie", 3, 6)
+    res = UserNonAuthentifie(unCrit).rechercher_stage()
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    res = unAdmin.rechercher_stage(unCrit, verbose=True)  
+    unAdmin.ajouter_stageAuser(res[1])
+    unAdmin.supprimer_stageAuser(res[1])
+
     # print(unAdmin.list_envie)
-    
+
     # unAdmin = Admin.charger_user(email="jfjfjfj", mdp="lalal")
 
-    unEleve = Eleve.charger_user("zozo@yahoo.fr", "lalala")
-    unCrit = Critere("Rennes", 100, "statistiques", 3, 6)
-    res = unEleve.rechercher_stage(unCrit, verbose=False)
+    # Test eleve
+
+    # unEleve = Eleve.charger_user("zozo@yahoo.fr", "lalala")
+    # unCrit = Critere("Rennes", 100, "statistiques", 3, 6)
+    # res = unEleve.rechercher_stage(unCrit, verbose=False)
+    # # print(unEleve.list_envie)
+    # unEleve.ajouter_stageAuser(res[0])
+    # unEleve.ajouter_stageAuser(res[2])
+    # unEleve.supprimer_stageAuser(res[0])
+    # unEleve.supprimer_stageAuser(res[2])
     # print(unEleve.list_envie)
-    unEleve.ajouter_stageAuser(res[0])
-    unEleve.ajouter_stageAuser(res[2])
-    unEleve.supprimer_stageAuser(res[0])
-    unEleve.supprimer_stageAuser(res[2])
-    print(unEleve.list_envie)
 
 
 

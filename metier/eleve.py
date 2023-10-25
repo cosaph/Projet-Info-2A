@@ -94,7 +94,7 @@ class Eleve(UserNonAuthentifie):
             AssoCritUserDao().delete(self, id_crit)
         if not AssoCritUserDao().exist_id_crit(id_crit):
             CritereDAO().delete_id(id_crit)
-
+        
     def charger_all_critere(self, verbose=False):
         res = AssoCritUserDao().unUser_all_id_crit(self)
         listCritere = []

@@ -26,10 +26,10 @@ class Stage:
         self.date_debut = date_debut
         self.date_fin = date_fin
         self.contact_employeur = contact_employeur
-    
+
     def existe(self):
         return StageDao().exist_id(self)
-    
+
     @classmethod
     def charger_stage(self, url_stage, verbose=False):
         res = StageDao().charger_stage(url_stage)
