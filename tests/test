@@ -1,6 +1,6 @@
 import unittest
 from metier.critere import Critere
-from metier.UserNonAuthentifie import UserNonAuthentifie  # Importez la classe depuis le fichier UserNonAuthentifie.py
+from UserNonAuthentifie import UserNonAuthentifie  # Importez la classe depuis le fichier UserNonAuthentifie.py
 
 class TestUserNonAuthentifie(unittest.TestCase):
 
