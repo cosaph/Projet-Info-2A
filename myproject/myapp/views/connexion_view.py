@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from myapp.models import User  # Remplacez par le bon import si nécessaire
 from .abstract_view import AbstractView  # Assurez-vous que l'import est correct
+from metier.eleve import Eleve, Prof  # Remplacez par les imports corrects
 
-# Vue de connexion 
+# Classe de vue pour la connexion
 class ConnexionView(AbstractView):
-    
+
     def __init__(self, title):
         super().__init__(title)
 
@@ -13,17 +13,24 @@ class ConnexionView(AbstractView):
         return f"{self.title}: Veuillez vous connecter."
 
     def make_choice(self, request):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = User.objects.filter(username=username, password=password).first()
+        email = request.POST.get('email')  # Récupération de l'email depuis le formulaire
+        password = request.POST.get('password')  # Récupération du mot de passe depuis le formulaire
+
+        eleve = Eleve.objects.filter(email=email, mdp=password).first()
+        prof = Prof.objects.filter(email=email, mdp=password).first()
+
+        if eleve:
+            request.session['user_id'] = eleve.id
+            request.session['role'] = 'eleve'
+            return redirect('menu_utilisateur')
         
-        if user:
-            request.session['user'] = user.id  # Stocke l'utilisateur dans la session
-            request.session['role'] = user.role  # Supposant que vous avez un champ "role" dans votre modèle User!!!!!!!!!!!!!!!?
-            return redirect('menu_utilisateur') # Redirige vers la vue du menu utilisateur
+        elif prof:
+            request.session['user_id'] = prof.id
+            request.session['role'] = 'prof'
+            return redirect('menu_utilisateur')
         else:
             return HttpResponse("Échec de la connexion.")
 
-
-#Lors de l'instanciation de cette classe, vous fourniriez le titre comme suit:
+# Instanciation avec un titre
 connexion = ConnexionView("Page de Connexion")
+

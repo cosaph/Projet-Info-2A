@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from myapp.models import User, Historique  # Remplacez par les bons imports si nécessaire
+from metier.eleve import Eleve 
+from metier.prof import Prof 
 from .abstract_view import AbstractView  # Assurez-vous que l'import est correct
 
 class MenuUtilisateurView(AbstractView):
@@ -12,29 +13,26 @@ class MenuUtilisateurView(AbstractView):
         return f"{self.title}: Voici les actions que vous pouvez effectuer."
 
     def make_choice(self, request):
-        user_id = request.session.get('user')
+        user_id = request.session.get('user_id')
         user_role = request.session.get('role')
-        
+
+        # Vérification de la session
         if not user_id:
             return redirect('connexion')
-        
+
         if user_role == 'eleve':
             # Logique spécifique à l'élève
+            # Exemple : Récupérer les recherches de stages ou les critères spécifiques
             pass
 
         elif user_role == 'prof':
             # Logique spécifique au prof
+            # Exemple : Récupérer les stages proposés ou autres actions
             pass
         
-        elif user_role == 'admin':
-            # Logique spécifique à l'administrateur
-            pass
         else:
             return HttpResponse("Rôle non reconnu.")
 
-
-# display_info: Retourne une chaîne de caractères indiquant que la vue est pour le menu utilisateur.     
-# make_choice: Cette méthode gère les choix de l'utilisateur et le redirige vers la page correspondante.
-
-# Lors de l'instanciation de cette classe, vous fourniriez le titre comme suit :
+# Instanciation avec un titre
 menu_utilisateur = MenuUtilisateurView("Menu Utilisateur")
+
