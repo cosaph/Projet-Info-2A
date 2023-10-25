@@ -19,6 +19,7 @@ class UserDao(metaclass=Singleton):
 
 
         self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
+        
         """
         Rajouter un utilisateur dans la base de données
         """        
