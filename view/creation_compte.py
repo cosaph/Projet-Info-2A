@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 12:16:27 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/25 13:57:09 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,18 @@ class Creation_compteView(AbstractView):
                 "type": "input",  # Utilisez "password" pour masquer la saisie du mot de passe
                 "name": "password",
                 "message": "Choisissez un mot de passe :",
+            },
+            {
+                "type": "input",  # Utilisez "password" pour masquer la saisie du mot de passe
+                "name": "alerte",
+                "message": "souhaites-tu être alerté?",
             }
         ]
 
 
 
     def display_info(self):
-        print(f"Hello, please enter your email and your password")
+        print(f"Hello, please enter your email and your password.")
     
 
     def make_choice(self):
@@ -44,10 +49,9 @@ class Creation_compteView(AbstractView):
         Session().user_name = answers["email"]
         email = answers["email"]
         password = answers["password"]
+        alerte = answers["alerte"]
 
-        unUser= 
-
-        UserDao.add_user(unUser)
+        UserDao.add_user(email, password, alerte)
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
