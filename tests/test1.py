@@ -22,9 +22,10 @@ if __name__ == "__main__":
 
     unCrit = Critere("Paris", 500, "danse", 3, 6)
     # res = UserNonAuthentifie(unCrit).rechercher_stage()
-    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
-    res = unAdmin.rechercher_stage(unCrit, verbose=True)  
+    # unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    # res = unAdmin.rechercher_stage(unCrit, verbose=True)
     # unAdmin.ajouter_stageAuser(res[1])
+
     # unAdmin.supprimer_stageAuser(res[1])
     # print(unAdmin)
 
@@ -36,6 +37,13 @@ if __name__ == "__main__":
     # trois = unAdmin.chargerUnAutreUser("admin12@yahoo.fr")
     # print(trois)
 
+    # unAdmin = Admin.charger_user("admin12@yahoo.fr", "0000")
+    # res = unAdmin.rechercher_stage(unCrit, verbose=False)
+    # # unAdmin.ajouter_stageAuser(res[1])
+    # print(unAdmin.list_envie)
+    # print(StageDao().exist_id(res[1]))
+    # unStage = Stage.charger_stage(res[1].url_stage)
+    # print(unStage)
 
     # print(unAdmin.list_envie)
 

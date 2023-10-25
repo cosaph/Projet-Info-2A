@@ -75,7 +75,7 @@ class Admin(Prof):
                         code_insee_residence=res["code_insee_residence"],
                         souhaite_alertes=res["souhaite_alertes"]
                     )
-        if "Prof" in res["profil"]:
+        elif "Prof" in res["profil"]:
             unUser = Prof(
                         email=res["email"],
                         mdp=res["mdp"],
@@ -84,7 +84,7 @@ class Admin(Prof):
                         code_insee_residence=res["code_insee_residence"],
                         souhaite_alertes=res["souhaite_alertes"]
                     )
-        if "Eleve" in res["profil"]:
+        elif "Eleve" in res["profil"]:
             unUser = Eleve(
                         email=res["email"],
                         mdp=res["mdp"],
@@ -94,6 +94,8 @@ class Admin(Prof):
                         souhaite_alertes=res["souhaite_alertes"]
                     )
         return unUser
+
+    # def chargerToutLemonde(self):
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():
