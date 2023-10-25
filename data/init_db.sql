@@ -57,6 +57,7 @@ CREATE TABLE projetInfo.stage  (
     specialite text,
     code_insee text,
     date_debut text,
+    date_fin text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
 

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS projetInfo.critere CASCADE;
 
 CREATE TABLE projetInfo.critere (
     id_crit integer PRIMARY KEY,
-    code_insee_cible text,
+    ville_cible text,
     rayon_km float,
     specialite text,
     duree_min integer,
@@ -27,9 +27,25 @@ CREATE TABLE projetInfo.utilisateur (
     code_insee_residence text,
     souhaite_alertes boolean,
     stage_trouve boolean,
-    id_crit integer REFERENCES projetInfo.critere(id_crit)
+    profil text
 );
 
+
+--------------------------------------------------------------
+-- associationCritereUser
+--------------------------------------------------------------
+
+DROP TABLE IF EXISTS projetInfo.association_critere_user CASCADE;
+
+CREATE TABLE projetInfo.association_critere_user (
+    id_crit integer,
+    email text,
+    date_recherche date,
+    CONSTRAINT pk_asso PRIMARY KEY (id_crit,email),
+    CONSTRAINT fk_asso1 FOREIGN KEY (id_crit)
+        REFERENCES projetInfo.critere(id_crit),
+    CONSTRAINT fk_asso2 FOREIGN KEY (email)
+        REFERENCES projetInfo.utilisateur(email));
 
 --------------------------------------------------------------
 -- contactEmployeur
@@ -57,6 +73,7 @@ CREATE TABLE projetInfo.stage  (
     titre text,
     ville text,
     date_debut text,
+    date_fin text,
     email_employeur text REFERENCES projetInfo.contact_employeur(email)
 );
 
@@ -71,9 +88,9 @@ DROP TABLE IF EXISTS projetInfo.association_critere_stage CASCADE;
 CREATE TABLE projetInfo.association_critere_stage (
     id_crit integer,
     url_stage text,
-    CONSTRAINT pk_asso PRIMARY KEY (id_crit,url_stage),
-    CONSTRAINT fk_asso1 FOREIGN KEY (id_crit)
+    CONSTRAINT pk_asso2 PRIMARY KEY (id_crit,url_stage),
+    CONSTRAINT fk_asso3 FOREIGN KEY (id_crit)
         REFERENCES projetInfo.critere(id_crit),
-    CONSTRAINT fk_asso2 FOREIGN KEY (url_stage)
+    CONSTRAINT fk_asso4 FOREIGN KEY (url_stage)
         REFERENCES projetInfo.stage(url_stage));
         

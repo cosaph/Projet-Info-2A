@@ -1,37 +1,72 @@
-#from scr.critere import Critere
 from dao.db_connection import DBConnection
 
+
 class CritereDAO:
+    
     def add(self, unCritere) -> bool:
         """
         Rajouter un utilisateur dans la base de données
         """
-        if self.exist_id(unCritere):
-            raise "Le critere est déjà enregistré dans la base de données"
+        
         caPasse = False
+        if unCritere is not None:
+            if self.exist_id(unCritere):
+                raise "Le critere est déjà enregistré dans la base de données"
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO projetInfo.critere (id_crit, ville_cible, rayon_km, "
+                        "specialite, duree_min, duree_max)"
+                        "Values"                                     
+                        "(%(id_crit)s, %(ville_cible)s, %(rayon_km)s, "
+                        "%(specialite)s, %(duree_min)s, "
+                        "%(duree_max)s)"
+                        "RETURNING id_crit;",
+                        {
+                            "id_crit": unCritere.id_crit,
+                            "ville_cible": unCritere.ville_cible,
+                            "rayon_km": unCritere.rayon_km,
+                            "specialite": unCritere.specialite,
+                            "duree_min": unCritere.duree_min,
+                            "duree_max": unCritere.duree_max
+                        },
+                    )
+                    res = cursor.fetchone()
+            if res:
+                caPasse = True
+        return caPasse
+    
+    def charger_critere(self, id_crit):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.critere (id_crit, code_insee_cible, rayon_km, "
-                    "specialite, duree_min, duree_max)"
-                    "Values"                                     
-                    "(%(id_crit)s, %(code_insee_cible)s, %(rayon_km)s, "
-                    "%(specialite)s, %(duree_min)s, "
-                    "%(duree_max)s)"
-                    "RETURNING id_crit;",
+                    "SELECT * "
+                    "from projetinfo.critere "
+                    "where id_crit = %(id_crit)s ;",
                     {
-                        "id_crit": unCritere.id,
-                        "code_insee_cible": unCritere.code_insee_cible,
-                        "rayon_km": unCritere.rayon_km,
-                        "specialite": unCritere.specialite,
-                        "duree_min": unCritere.duree_min,
-                        "duree_max": unCritere.duree_max
+                        "id_crit": id_crit
                     },
                 )
                 res = cursor.fetchone()
-        if res:
-            caPasse = True
-        return caPasse
+        if not res:
+            return False
+        return res
+
+    def charger_all_critere(self):
+        # if not self.exist_id(unUser):
+        #     raise "L'utilisateur a déjà un compte"
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.critere; "
+                )
+                res = cursor.fetchall()
+        if not res:
+            return False
+        return res
 
     # def update(self, unCritere):
     #     """
@@ -43,7 +78,7 @@ class CritereDAO:
     #             cursor.execute(
     #                 "update projetinfo.utilisateur "
     #                 "set "
-    #                 "code_insee_cible = %(code_insee_cible)s, "
+    #                 "ville_cible = %(ville_cible)s, "
     #                 "specialite = %(specialite)s, "
     #                 "duree_min = %(duree_min)s, "
     #                 "duree_max = %(duree_max)s, "
@@ -51,7 +86,7 @@ class CritereDAO:
     #                 "RETURNING id_crit;",
     #                 {
     #                     "id_crit": unCritere.id,
-    #                     "code_insee_cible": unCritere.code_insee_cible,
+    #                     "ville_cible": unCritere.ville_cible,
     #                     "specialite": unCritere.specialite,
     #                     "duree_min": unCritere.duree_min,
     #                     "duree_max": unCritere.duree_max
@@ -75,7 +110,27 @@ class CritereDAO:
                     "where id_crit = %(id_crit)s "
                     "RETURNING id_crit; ",
                     {
-                        "id_crit": unCritere.id
+                        "id_crit": unCritere.id_crit
+                    },
+                )
+                res = cursor.fetchone()
+        if res:
+            caPasse = True
+        return caPasse
+    
+    def delete_id(self, id_crit) -> bool:
+        """
+        Supprimer un utilisateur dans la base de données
+        """
+        caPasse = False
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "delete from projetinfo.critere "
+                    "where id_crit = %(id_crit)s "
+                    "RETURNING id_crit; ",
+                    {
+                        "id_crit": id_crit
                     },
                 )
                 res = cursor.fetchone()
@@ -88,20 +143,20 @@ class CritereDAO:
         Vérifie si l'id existe dans la bdd
         """
         trouve = False
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT id_crit "
-                    "FROM projetinfo.critere "
-                    "where id_crit = %(id_crit)s;",
-                    {
-                        "id_crit": unCrit.id
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            #print(str(res))
-            trouve = True
+        if unCrit:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_crit "
+                        "FROM projetinfo.critere "
+                        "where id_crit = %(id_crit)s;",
+                        {
+                            "id_crit": unCrit.id_crit
+                        },
+                    )
+                    res = cursor.fetchone()
+            if res:
+                trouve = True
         return trouve
         
     def calcul_id(self, unCritere):
@@ -119,13 +174,13 @@ class CritereDAO:
                 cursor.execute(
                     "SELECT id_crit "
                     "FROM projetinfo.critere "
-                    "where code_insee_cible = %(code_insee_cible)s and "
+                    "where ville_cible = %(ville_cible)s and "
                     "rayon_km = %(rayon_km)s and "
                     "specialite = %(specialite)s and "
                     "duree_min = %(duree_min)s and "
                     "duree_max = %(duree_max)s;",
                     {
-                        "code_insee_cible": unCritere.code_insee_cible,
+                        "ville_cible": unCritere.ville_cible,
                         "rayon_km": unCritere.rayon_km,
                         "specialite": unCritere.specialite,
                         "duree_min": unCritere.duree_min,
