@@ -14,19 +14,18 @@ class UserNonAuthentifie():
         self.critere = unCritere
         #self.critere = self.critere.append(unCritere)
 
-    def creer_compte(self, id, mdp, email, souhaite_alertes):
+    def creer_compte(self, mdp, email, souhaite_alertes):
         # Vérifiez si l'utilisateur existe déjà
         if UserDao().exist_id(id):
             raise Exception("L'utilisateur a déjà un compte")
 
         # Chiffrez le mot de passe
-        mdp_chiffre = UserDao().chiffrer_mdp(mdp, email)
+        mdp_chiffre = UserDao().chiffrer_mdp(email, mdp)
 
         # Ajoutez l'utilisateur à la base de données
-        caPasse = UserDao().add_user(
-            id, mdp_chiffre, email, None, souhaite_alertes, None, "UserNonAuthentifie"
-        )
-        return caPasse
+        new_user = UserDao().add_user(
+             email, mdp_chiffre, souhaite_alertes)
+        return new_user
     
     def supprimer_critereAuser(self, id_crit):
         pass
