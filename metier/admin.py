@@ -96,6 +96,12 @@ class Admin(Prof):
         return unUser
 
     # def chargerToutLemonde(self):
+    #     listMail = UserDao().tousLesEmails()
+    #     # fiare un truc
+    #     listRes=[]
+    #     for mail in listMail:
+    #         listRes.append(self.chargerUnAutreUser(mail))
+    #     return listRes
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():
