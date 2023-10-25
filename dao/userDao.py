@@ -71,10 +71,24 @@ class UserDao(metaclass=Singleton):
             return False
         return res
 
+    def charger_user_email(self, email):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.utilisateur "
+                    "where email = %(email)s ;",
+                    {
+                        "email": email
+                    },
+                )
+                res = cursor.fetchone()
+        if not res:
+            return False
+        return res
+
     # a modifier 
     def charger_all_user(self):
-        # if not self.exist_id(unUser):
-        #     raise "L'utilisateur a déjà un compte"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
