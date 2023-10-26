@@ -162,7 +162,7 @@ class UserDao(metaclass=Singleton):
 
     def exist_id(self, unUser) -> bool:
         """
-        Vérifie si l'id existe dans la bdd
+        Vérifie si l'email existe dans la bdd
         unUser peut etre un élève ou un prof
         """
         if isinstance(unUser, str):

@@ -39,7 +39,7 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
-    # modifier
+    
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
@@ -51,13 +51,8 @@ class Eleve(UserNonAuthentifie):
         listCritere = []
         if AssoCritUserDao().exist_email(email):
             listCritere = Eleve.charger_all_critere_mail(email)
-        #     print(len(listCritere))
-        # print(AssoStageUserDao().exist_email(email))
         if AssoStageUserDao().exist_email(email):
-            listStage = Eleve.charger_all_stage_mail(email)
-            # listEnvie = ListEnvie(Eleve.charger_all_stage_mail(email))
-            # print(len(listEnvie))
-            
+            listStage = Eleve.charger_all_stage_mail(email)           
         return Eleve(
                     email=res["email"],
                     mdp=res["mdp"],

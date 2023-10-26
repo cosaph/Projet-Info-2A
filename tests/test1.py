@@ -65,8 +65,11 @@ if __name__ == "__main__":
 
     unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
     luser = unAdmin.chargerToutLemonde()
+    print("coucocu")
     print(luser[1])
-
+    print(luser[1].existe())
+    print(unAdmin.existe())
+    print(UserDao().exist_id(unAdmin.email))
 
     # lesCrit = unAdmin.charger_all_critere(verbose=True)
 

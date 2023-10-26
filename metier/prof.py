@@ -17,7 +17,7 @@ class Prof(Eleve):
         mdp,
         critere=None,
         list_envie=[],
-
+        code_insee_residence=None,
         souhaite_alertes=False
             ):
         super().__init__(
