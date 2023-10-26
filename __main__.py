@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:56:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 16:34:52 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/26 12:01:34 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,4 +37,5 @@ if __name__ == "__main__":
     with open(
         "graphical_assets/suprised_pikachu.txt", "r", encoding="utf-8"
     ) as asset:
-        print(asset.read())
+        print(asset.read()) 
+

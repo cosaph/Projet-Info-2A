@@ -17,7 +17,7 @@ class Prof(Eleve):
         mdp,
         critere=None,
         list_envie=[],
-        code_insee_residence=None,
+
         souhaite_alertes=False
             ):
         super().__init__(
@@ -25,7 +25,6 @@ class Prof(Eleve):
             list_envie=list_envie,
             email=email,
             mdp=mdp,
-            code_insee_residence=code_insee_residence,
             souhaite_alertes=souhaite_alertes
             )
 
@@ -49,7 +48,6 @@ class Prof(Eleve):
                     mdp=res["mdp"],
                     critere=listCritere,
                     list_envie=listStage,
-                    code_insee_residence=res["code_insee_residence"],
                     souhaite_alertes=res["souhaite_alertes"]
                     )
 
