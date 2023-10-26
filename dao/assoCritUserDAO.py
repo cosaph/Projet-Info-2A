@@ -8,26 +8,24 @@ class AssoCritUserDao:
         """
         Rajouter un couple utilisateur critere dans la base de données
         """
-        
         uneDate = datetime.now()
         caPasse = False
-        if unCrit is not None:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                for critere in unCrit:
                     cursor.execute(
                         "INSERT INTO projetInfo.association_critere_user(id_crit, email, date_recherche)"
-                        "VALUES       "                                              
-                        "(%(id_crit)s, %(email)s, %(date_recherche)s) "
-                        "RETURNING email;    ",
+                        "VALUES (%(id_crit)s, %(email)s, %(date_recherche)s) "
+                        "RETURNING email;",
                         {
-                            "id_crit": unCrit.id_crit,
+                            "id_crit": critere.id_crit,
                             "email": unUser.email,
                             "date_recherche": uneDate
                         },
                     )
                     res = cursor.fetchone()
-            if res:
-                caPasse = True
+                    if res:
+                        caPasse = True
         return caPasse
 
     def update(self, unCrit, unUser, uneDate):
@@ -104,24 +102,24 @@ class AssoCritUserDao:
         return res
 
     def existe_user_crit(self, unUser, unCrit):
-        """
-        Vérifie si l'association user critere existe dans la bdd
-        """
+
         trouve = False
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT email "
-                    "FROM projetinfo.association_critere_user "
-                    "where email = %(email)s and id_crit = %(id_crit)s;",
-                    {
-                        "email": unUser.email,
-                        "id_crit": unCrit.id_crit
-                    },
-                )
-                res = cursor.fetchone()
-        if res:
-            trouve = True
+                for critere in unCrit:
+                    cursor.execute(
+                        "SELECT email "
+                        "FROM projetinfo.association_critere_user "
+                        "where email = %(email)s and id_crit = %(id_crit)s;",
+                        {
+                            "email": unUser.email,
+                            "id_crit": critere.id_crit
+                        },
+                    )
+                    res = cursor.fetchone()
+                    if res:
+                        trouve = True
+                        break
         return trouve
 
     def exist_id(self, email, id_crit) -> bool:

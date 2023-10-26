@@ -14,8 +14,8 @@ from InquirerPy import prompt
 
 from view.abstract_view import AbstractView
 from view.session import Session
-from metier.userNonAuthentifie import UserNonAuthentifie
-
+#from metier.userNonAuthentifie import UserNonAuthentifie
+from metier.nouveau_compte import creation
 class Creation_compteView(AbstractView):
 
 
@@ -50,16 +50,19 @@ class Creation_compteView(AbstractView):
 
     def display_info(self):
         print(f"Bonjour, veuillez rentrer un email et un mot de passe :")
-    
+
+  
 
     def make_choice(self):
         answers = prompt(self.__questions)
         Session().user_name = answers["email"]
         email = answers["email"]
+        code_insee_residence = answers["code postal"]
         password = answers["password"]
         alerte = answers["alerte"]
+        type = answers["type"]
 
-        if UserNonAuthentifie.creer_compte(email, password, alerte, type):
+        if creation.creer_compte(password, email, alerte, code_insee_residence, type):
             print("utilisateur crée")
         print("utilisateur pas crée")
 
@@ -68,3 +71,4 @@ class Creation_compteView(AbstractView):
 
         from view.start_view import StartView
         return StartView()
+    

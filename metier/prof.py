@@ -17,16 +17,17 @@ class Prof(Eleve):
         mdp,
         critere=None,
         list_envie=[],
-
+        code_insee_residence=None,
         souhaite_alertes=False
-            ):
-        super().__init__(
-            critere=critere,
-            list_envie=list_envie,
-            email=email,
-            mdp=mdp,
-            souhaite_alertes=souhaite_alertes
-            )
+       ):
+    
+        # super().__init__(unCritere=critere)
+        self.critere = critere
+        self.mdp = mdp
+        self.email = email
+        self.list_envie = ListEnvie(list_envie)
+        self.code_insee_residence = code_insee_residence
+        self.souhaite_alertes = souhaite_alertes
 
     @classmethod
     def charger_user(self, email, mdp):
@@ -48,7 +49,8 @@ class Prof(Eleve):
                     mdp=res["mdp"],
                     critere=listCritere,
                     list_envie=listStage,
-                    souhaite_alertes=res["souhaite_alertes"]
+                    souhaite_alertes=res["souhaite_alertes"],
+                    code_insee_residence=res["code_insee_residence"]
                     )
 
     def envoyer_offre(self, mail: str, unStage: Stage):
