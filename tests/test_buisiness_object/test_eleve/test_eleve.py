@@ -6,13 +6,13 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 10:02:42 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/26 10:13:41 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/26 11:18:23 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from unittest import TestCase
 
-from Metier.eleve.eleve import Eleve
+from metier.eleve import Eleve
 #from metier.critere import Critere
 #from metier.stage import Stage
 
