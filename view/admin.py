@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 12:40:36 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/26 14:21:08 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/26 14:30:45 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ from view.abstract_view import AbstractView
 from view.session import Session
 from dao.userDao import *
 from metier.admin import Admin
+from metier.userNonAuthentifie import UserNonAuthentifie
 
 class AdminView(AbstractView):
     
@@ -31,6 +32,11 @@ class AdminView(AbstractView):
                 "name": "password",
                 "message": "Rentrez votre mot de passe :",
             }
+            {
+                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "name": "alerte",
+                "message": "Souhaites-tu être alerté? (oui/non)",
+            }
         ]
     def display_info(self):
         print(f"Hello, please enter your email and your password.")
@@ -40,6 +46,7 @@ class AdminView(AbstractView):
         Session().user_name = answers["email"]
         email = answers["email"]
         password = answers["password"]
-        role = answers["prof"]
+        type = answers["prof"]
+        alerte = answers["alerte"]
 
-        UserDao.add_user(email, password, role)
+        UserNonAuthentifie.creer_compte(email, password, alerte, type)
