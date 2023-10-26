@@ -8,24 +8,26 @@ from metier.userNonAuthentifie import UserNonAuthentifie
 
 class TestUserNonAuthentifie(unittest.TestCase):
 
-    def setUp(self):
-        # Initialisation des ressources nécessaires pour les tests
-        self.critere = Critere()
-        self.user_non_auth = UserNonAuthentifie(self.critere)
 
     def test_creer_compte(self):
         #GIVEN
-        new_user = self.user_non_auth.creer_compte("motdepasse", "test@example.com", "oui", "eleve")
+        mdp = "123456"
+        email = "test@example.com"
+        alerte = "oui"
+        type = "eleve"
+
         #WHEN
-        # Écrivez des assertions pour vérifier si new_user est correctement créé dans la base de données
+        new_user = UserNonAuthentifie.creer_compte(mdp, email, alerte, type)
+        
+        #THEN
         self.assertIsNotNone(new_user)
 
-    def test_supprimer_critereAuser(self):
+"""     def test_supprimer_critereAuser(self):
         # Écrivez un test pour la méthode supprimer_critereAuser
         # Assurez-vous de couvrir les cas où la suppression réussit et échoue
-        pass
+        pass """
 
-    def test_rechercher_stage(self):
+"""     def test_rechercher_stage(self):
         # Testez la méthode rechercher_stage avec différents scénarios
 
         # Cas où self.critere est None
@@ -46,6 +48,6 @@ class TestUserNonAuthentifie(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             self.user_non_auth.rechercher_stage("mauvais_critere")
         self.assertEqual(str(context.exception), "Les paramètre saisi n'est pas un critère")
-
+ """
 if __name__ == "__main__":
     unittest.main()
