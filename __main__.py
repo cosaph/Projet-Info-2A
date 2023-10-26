@@ -6,20 +6,20 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:56:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 16:25:19 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/25 16:34:52 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import dotenv
 
 from view.start_view import StartView
-from loguru import logger
+#from loguru import logger
 
 # This script is the entry point of your application
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
-    logger.info("START")   
+    #logger.info("START")   
     
     # run the Start View
     current_view = StartView()

@@ -20,7 +20,7 @@ import dotenv
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
     # test admin
-    print(ConnectionView().verif_existence("zozo@yahoo.fr", "lalala"))
+    # print(ConnectionView().verif_existence("zozo@yahoo.fr", "lalala"))
     # eleve = Eleve.charger_user(email, password)
     # unCrit = Critere("Paris", 500, "danse", 3, 6)
     # res = UserNonAuthentifie(unCrit).rechercher_stage()
@@ -63,6 +63,9 @@ if __name__ == "__main__":
     # unEleve.supprimer_stageAuser(res[2])
     # print(unEleve.list_envie)
 
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    luser = unAdmin.chargerToutLemonde()
+    print(luser[0])
 
 
     # lesCrit = unAdmin.charger_all_critere(verbose=True)
