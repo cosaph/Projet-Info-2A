@@ -70,7 +70,9 @@ if __name__ == "__main__":
     print(luser[1].existe())
     print(unAdmin.existe())
     print(UserDao().exist_id(unAdmin.email))
-
+    print(Eleve.exist_email(luser[1].email))
+    print(Eleve.exist_email("fgfggfgfgf"))
+    print(Eleve.exist_email(123))
     # lesCrit = unAdmin.charger_all_critere(verbose=True)
 
     

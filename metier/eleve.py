@@ -39,7 +39,12 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
-    
+    @classmethod
+    def exist_email(self, email):
+        if not isinstance(email, str):
+            raise "email doit etre str"
+        return UserDao().exist_id(email)
+
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
