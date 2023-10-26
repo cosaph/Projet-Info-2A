@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
+
 import unittest
 from metier.critere import Critere
 from dao.userDao import UserDao
@@ -11,7 +14,9 @@ class TestUserNonAuthentifie(unittest.TestCase):
         self.user_non_auth = UserNonAuthentifie(self.critere)
 
     def test_creer_compte(self):
-        new_user = self.user_non_auth.creer_compte("motdepasse", "test@example.com", True, "eleve")
+        #GIVEN
+        new_user = self.user_non_auth.creer_compte("motdepasse", "test@example.com", "oui", "eleve")
+        #WHEN
         # Écrivez des assertions pour vérifier si new_user est correctement créé dans la base de données
         self.assertIsNotNone(new_user)
 

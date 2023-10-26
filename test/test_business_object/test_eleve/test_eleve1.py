@@ -1,6 +1,7 @@
+
+
 import sys
 sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
-import metier.eleve
 
 
 from unittest import TestCase, TextTestRunner, TestLoader
