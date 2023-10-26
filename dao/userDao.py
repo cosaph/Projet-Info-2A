@@ -33,7 +33,7 @@ class UserDao(metaclass=Singleton):
                     "projetInfo.utilisateur(email, mdp, "
                     "souhaite_alertes, stage_trouve, profil)"
                     "VALUES "                                              
-                    "(%(email)s, %(mdp)s, %(code_insee_residence)s, " 
+                    "(%(email)s, %(mdp)s, " 
                     "%(souhaite_alertes)s, "
                     "%(stage_trouve)s,%(profil)s)"
                     "RETURNING email;    ",
