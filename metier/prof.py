@@ -47,7 +47,6 @@ class Prof(Eleve):
                     mdp=res["mdp"],
                     critere=listCritere,
                     list_envie=listStage,
-                    code_insee_residence=res["code_insee_residence"],
                     souhaite_alertes=res["souhaite_alertes"]
                     )
 
