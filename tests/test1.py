@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
     luser = unAdmin.chargerToutLemonde()
-    print(luser[0])
+    print(luser[1])
 
 
     # lesCrit = unAdmin.charger_all_critere(verbose=True)
