@@ -1,7 +1,7 @@
-from metier.prof import Prof
-from metier.stage import Stage
+from Metier.prof import Prof
+from Metier.stage import Stage
 from dao.userDao import UserDao
-from metier.listEnvie import ListEnvie
+from Metier.listEnvie import ListEnvie
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 

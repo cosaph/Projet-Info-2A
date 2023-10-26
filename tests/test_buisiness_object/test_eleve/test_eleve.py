@@ -1,6 +1,18 @@
-from unittest import TestCase, TextTestRunner, TestLoader
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    test_eleve.py                                      :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/10/26 10:02:42 by cosaph            #+#    #+#              #
+#    Updated: 2023/10/26 10:13:41 by cosaph           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-from metier.eleve import Eleve
+from unittest import TestCase
+
+from Metier.eleve.eleve import Eleve
 #from metier.critere import Critere
 #from metier.stage import Stage
 
@@ -8,6 +20,7 @@ class TestEleve(TestCase):
 
     # Tester la méthode charger_user()
     def test_charger_user(self):
+        
         # GIVEN
         email = 'test@example.com'
         mdp = '123456'      
@@ -16,11 +29,7 @@ class TestEleve(TestCase):
         # THEN
         self.assertEqual(eleve, Eleve)
 
-if __name__ == "__main__":
-    # Run the tests
-    result = TextTestRunner().run(
-        TestLoader().loadTestsFromTestCaassertIsInstancse(TestEleve)
-    )
+
 
 """  #Tester la méthode possede_critere()
     def test_possede_critere(self):
