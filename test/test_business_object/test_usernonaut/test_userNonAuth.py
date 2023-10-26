@@ -14,6 +14,7 @@ class TestUserNonAuthentifie(unittest.TestCase):
     def test_creer_compte(self):
 
         #GIVEN
+<<<<<<< HEAD
         mdp = "motdepasse"
         email = "test@example.com"
         alerte = "oui"
@@ -24,11 +25,25 @@ class TestUserNonAuthentifie(unittest.TestCase):
         self.assertEqual(new_user, email + " est enregistré dans la base de données")
 
     """def test_supprimer_critereAuser(self):
+=======
+        mdp = "123456"
+        email = "test@example.com"
+        alerte = "oui"
+        type = "eleve"
+
+        #WHEN
+        new_user = UserNonAuthentifie.creer_compte(mdp, email, alerte, type)
+        
+        #THEN
+        self.assertIsNotNone(new_user)
+
+"""     def test_supprimer_critereAuser(self):
+>>>>>>> c85270f2fb033f35fa9e81b52dccedd3d3988e1e
         # Écrivez un test pour la méthode supprimer_critereAuser
         # Assurez-vous de couvrir les cas où la suppression réussit et échoue
-        pass
+        pass """
 
-    def test_rechercher_stage(self):
+"""     def test_rechercher_stage(self):
         # Testez la méthode rechercher_stage avec différents scénarios
 
         # Cas où self.critere est None
@@ -49,7 +64,11 @@ class TestUserNonAuthentifie(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             self.user_non_auth.rechercher_stage("mauvais_critere")
         self.assertEqual(str(context.exception), "Les paramètre saisi n'est pas un critère")
+<<<<<<< HEAD
         """
 
+=======
+ """
+>>>>>>> c85270f2fb033f35fa9e81b52dccedd3d3988e1e
 if __name__ == "__main__":
     unittest.main()
