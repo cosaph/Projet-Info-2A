@@ -16,7 +16,8 @@ class Prof(Eleve):
         email,
         mdp,
         critere=None,
-        list_envie=[]
+        list_envie=[],
+
         souhaite_alertes=False
             ):
         super().__init__(
