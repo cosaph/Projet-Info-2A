@@ -182,3 +182,13 @@ class UserDao(metaclass=Singleton):
         if res:
             trouve = True
         return trouve
+
+    def tousLesEmails(self):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur;",
+                )
+                res = cursor.fetchall()
+        return res

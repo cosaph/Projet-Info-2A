@@ -12,6 +12,7 @@ from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 from dao.assoStageUserDao import AssoStageUserDao
 from dao.stageDAO import StageDao
+from view.connection import ConnectionView
 # pip install python-dotenv
 import dotenv
 
@@ -19,8 +20,9 @@ import dotenv
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
     # test admin
-
-    unCrit = Critere("Paris", 500, "danse", 3, 6)
+    # print(ConnectionView().verif_existence("zozo@yahoo.fr", "lalala"))
+    # eleve = Eleve.charger_user(email, password)
+    # unCrit = Critere("Paris", 500, "danse", 3, 6)
     # res = UserNonAuthentifie(unCrit).rechercher_stage()
     # unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
     # res = unAdmin.rechercher_stage(unCrit, verbose=True)
@@ -61,6 +63,9 @@ if __name__ == "__main__":
     # unEleve.supprimer_stageAuser(res[2])
     # print(unEleve.list_envie)
 
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    luser = unAdmin.chargerToutLemonde()
+    print(luser[0])
 
 
     # lesCrit = unAdmin.charger_all_critere(verbose=True)

@@ -95,7 +95,14 @@ class Admin(Prof):
                     )
         return unUser
 
-    # def chargerToutLemonde(self):
+    def chargerToutLemonde(self):
+        listDic = UserDao().tousLesEmails()
+        if len(listDic) == 0:
+            return None
+        listRes = []
+        for res in listDic:
+            listRes.append(self.chargerUnAutreUser(res["email"]))
+        return listRes
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():
