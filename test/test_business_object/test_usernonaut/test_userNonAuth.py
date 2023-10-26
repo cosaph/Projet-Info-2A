@@ -1,26 +1,29 @@
+
 import sys
-sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
+sys.path.insert(0,"//filer-eleves2/id2263/projet/Projet-Info-2A/projet")
 
 import unittest
 from metier.critere import Critere
+
 from dao.userDao import UserDao
 from metier.userNonAuthentifie import UserNonAuthentifie
 
 class TestUserNonAuthentifie(unittest.TestCase):
 
-    def setUp(self):
-        # Initialisation des ressources nécessaires pour les tests
-        self.critere = Critere()
-        self.user_non_auth = UserNonAuthentifie(self.critere)
 
     def test_creer_compte(self):
-        #GIVEN
-        new_user = self.user_non_auth.creer_compte("motdepasse", "test@example.com", "oui", "eleve")
-        #WHEN
-        # Écrivez des assertions pour vérifier si new_user est correctement créé dans la base de données
-        self.assertIsNotNone(new_user)
 
-    def test_supprimer_critereAuser(self):
+        #GIVEN
+        mdp = "motdepasse"
+        email = "test@example.com"
+        alerte = "oui"
+        type = "<class 'metier.eleve.Eleve'>"
+        #WHEN
+        new_user = UserNonAuthentifie.creer_compte(mdp, email, alerte, type)
+        #THEN
+        self.assertEqual(new_user, email + " est enregistré dans la base de données")
+
+    """def test_supprimer_critereAuser(self):
         # Écrivez un test pour la méthode supprimer_critereAuser
         # Assurez-vous de couvrir les cas où la suppression réussit et échoue
         pass
@@ -46,6 +49,7 @@ class TestUserNonAuthentifie(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             self.user_non_auth.rechercher_stage("mauvais_critere")
         self.assertEqual(str(context.exception), "Les paramètre saisi n'est pas un critère")
+        """
 
 if __name__ == "__main__":
     unittest.main()

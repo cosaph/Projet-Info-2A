@@ -1,8 +1,9 @@
 
 
 import sys
-sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
+sys.path.insert(0,"//filer-eleves2/id2263/projet/Projet-Info-2A/projet")
 
+#\\filer-eleves2\id2263\projet\Projet-Info-2A\projet
 
 from unittest import TestCase, TextTestRunner, TestLoader
 
@@ -21,10 +22,11 @@ class TestEleve(TestCase):
         eleve = Eleve.charger_user(email, mdp) 
         # THEN
         self.assertEqual(eleve, Eleve)
+        
 if __name__ == "__main__":
     """Run the tests"""
     TextTestRunner(verbosity=2).run(
-        TestLoader().loadTestsFromTestCase(Test)
+        TestLoader().loadTestsFromTestCase(TestEleve)
     )
 
 """  #Tester la méthode possede_critere()
