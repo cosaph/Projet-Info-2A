@@ -33,8 +33,18 @@ class Creation_compteView(AbstractView):
             },
             {
                 "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "name": "code postal",
+                "message": "donnes nous ton code postal:",
+            },
+            {
+                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
                 "name": "alerte",
                 "message": "Souhaites-tu être alerté? (oui/non)",
+            },
+            {
+                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "name": "type",
+                "message": "eleve ou prof",
             }
         ]
 
@@ -49,7 +59,10 @@ class Creation_compteView(AbstractView):
         password = answers["password"]
         alerte = answers["alerte"]
 
-        UserNonAuthentifie.creer_compte(email, password, alerte)
+        if UserNonAuthentifie.creer_compte(email, password, alerte, type):
+            print("utilisateur crée")
+        print("utilisateur pas crée")
+
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 

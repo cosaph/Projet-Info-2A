@@ -163,28 +163,29 @@ class UserDao(metaclass=Singleton):
     def exist_id(self, unUser) -> bool:
         """
         Vérifie si l'id existe dans la bdd
-        unUser peut une adresse mail ou un utilsateur
+        unUser peut etre un élève ou un prof
         """
         if isinstance(unUser, str):
-            var = unUser
+            email = unUser
         else:
-            var = unUser.email
+            email = unUser.email  # Assuming unUser is an instance of a user class with an 'email' attribute
+
         trouve = False
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT email "
                     "FROM projetinfo.utilisateur "
-                    "where email = %(email)s;",
+                    "WHERE email = %(email)s;",
                     {
-                        "email": var
+                        "email": email
                     },
                 )
                 res = cursor.fetchone()
         if res:
             trouve = True
         return trouve
-
+    
     def tousLesEmails(self):
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:

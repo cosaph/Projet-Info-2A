@@ -24,7 +24,7 @@ class UserNonAuthentifie():
 
         # Ajoutez l'utilisateur à la base de données
         new_user = UserDao().add_user(
-             email, mdp_chiffre, souhaite_alertes,type) #type correspond a si c'est un prof ou un élève.
+             email, mdp_chiffre, souhaite_alertes, type) #type correspond a si c'est un prof ou un élève.
         return new_user
     
     def supprimer_critereAuser(self, id_crit):
