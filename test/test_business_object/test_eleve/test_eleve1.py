@@ -23,7 +23,7 @@ class TestEleve(TestCase):
 if __name__ == "__main__":
     """Run the tests"""
     TextTestRunner(verbosity=2).run(
-        TestLoader().loadTestsFromTestCase(TestEleve)
+        TestLoader().loadTestsFromTestCase(Test)
     )
 
 """  #Tester la méthode possede_critere()
