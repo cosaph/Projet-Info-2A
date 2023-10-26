@@ -1,4 +1,3 @@
-
 import sys
 sys.path.insert(0,"D:/Cours/S1/Projet informatique 2A/Code ProjetInfo/Projet-Info-2A")
 import metier.eleve
@@ -9,39 +8,6 @@ from metier.listEnvie import ListEnvie
 from metier.stage import Stage 
 
 class TestListEnvie(TestCase):
-
-    #Tester la méthode __str__()
-    def test___str__(self):
-        # GIVEN
-        stage = Stage()  
-        liste = ListEnvie([stage])
-
-        # WHEN
-        resultat = liste.__str__()
-
-        # THEN
-        self.assertEqual(resultat, stage.__str__() + "\n")
-
-        # Test avec une liste vide
-        liste_vide = ListEnvie()
-        
-        # WHEN
-        resultat_vide = liste_vide.__str__()
-
-        # THEN
-        self.assertEqual(resultat_vide, "Pas de stages dans la liste d'envie")
-
-    #Tester la méthode ajouter_stage()
-    def test_ajouter_stage(self):
-        # GIVEN
-        liste = ListEnvie()
-        stage = Stage()  
-
-        # WHEN
-        liste.ajouter_stage(stage)
-
-        # THEN
-        self.assertIn(stage, liste.listStage)
 
     #Tester la méthode supprimer_stage()
     def test_supprimer_stage(self):
