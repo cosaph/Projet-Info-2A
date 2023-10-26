@@ -1,6 +1,6 @@
 
 import sys
-sys.path.insert(0,"D:/Cours/S1/Projet informatique 2A/Code ProjetInfo/Projet-Info-2A")
+sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
 import metier.eleve
 from unittest import TestCase, TextTestRunner, TestLoader
 

@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,"D:/Cours/S1/Projet informatique 2A/Code ProjetInfo/Projet-Info-2A")
+sys.path.insert(0,"/home/cosaph/ENSAI2A/projet")
 import metier.eleve
 
 
@@ -20,11 +20,10 @@ class TestEleve(TestCase):
         eleve = Eleve.charger_user(email, mdp) 
         # THEN
         self.assertEqual(eleve, Eleve)
-
 if __name__ == "__main__":
-    # Run the tests
-    result = TextTestRunner().run(
-        TestLoader().loadTestsFromTestCaassertIsInstancse(TestEleve)
+    """Run the tests"""
+    TextTestRunner(verbosity=2).run(
+        TestLoader().loadTestsFromTestCase(TestEleve)
     )
 
 """  #Tester la méthode possede_critere()
