@@ -1,5 +1,9 @@
+
+
+
 from metier.critere import Critere
 # from scr.userDao import UserDao
+from dao.userDao import UserDao
 
 
 class UserNonAuthentifie():
@@ -10,9 +14,18 @@ class UserNonAuthentifie():
         self.critere = unCritere
         #self.critere = self.critere.append(unCritere)
 
-    # def creer_compte(self, id, mdp, email, code_insee_residence, souhaite_alertes):
-    #     unEleveAuthentifie = EleveAuthentifie(id, mdp, email, code_insee_residence, souhaite_alertes)
-    #     return UserDao().add_user(unEleveAuthentifie)
+    def creer_compte(self, mdp, email, souhaite_alertes):
+        # Vérifiez si l'utilisateur existe déjà
+        if UserDao().exist_id(id):
+            raise Exception("L'utilisateur a déjà un compte")
+
+        # Chiffrez le mot de passe
+        mdp_chiffre = UserDao().chiffrer_mdp(email, mdp)
+
+        # Ajoutez l'utilisateur à la base de données
+        new_user = UserDao().add_user(
+             email, mdp_chiffre, souhaite_alertes)
+        return new_user
     
     def supprimer_critereAuser(self, id_crit):
         pass
@@ -39,8 +52,6 @@ class UserNonAuthentifie():
             raise "Les paramètre saisi n'est pas un critère"
         return critereChoix.recherche_stage()
 
-    def creer_compte(self, email, mdp):
-        pass
 
     def __str__(self):
         return self.critere.__str__()

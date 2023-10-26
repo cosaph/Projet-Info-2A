@@ -56,11 +56,53 @@ class Admin(Prof):
                     souhaite_alertes=res["souhaite_alertes"]
                     )
 
+    def chargerUnAutreUser(self, email):
+        res = UserDao().charger_user_email(email)
+        if not res:
+            raise "email ou mdp incorrect"
+        listStage = []
+        listCritere = []
+        if AssoCritUserDao().exist_email(email):
+            listCritere = Admin.charger_all_critere_mail(email)
+        if AssoStageUserDao().exist_email(email):
+            listStage = Admin.charger_all_stage_mail(email)
+        if "Admin" in res["profil"]:
+            unUser = Admin(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        elif "Prof" in res["profil"]:
+            unUser = Prof(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        elif "Eleve" in res["profil"]:
+            unUser = Eleve(
+                        email=res["email"],
+                        mdp=res["mdp"],
+                        critere=listCritere,
+                        list_envie=listStage,
+                        code_insee_residence=res["code_insee_residence"],
+                        souhaite_alertes=res["souhaite_alertes"]
+                    )
+        return unUser
 
-
-
-
-
+    def chargerToutLemonde(self):
+        listDic = UserDao().tousLesEmails()
+        if len(listDic) == 0:
+            return None
+        listRes = []
+        for res in listDic:
+            listRes.append(self.chargerUnAutreUser(res["email"]))
+        return listRes
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():
@@ -74,7 +116,7 @@ class Admin(Prof):
         else:
             print("Le stage {} n'est pas enregistré".format(unStage.url_stage))
 
-    def ajouter_user(self, unUser: Eleve):
+    def ajouter_user(self, unUser):
         if not unUser.existe():
             unUser.enregistrer()
         else:
