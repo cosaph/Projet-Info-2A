@@ -97,7 +97,7 @@ class Admin(Prof):
 
     def chargerToutLemonde(self):
         listDic = UserDao().tousLesEmails()
-        if len(listDic)==0:
+        if len(listDic) == 0:
             return None
         listRes = []
         for res in listDic:
