@@ -14,7 +14,7 @@ class UserNonAuthentifie():
         self.critere = unCritere
         #self.critere = self.critere.append(unCritere)
 
-    def creer_compte(self, mdp, email, souhaite_alertes):
+    def creer_compte(mdp, email, souhaite_alertes, type):
         # Vérifiez si l'utilisateur existe déjà
         if UserDao().exist_id(id):
             raise Exception("L'utilisateur a déjà un compte")
@@ -24,7 +24,7 @@ class UserNonAuthentifie():
 
         # Ajoutez l'utilisateur à la base de données
         new_user = UserDao().add_user(
-             email, mdp_chiffre, souhaite_alertes)
+             email, mdp_chiffre, souhaite_alertes,type) #type correspond a si c'est un prof ou un élève.
         return new_user
     
     def supprimer_critereAuser(self, id_crit):
