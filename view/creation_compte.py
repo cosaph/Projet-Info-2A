@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 16:59:43 by cosaph           ###   ########.fr        #
+#    Updated: 2023/10/26 12:21:04 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,9 @@ class Creation_compteView(AbstractView):
                 "message": "Choisissez un mot de passe :",
             },
             {
-                "type": "confirm",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
                 "name": "alerte",
-                "message": "Souhaites-tu être alerté?",
+                "message": "Souhaites-tu être alerté? (oui/non)",
             }
         ]
 
