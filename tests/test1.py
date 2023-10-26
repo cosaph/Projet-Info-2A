@@ -12,6 +12,7 @@ from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 from dao.assoStageUserDao import AssoStageUserDao
 from dao.stageDAO import StageDao
+from view.connection import ConnectionView
 # pip install python-dotenv
 import dotenv
 
@@ -19,13 +20,32 @@ import dotenv
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
     # test admin
+    # print(ConnectionView().verif_existence("zozo@yahoo.fr", "lalala"))
+    # eleve = Eleve.charger_user(email, password)
+    # unCrit = Critere("Paris", 500, "danse", 3, 6)
+    # res = UserNonAuthentifie(unCrit).rechercher_stage()
+    # unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    # res = unAdmin.rechercher_stage(unCrit, verbose=True)
+    # unAdmin.ajouter_stageAuser(res[1])
 
-    unCrit = Critere("Paris", 500, "biologie", 3, 6)
-    res = UserNonAuthentifie(unCrit).rechercher_stage()
-    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
-    res = unAdmin.rechercher_stage(unCrit, verbose=True)  
-    unAdmin.ajouter_stageAuser(res[1])
-    unAdmin.supprimer_stageAuser(res[1])
+    # unAdmin.supprimer_stageAuser(res[1])
+    # print(unAdmin)
+
+    # unUser = unAdmin.chargerUnAutreUser("eleve1@yahoo.fr")
+    # print(unUser)
+
+    # deuxAdmin = Admin(email="admin12@yahoo.fr", mdp="0000")
+    # unAdmin.ajouter_user(deuxAdmin)
+    # trois = unAdmin.chargerUnAutreUser("admin12@yahoo.fr")
+    # print(trois)
+
+    # unAdmin = Admin.charger_user("admin12@yahoo.fr", "0000")
+    # res = unAdmin.rechercher_stage(unCrit, verbose=False)
+    # # unAdmin.ajouter_stageAuser(res[1])
+    # print(unAdmin.list_envie)
+    # print(StageDao().exist_id(res[1]))
+    # unStage = Stage.charger_stage(res[1].url_stage)
+    # print(unStage)
 
     # print(unAdmin.list_envie)
 
@@ -43,6 +63,9 @@ if __name__ == "__main__":
     # unEleve.supprimer_stageAuser(res[2])
     # print(unEleve.list_envie)
 
+    unAdmin = Admin.charger_user("rwarnod@yahoo.fr", "lalala")
+    luser = unAdmin.chargerToutLemonde()
+    print(luser[0])
 
 
     # lesCrit = unAdmin.charger_all_critere(verbose=True)

@@ -8,6 +8,7 @@ import hashlib
 
 
 class UserDao(metaclass=Singleton):
+
     def chiffrer_mdp(self, mdp, email): 
         # comme sel nous allons prendre l'email de l'utilisateur.
         salt = email
@@ -29,7 +30,7 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO "
-                    "projetInfo.utilisateur(email, mdp, code_insee_residence, "
+                    "projetInfo.utilisateur(email, mdp, "
                     "souhaite_alertes, stage_trouve, profil)"
                     "VALUES "                                              
                     "(%(email)s, %(mdp)s, %(code_insee_residence)s, " 
@@ -39,7 +40,6 @@ class UserDao(metaclass=Singleton):
                     {
                         "email": unUser.email,
                         "mdp": self.mdp_chiffre,
-                        "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
                         "profil": str(type(unUser))
@@ -71,10 +71,24 @@ class UserDao(metaclass=Singleton):
             return False
         return res
 
+    def charger_user_email(self, email):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "from projetinfo.utilisateur "
+                    "where email = %(email)s ;",
+                    {
+                        "email": email
+                    },
+                )
+                res = cursor.fetchone()
+        if not res:
+            return False
+        return res
+
     # a modifier 
     def charger_all_user(self):
-        # if not self.exist_id(unUser):
-        #     raise "L'utilisateur a déjà un compte"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
@@ -107,14 +121,12 @@ class UserDao(metaclass=Singleton):
                     "update projetinfo.utilisateur "
                     "set "
                     "mdp = %(mdp)s, "
-                    "code_insee_residence = %(code_insee_residence)s, "
                     "souhaite_alertes = %(souhaite_alertes)s, "
                     "stage_trouve =  %(stage_trouve)s "
                     "where email = %(email)s "
                     "RETURNING email;",
                     {
                         "mdp": self.mdp_chiffre,
-                        "code_insee_residence": unUser.code_insee_residence,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "stage_trouve": unUser.stage_trouve,
                         "email": unUser.email
@@ -170,3 +182,13 @@ class UserDao(metaclass=Singleton):
         if res:
             trouve = True
         return trouve
+
+    def tousLesEmails(self):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur;",
+                )
+                res = cursor.fetchall()
+        return res
