@@ -23,26 +23,26 @@ class UserDao(metaclass=Singleton):
         if unUser.critere is not None:
             if not CritereDAO().exist_id(unUser.critere):
                 CritereDAO().add(unUser.critere)
-            if not AssoCritUserDao.existe_user_crit(unUser, unUser.critere):
-                AssoCritUserDao.add(unUser.critere, unUser)       
+            if not AssoCritUserDao().existe_user_crit(unUser, unUser.critere):
+                AssoCritUserDao().add(unUser.critere, unUser)       
         caPasse = "Echec d'enregistrement"
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO "
                     "projetInfo.utilisateur(email, mdp, "
-                    "souhaite_alertes, type,stage_trouve )"
+                    "souhaite_alertes, profil,stage_trouve )"
                     "VALUES "                                              
                     "(%(email)s, %(mdp)s, " 
                     "%(souhaite_alertes)s, "
-                    "%(type)s,"
+                    "%(profil)s,"
                     "%(stage_trouve)s)"
                     "RETURNING email;    ",
                     {
                         "email": unUser.email,
                         "mdp": self.mdp_chiffre,
                         "souhaite_alertes": unUser.souhaite_alertes,
-                        "type": str(type(unUser)),
+                        "profil": str(type(unUser)),
                         "stage_trouve": unUser.stage_trouve,
                         
                     },
