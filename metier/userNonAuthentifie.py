@@ -1,11 +1,7 @@
-
-
-
 from metier.critere import Critere
-# from scr.userDao import UserDao
 from dao.userDao import UserDao
-#from metier.eleve import Eleve
-#from metier.prof import Prof
+# from metier.eleve import Eleve
+# from metier.prof import Prof
 
 
 class UserNonAuthentifie():
@@ -21,7 +17,7 @@ class UserNonAuthentifie():
     def creer_compte(mdp, email, souhaite_alertes, code_insee_residence, type):
         # Vérifiez si l'utilisateur existe déjà
         # if UserDao().exist_id(email):
-            # raise Exception("L'utilisateur a déjà un compte")
+        #     raise Exception("L'utilisateur a déjà un compte")
         # Chiffrez le mot de passe
         if type == 'eleve':
             E = Eleve( email, mdp, [], [], code_insee_residence, souhaite_alertes)
@@ -34,12 +30,11 @@ class UserNonAuthentifie():
             print("l'utilisateur existe déjà")
         UserDao.add_user(P)
         
-    
     def supprimer_critereAuser(self, id_crit):
         pass
 
     def rechercher_stage(self, critereChoix=None):
-        """ 
+        """
         Recherche un stage par rapport à un critère
         Input
         -------
@@ -59,7 +54,6 @@ class UserNonAuthentifie():
         if not isinstance(critereChoix, Critere):
             raise "Les paramètre saisi n'est pas un critère"
         return critereChoix.recherche_stage()
-
 
     def __str__(self):
         return self.critere.__str__()

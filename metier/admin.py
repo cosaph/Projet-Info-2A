@@ -3,13 +3,13 @@ from metier.eleve import Eleve
 from metier.critere import Critere
 from metier.stage import Stage
 from dao.userDao import UserDao
-from metier.listEnvie import ListEnvie
+# from metier.listEnvie import ListEnvie
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 
 
 class Admin(Prof):
-    """ Un Admin hérite de la classe Prof 
+    """ Un Admin hérite de la classe Prof
     il a les même varactéristique qu'un Prof et dispose de fonctions
     supplémentaires
     """
@@ -30,7 +30,7 @@ class Admin(Prof):
             code_insee_residence=code_insee_residence,
             souhaite_alertes=souhaite_alertes
             )
-    
+
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
@@ -42,11 +42,8 @@ class Admin(Prof):
         listCritere = []
         if AssoCritUserDao().exist_email(email):
             listCritere = Admin.charger_all_critere_mail(email)
-        #     print(len(listCritere))
-        # print(AssoStageUserDao().exist_email(email))
         if AssoStageUserDao().exist_email(email):
             listStage = Admin.charger_all_stage_mail(email)
-   
         return Admin(
                     email=res["email"],
                     mdp=res["mdp"],
@@ -108,25 +105,33 @@ class Admin(Prof):
         if unUser.existe():
             unUser.modifier()
         else:
-            print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
+            print(
+                "L' utilisateur {} n'est pas enregistré".format(unUser.email)
+                )
 
     def modifier_stage(self, unStage: Stage):
         if unStage.existe():
             unStage.modifier_stage()
         else:
-            print("Le stage {} n'est pas enregistré".format(unStage.url_stage))
+            print(
+                "Le stage {} n'est pas enregistré".format(unStage.url_stage)
+                )
 
     def ajouter_user(self, unUser):
         if not unUser.existe():
             unUser.enregistrer()
         else:
-            print("L' utilisateur {} est déjà enregistré.".format(unUser.email))
+            print(
+                "L' utilisateur {} est déjà enregistré.".format(unUser.email)
+                )
 
     def ajouter_critere(self, unCritere: Critere):
         if not unCritere.existe():
             unCritere.enregistrer_critere()
         else:
-            print("Le critère {} est déjà enregistré".format(unCritere.id_crit))
+            print(
+                "Le critère {} est déjà enregistré".format(unCritere.id_crit)
+                )
 
     def ajouter_stage(self, unStage: Stage):
         if not unStage.existe():
@@ -138,16 +143,22 @@ class Admin(Prof):
         if unUser.existe():
             unUser.supprimer_compte()
         else:
-            print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
+            print(
+                "L' utilisateur {} n'est pas enregistré".format(unUser.email)
+                )
 
     def supprime_critere(self, unCritere: Critere):
         if unCritere.existe():
             unCritere.supprimer_critere()
         else:
-            print("Le critère {} n'est pas enregistré".format(unCritere.id_crit))
+            print(
+                "Le critère {} n'est pas enregistré".format(unCritere.id_crit)
+                )
 
     def supprimer_stage(self, unStage: Stage):
         if unStage.existe():
             unStage.supprimer_stage()
         else:
-            print("Le stage {} n'est pas enregistré".format(unStage.url_stage))
+            print(
+                "Le stage {} n'est pas enregistré".format(unStage.url_stage)
+                )
