@@ -52,13 +52,13 @@ class ConnectionView(AbstractView):
         if type == 'Elève':
             if Eleve.charger_user(email, password):
                 Session().user_name = email
-            print("L'utilisateur n'a pas été trouvé dans la base de données. Veuillez réessayer.")
         
         elif type == 'Prof':
             P = Prof(email, password)
             if UserDao().charger_user(P):
                 Session().user_name = email
-            print("L'utilisateur n'a pas été trouvé dans la base de données. Veuillez réessayer.")
-        from view.start_view import StartView
-        return StartView()
+
+        from view.menu_post_connection import recherche
+
+        return recherche()
         

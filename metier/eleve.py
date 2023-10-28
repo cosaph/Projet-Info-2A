@@ -44,28 +44,24 @@ class Eleve(UserNonAuthentifie):
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
-            raise "email ou mdp incorrect"
+            raise ValueError("Email or password incorrect")
         if "Eleve" not in res["profil"]:
-            raise "L'utilisateur n'est pas un eleve"
+            raise ValueError("The user is not a student")
         listStage = []
         listCritere = []
         if AssoCritUserDao().exist_email(email):
             listCritere = Eleve.charger_all_critere_mail(email)
-        #     print(len(listCritere))
-        # print(AssoStageUserDao().exist_email(email))
         if AssoStageUserDao().exist_email(email):
             listStage = Eleve.charger_all_stage_mail(email)
-            # listEnvie = ListEnvie(Eleve.charger_all_stage_mail(email))
-            # print(len(listEnvie))
             
         return Eleve(
-                    email=res["email"],
-                    mdp=res["mdp"],
-                    critere=listCritere,
-                    list_envie=listStage,
-                    code_insee_residence=res["code_insee_residence"],
-                    souhaite_alertes=res["souhaite_alertes"]
-                    )
+            email=res["email"],
+            mdp=res["mdp"],
+            critere=listCritere,
+            list_envie=listStage,
+            code_insee_residence=res["code_insee_residence"],
+            souhaite_alertes=res["souhaite_alertes"]
+        )
 
     # Gestion des criteres
 
