@@ -39,7 +39,7 @@ class Creation_compteView(AbstractView):
             {
                 "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
                 "name": "alerte",
-                "message": "Souhaites-tu être alerté? (oui/non)",
+                "message": "Souhaites-tu être alerté? (TRUE/FALSE)",
             },
             {
                 "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"

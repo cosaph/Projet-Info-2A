@@ -16,16 +16,16 @@ from view.abstract_view import AbstractView
 from view.session import Session
 from metier.eleve import Eleve
 from metier.prof import Prof
+from dao.userDao import UserDao
 
 class ConnectionView(AbstractView):
     
     def __init__(self):
         self.__questions = [
             {
-                "type": "list",
+                "type": "input",
                 "name": "Type",
-                "message": "Etes-vous un élève ou un professeur ? :",
-                "choices": ["Elève", "Professeur"]
+                "message": "Etes-vous un élève ou un professeur ? :"
             },
             {
                 "type": "input",
@@ -42,31 +42,23 @@ class ConnectionView(AbstractView):
     def display_info(self):
         print(f"Bonjour, veuillez rentrer les informations suivantes:")
 
-    def verif_existence(self, email, password, utilisateur_type):
-        """Vérifie si l'utilisateur est présent dans la base de données en utilisant la DAO."""
-        try:
-            if utilisateur_type == "Elève":
-                eleve = Eleve.charger_user(email, password)
-                if eleve is not None:
-                    return True  # Elève trouvé
-            elif utilisateur_type == "Professeur":
-                professeur = Prof.charger_user(email, password)
-                if professeur is not None:
-                    return True  # Professeur trouvé
-            return False  # Utilisateur non trouvé
-        except Exception as e:
-            print(f"Erreur lors de la vérification : {str(e)}")
-            return False  # Utilisateur non trouvé
 
     def make_choice(self):
         answers = prompt(self.__questions)
         email = answers["email"]
         password = answers["password"]
-        utilisateur_type = answers["Type"]
+        type = answers["Type"]
 
-        if self.verif_existence(email, password, utilisateur_type):
-            Session().user_name = email
-            from view.start_view import StartView
-            return StartView()
-        else:
+        if type == 'Elève':
+            if Eleve.charger_user(email, password):
+                Session().user_name = email
             print("L'utilisateur n'a pas été trouvé dans la base de données. Veuillez réessayer.")
+        
+        elif type == 'Prof':
+            P = Prof(email, password)
+            if UserDao().charger_user(P):
+                Session().user_name = email
+            print("L'utilisateur n'a pas été trouvé dans la base de données. Veuillez réessayer.")
+        from view.start_view import StartView
+        return StartView()
+        
