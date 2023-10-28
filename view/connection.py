@@ -58,7 +58,7 @@ class ConnectionView(AbstractView):
             if UserDao().charger_user(P):
                 Session().user_name = email
 
-        from view.menu_post_connection import recherche
+        from view.menu_post_connection import post_connection
 
-        return recherche()
+        return post_connection()
         
