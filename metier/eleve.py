@@ -14,9 +14,9 @@ from dao.assoStageUserDao import AssoStageUserDao
 class Eleve(UserNonAuthentifie):
     """
     Un EleveAuthentifie hérite de la classe Eleve NonAuthentifie.
-    Il est caractérisé par un identifiant, un mot de passe, un email, 
-    une liste de stage pour lesquels il est enthousiaste, 
-    un code commune de résidence, le fait de vouloir être alerté et d'avoir 
+    Il est caractérisé par un identifiant, un mot de passe, un email,
+    une liste de stage pour lesquels il est enthousiaste,
+    un code commune de résidence, le fait de vouloir être alerté et d'avoir
     trouvé un stage ou pas
     """
 
@@ -29,7 +29,7 @@ class Eleve(UserNonAuthentifie):
         code_insee_residence=None,
         souhaite_alertes=False
        ):
-    
+
         # super().__init__(unCritere=critere)
         self.critere = critere
         self.mdp = mdp
@@ -57,9 +57,8 @@ class Eleve(UserNonAuthentifie):
         if AssoCritUserDao().exist_email(email):
             listCritere = Eleve.charger_all_critere_mail(email)
         if AssoStageUserDao().exist_email(email):
-            listStage = Eleve.charger_all_stage_mail(email)           
             listStage = Eleve.charger_all_stage_mail(email)
-            
+            listStage = Eleve.charger_all_stage_mail(email)
         return Eleve(
             email=res["email"],
             mdp=res["mdp"],
@@ -84,26 +83,25 @@ class Eleve(UserNonAuthentifie):
             self.critere.append(unCritere)
         else:
             lcrit = []
-            
             if Critere is not None:
                 lcrit.append(self.critere)
             lcrit.append(unCritere)
             self.critere = lcrit
         return AssoCritUserDao().add(unCritere, self)
- 
+
     def supprimer_critereAuser(self, id_crit):
         if AssoCritUserDao().exist_id(self.email, id_crit):
             AssoCritUserDao().delete(self, id_crit)
         if not AssoCritUserDao().exist_id_crit(id_crit):
             CritereDAO().delete_id(id_crit)
-        
+
     def charger_all_critere(self, verbose=False):
         res = AssoCritUserDao().unUser_all_id_crit(self)
         listCritere = []
         for k in res:
             listCritere.append(Critere.charger_critere(k["id_crit"], verbose))
         return listCritere
-    
+
     @classmethod
     def charger_all_critere_mail(self, email):
         res = AssoCritUserDao().unUser_all_id_crit_mail(email)
@@ -153,13 +151,13 @@ class Eleve(UserNonAuthentifie):
     def modifier(self):
         if self.existe():
             UserDao().update_user(self)
-            
+
     def enregistrer(self):
         if not self.existe():
             UserDao().add_user(self)
         else:
             self.modifier()
-    
+
     def supprimer_compte(self):
         if self.existe():
             UserDao().delete_user(self)
@@ -178,13 +176,13 @@ class Eleve(UserNonAuthentifie):
     # ok pour les alertes ou pas
     def set_souhaite_alertes(self, reponse: bool):
         self.souhaite_alertes = reponse
-        
+
     # l'éleve informe qu'il a trouvé un stage
     def set_stage_trouve(self, reponse: bool):
         self.stage_trouve = reponse
-    
+
     def rechercher_stage(self, critereChoix=None, verbose=False):
-        """ 
+        """
         Recherche un stage par rapport à un critère
         Input
         -------
@@ -195,14 +193,14 @@ class Eleve(UserNonAuthentifie):
             renseigné
             Si le critere n'est pas un critere de l'Eleve,
             on le rajoute à la liste
-        """  
+        """
         if self.critere is None:
             raise "Pas de critères pas de recherches"
         if critereChoix is None:
             if isinstance(self.critere, list):
                 return self.critere[len(self.critere)-1].recherche_stage(verbose)
             else:
-                return self.critere.recherche_stage(verbose) 
+                return self.critere.recherche_stage(verbose)
         if not isinstance(critereChoix, Critere):
             raise "Les paramètre saisi n'est pas un critère"
         if not self.possede_critere(critereChoix):
@@ -214,7 +212,3 @@ class Eleve(UserNonAuthentifie):
 
     def exporter_list_envie(self):
         pass
-
-
-
-
