@@ -21,17 +21,29 @@ class recherche(AbstractView):
         self.__questions = [
             {
                 "type": "input",
-                "name": "Type",
-                "message": "Etes-vous un élève ou un professeur ? :"
+                "name": "critère",
+                "message": "Entrez le type de stage que vous recherchez : :"
             },
             {
                 "type": "input",
-                "name": "email",
-                "message": "Rentrez votre email :",
+                "name": "localisation",
+                "message": "Dans quelle localité ? ",
             },
             {
-                "type": "password",
-                "name": "password",
-                "message": "Rentrez votre mot de passe :",
+                "type": "input", # voir s'il existe pas un type pour les int sinon renvoie une erreur.
+                "name": "rayon",
+                "message": "Dans un rayon de combien de kilomètres ?",
             }
         ]
+
+    def display_info(self):
+        print(f"Bonjour, veuillez rentrer les informations suivantes:")
+
+    def make_choice(self):
+
+        answers = prompt(self.__questions)
+        critere = answers["critère"]
+        localisation = answers["localisation"]
+        rayon = answers["rayon"]
+     
+        Critere.recherche_stage(critere, localisation, rayon)

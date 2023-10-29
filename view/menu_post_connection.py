@@ -36,7 +36,7 @@ class post_connection(AbstractView):
         if reponse["choix"] == "Quit":
             pass 
         #Ici l'utilisateur fait le choix de se connecter?
-        if reponse["choix"] == "Recherche": #pense a changer le if la.
+        if reponse["choix"] == "Recherche de stage": 
             from view.recherche import recherche
 
             return recherche()

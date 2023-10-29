@@ -16,39 +16,34 @@ class Critere:
     """
     def __init__(
         self,
-        ville_cible: str,
-        rayon_km: float,
-        specialite: str,
-        duree_min: int,
-        duree_max: int
+        localisation: str,
+        rayon: float,
+        critere: str,
+        #duree_min: int,
+        #duree_max: int
             ):
         ''' Constructeur d'un objet Critere'''
-        self.ville_cible = ville_cible
+        self.localisation = localisation
         # convertion en majuscule
-        self.specialite = specialite.upper()
-        self.duree_min = duree_min
-        self.duree_max = duree_max
-        self.rayon_km = rayon_km
+        self.critere = critere.upper()
+        #self.duree_min = duree_min
+        #self.duree_max = duree_max
+        self.rayon = rayon
         self.id_crit = CritereDAO().calcul_id(self)
     
+    """
     def __str__(self):
         res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.ville_cible, self.specialite, self.duree_min, self.duree_max)
         return res
+    """
     
     def __eq__(self, other):
         return self.id_crit == other.id_crit
         
-    def recherche_stage(self, verbose=False):
+    def recherche_stage(critere, localisation, rayon):
 
-        # specialite_input = input("Entrez le type de stage que vous recherchez : ")
-        # location_input = input("Dans quelle localité ? ")
-        # radius_input = input("Dans un rayon de combien de kilomètres ? ")
 
-        specialite_input = self.specialite
-        location_input = self.ville_cible
-        radius_input = self.rayon_km
-
-        params = {'q': specialite_input, 'l': location_input, 'stage': specialite_input, 'location': location_input, 'radius': radius_input}
+        params = {'q': critere, 'l': localisation, 'stage': critere, 'location': localisation, 'radius': rayon}
         url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
         """ url = requests.Request('GET', 'https://emploi.lefigaro.fr/', params=params).prepare().url """
 
@@ -68,24 +63,11 @@ class Critere:
                     Stage(
                         url_stage=link_element['href'],
                         titre=link_element.text,
-                        specialite=specialite_input,
+                        specialite= critere,
                         ville=location_element
                         )
                             )
-                if verbose:
-                    print(tableau[len(tableau)-1])
-            # rrrrrrrrrrrrrrrrrrrrrrrrrr
-
-        # for link_element in link_elements:
-        #     title = link_element.text
-        #     url = link_element['href']
-        #     tableau.append([title, url, location_element])
-        # with open('jobs.csv', 'w', newline='') as fichier_csv:
-        #     writer = csv.writer(fichier_csv)
-        #     writer.writerow(['Titre', 'URL', 'Location'])
-        #     writer.writerows(tableau)
-        # print("Exportation vers le fichier CSV terminée.")
-        return tableau
+        print(tableau)
     
     def existe(self):
         return CritereDAO().exist_id(self)
