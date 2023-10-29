@@ -14,6 +14,7 @@ from view.abstract_view import AbstractView
 
 from InquirerPy import prompt
 from metier.critere import Critere
+from view.recherche_stage_poussee  import recherche_stage_poussee
 
 class recherche(AbstractView):
 
@@ -57,15 +58,8 @@ class recherche(AbstractView):
 
         selected_answers = prompt(options)
         selected_items = selected_answers["selected_items"]
+        
+        return recherche_stage_poussee()
+             
+        
 
-        # Handle the selected items and redirect to another menu based on user selection
-        for item in selected_items:
-            # Perform actions based on the selected item
-            print(f"Selected item: {item['title']} - {item['location']}")
-
-    # ... rest of the code ...
-
-    # Handle the selected items and redirect to another menu based on user selection
-    # ...
-    # Handle the selected items and redirect to another menu based on user selection
-    # ...
