@@ -40,10 +40,32 @@ class recherche(AbstractView):
         print(f"Bonjour, veuillez rentrer les informations suivantes:")
 
     def make_choice(self):
-
         answers = prompt(self.__questions)
         critere = answers["critère"]
         localisation = answers["localisation"]
         rayon = answers["rayon"]
-     
-        Critere.recherche_stage(critere, localisation, rayon)
+        tableau = Critere.recherche_stage(critere, localisation, rayon)
+
+        options = [
+            {
+                "type": "checkbox",
+                "name": "selected_items",
+                "message": "Select items:",
+                "choices": [{"name": f"{item['title']} - {item['location']}", "value": item} for item in tableau],
+            }
+        ]
+
+        selected_answers = prompt(options)
+        selected_items = selected_answers["selected_items"]
+
+        # Handle the selected items and redirect to another menu based on user selection
+        for item in selected_items:
+            # Perform actions based on the selected item
+            print(f"Selected item: {item['title']} - {item['location']}")
+
+    # ... rest of the code ...
+
+    # Handle the selected items and redirect to another menu based on user selection
+    # ...
+    # Handle the selected items and redirect to another menu based on user selection
+    # ...

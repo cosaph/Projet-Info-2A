@@ -41,29 +41,40 @@ class Critere:
         return self.id_crit == other.id_crit
         
     def recherche_stage(critere, localisation, rayon):
-
-        params = {'q': critere, 'l': localisation,'stage': critere, 'location': localisation,'radius':rayon}
+        params = {'q': critere, 'l': localisation, 'stage': critere, 'location': localisation, 'radius': rayon}
         url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
+        """ url = requests.Request('GET', 'https://emploi.lefigaro.fr/', params=params).prepare().url """
 
         response = requests.get(url)
-
         soup = BeautifulSoup(response.text, 'html.parser')
+
         div_elements = soup.find_all('div', class_='media-heading listing-item__title')
-        span_elements = soup.find_all('span', class_ = 'listing-item__info--item listing-item__info--item-location')
+        span_elements = soup.find_all('span', class_='listing-item__info--item listing-item__info--item-location')
 
         tableau = []
-
 
         for i in range(len(div_elements)):
             link_elements = div_elements[i].find_all('a')
             location_element = span_elements[i].text
 
             for link_element in link_elements:
-                title = link_element.text
-                url = link_element['href']
-                tableau.append([title, url, location_element])
-        print(tableau)
+                tableau.append({
+                    'title': link_element.text,
+                    'location': location_element
+                })
 
+        return(tableau)
+            # rrrrrrrrrrrrrrrrrrrrrrrrrr
+
+        # for link_element in link_elements:
+        #     title = link_element.text
+        #     url = link_element['href']
+        #     tableau.append([title, url, location_element])
+        # with open('jobs.csv', 'w', newline='') as fichier_csv:
+        #     writer = csv.writer(fichier_csv)
+        #     writer.writerow(['Titre', 'URL', 'Location'])
+        #     writer.writerows(tableau)
+        # print("Exportation vers le fichier CSV terminée.")
     
     def existe(self):
         return CritereDAO().exist_id(self)

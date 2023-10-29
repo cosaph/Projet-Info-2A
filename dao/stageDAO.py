@@ -2,9 +2,10 @@ from dao.db_connection import DBConnection
 
 
 class StageDao():
+
     def add(self, unStage) -> bool:
         """
-        Rajouter un utilisateur dans la base de données
+        Rajouter un stage dans la base de données
         """
         mailEmployeur = None
         caPasse = False
