@@ -1,0 +1,5 @@
+###### NE PAS SUPPRIMER ######
+
+##### MODULES A INSTALLER POUR L'EXECUTION #####
+
+pip install python-dotenv
