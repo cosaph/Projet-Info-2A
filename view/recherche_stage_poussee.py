@@ -14,22 +14,18 @@
 from InquirerPy import prompt
 
 from view.abstract_view import AbstractView
-
+from metier.stage import Stage
 
 class recherche_stage_poussee(AbstractView):
     
     def __init__(self):
         self.__questions = [
             {
-                "type": "input",
-                "name": "add_list",
-                "message": "Voulez-vous ajouter ce stage dans votre liste d'envie ? :"
-            },
-            {
-                "type": "input",
-                "name": "voir_plus",
-                "message": "En savoir plus sur le stage ?(en cours de construction)",
-            },
+                "type": "list",
+                "name": "choice",
+                "message": "Que voulez-vous faire ?",
+                "choices": ["Ajouter à la liste d'envie", "En savoir plus sur le stage"]
+            }
         ]
     
     def display_info(self):
@@ -38,9 +34,14 @@ class recherche_stage_poussee(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        add_list = answers["add_list"]
-        voir_plus = answers["voir_plus"]
-        type = answers["Type"]
+        choice = answers["choice"]
+
+        if choice == "Ajouter à la liste d'envie":
+            Stage.enregistrer_stage()            
+            pass
+        elif choice == "En savoir plus sur le stage":
+            # Code for learning more about the internship
+            pass   
 
         
         
