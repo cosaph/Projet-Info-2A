@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    recherche.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/10/28 19:53:45 by marvin           ###   ########.fr        #
+#    Updated: 2023/11/01 23:17:41 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ from view.abstract_view import AbstractView
 from InquirerPy import prompt
 from metier.critere import Critere
 from view.recherche_stage_poussee  import recherche_stage_poussee
+from metier.stage import Stage
+import view.shared_data as shared_data
 
 class recherche(AbstractView):
 
@@ -41,6 +43,7 @@ class recherche(AbstractView):
         print(f"Bonjour, veuillez rentrer les informations suivantes:")
 
     def make_choice(self):
+
         answers = prompt(self.__questions)
         critere = answers["critère"]
         localisation = answers["localisation"]
@@ -52,14 +55,17 @@ class recherche(AbstractView):
                 "type": "checkbox",
                 "name": "selected_items",
                 "message": "Select items:",
-                "choices": [{"name": f"{item['title']} - {item['location']}", "value": item} for item in tableau],
+                 "choices": [
+                {
+                    "name": f"{item['title']} - {item['location']} ({item['url']})",
+                    "value": item,
+                }
+                for item in tableau
+            ],
             }
         ]
+        #return recherche_stage_poussee()
+        
 
-        selected_answers = prompt(options)
-        selected_items = selected_answers["selected_items"]
-        
-        return recherche_stage_poussee()
-             
-        
+   
 

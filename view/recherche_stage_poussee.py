@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    recherche_stage_poussee.py                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 20:21:41 by marvin            #+#    #+#              #
-#    Updated: 2023/10/29 20:21:41 by marvin           ###   ########.fr        #
+#    Updated: 2023/11/01 23:06:09 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,9 @@ from InquirerPy import prompt
 
 from view.abstract_view import AbstractView
 from metier.stage import Stage
+from metier.critere import Critere
+import view.shared_data as shared_data
+
 
 class recherche_stage_poussee(AbstractView):
     
@@ -37,11 +40,11 @@ class recherche_stage_poussee(AbstractView):
         choice = answers["choice"]
 
         if choice == "Ajouter à la liste d'envie":
-            Stage.enregistrer_stage()            
+            print(shared_data.tableau)          
             pass
         elif choice == "En savoir plus sur le stage":
             # Code for learning more about the internship
             pass   
 
-        
+             
         

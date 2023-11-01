@@ -14,18 +14,13 @@ class Stage:
         titre,
         specialite,
         ville,
-        date_debut=None,
-        date_fin=None,
-        contact_employeur=None
+        rayon
             ):
-
         self.url_stage = url_stage
         self.titre = titre,
         self.specialite = specialite
-        self.ville = ville
-        self.date_debut = date_debut
-        self.date_fin = date_fin
-        self.contact_employeur = contact_employeur
+        self.ville = ville,
+        self.rayon = rayon
 
     def existe(self):
         return StageDao().exist_id(self)
@@ -40,8 +35,7 @@ class Stage:
             titre=res["titre"],
             specialite=res["specialite"],
             ville=res["ville"],
-            date_debut=res["date_debut"],
-            date_fin=res["date_fin"]
+            rayon=res["rayon"],
             )
         if verbose:
             print(res)
@@ -60,10 +54,12 @@ class Stage:
             StageDao().add(self)
         else:
             StageDao().update(self)
-
+   
+    """
     def __str__(self):
         res = "Specialite du stage: {} \nurl: {} \nLibellé du stage: {} \nLieu du stage: {}".format(self.specialite,self.url_stage, self.titre, self.ville)
         return res
+    """
 
     def sauvegarder_dans_listeenvie(self, idUser):
         pass

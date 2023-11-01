@@ -59,6 +59,7 @@ class Critere:
 
             for link_element in link_elements:
                 tableau.append({
+                    'url' : link_element['href'],
                     'title': link_element.text,
                     'location': location_element
                 })
@@ -68,7 +69,7 @@ class Critere:
 
         # for link_element in link_elements:
         #     title = link_element.text
-        #     url = link_element['href']
+        #     
         #     tableau.append([title, url, location_element])
         # with open('jobs.csv', 'w', newline='') as fichier_csv:
         #     writer = csv.writer(fichier_csv)
