@@ -5,6 +5,7 @@ from metier.prof import Prof
 from dao.userDao import UserDao
 
 class creation:
+
     def creer_compte(mdp, email, souhaite_alertes, code_insee_residence, type):
         # Vérifiez si l'utilisateur existe déjà
         # if UserDao().exist_id(id):

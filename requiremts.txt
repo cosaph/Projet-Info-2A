@@ -3,3 +3,7 @@
 ##### MODULES A INSTALLER POUR L'EXECUTION #####
 
 pip install python-dotenv
+pip install InquirerPy
+pip install requests
+pip install bs4
+pip install psycopg2-binary
