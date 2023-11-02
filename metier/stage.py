@@ -14,13 +14,11 @@ class Stage:
         titre,
         specialite,
         ville,
-        rayon
             ):
         self.url_stage = url_stage
         self.titre = titre,
         self.specialite = specialite
         self.ville = ville,
-        self.rayon = rayon
 
     def existe(self):
         return StageDao().exist_id(self)
@@ -35,7 +33,6 @@ class Stage:
             titre=res["titre"],
             specialite=res["specialite"],
             ville=res["ville"],
-            rayon=res["rayon"],
             )
         if verbose:
             print(res)
@@ -51,9 +48,9 @@ class Stage:
     
     def enregistrer_stage(self):
         if not self.existe():
-            StageDao().add(self)
+            StageDao().add()
         else:
-            StageDao().update(self)
+            StageDao().update()
    
     """
     def __str__(self):

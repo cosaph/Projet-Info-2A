@@ -7,27 +7,18 @@ class StageDao():
         """
         Rajouter un stage dans la base de données
         """
-        mailEmployeur = None
         caPasse = False
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.stage (url_stage, titre, "
-                    "specialite, "
-                    "ville, date_debut, date_fin, email_employeur) "
-                    "VALUES       "                                              
-                    "(%(url_stage)s, %(titre)s, %(specialite)s, %(ville)s, "
-                    "%(date_debut)s, %(date_fin)s, %(email_employeur)s)"
-                    "RETURNING url_stage;    ",
+                    "INSERT INTO projetInfo.stage (url_stage, titre, specialite, ville) "
+                    "VALUES (%(url_stage)s, %(titre)s, %(specialite)s, %(ville)s) "
+                    "RETURNING url_stage;",
                     {
                         "url_stage": unStage.url_stage,
                         "titre": unStage.titre,
                         "specialite": unStage.specialite,
                         "ville": unStage.ville,
-                        "date_debut": unStage.date_debut,
-                        "date_fin": unStage.date_fin,
-                        "email_employeur": mailEmployeur
-                        # "email_employeur": unStage.contact_employeur.email
                     },
                 )
                 res = cursor.fetchone()
@@ -48,9 +39,6 @@ class StageDao():
                     "titre = %(titre)s,  "
                     "specialite = %(specialite)s,  "
                     "ville = %(ville)s, "
-                    "date_debut =   %(date_debut)s,  "
-                    "date_fin =   %(date_fin)s,  "
-                    "email_employeur = %(email_employeur)s "
                     "where url_stage = %(url_stage)s "
                     "RETURNING url_stage;",
                     {
@@ -58,8 +46,6 @@ class StageDao():
                         "titre": unStage.titre, 
                         "specialite": unStage.specialite,
                         "ville": unStage.ville,
-                        "date_debut": unStage.date_debut,
-                        "email_employeur": unStage.email_employeur
                     },
                 )
                 res = cursor.fetchone()

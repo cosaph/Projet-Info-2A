@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/02 17:29:10 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 17:47:03 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ from InquirerPy import prompt
 from metier.critere import Critere
 from view.selected_item_view  import selected_item_view
 from metier.stage import Stage
+import view.shared_data as shared_data
 
 class recherche(AbstractView):
 
@@ -56,7 +57,7 @@ class recherche(AbstractView):
                 "message": "Select items:",
                 "choices": [
                     {
-                        "name": f"{item['title']} - {item['location']} ({item['url']})",
+                        "name": f"{item['title']} - {item['location']} ({item['url']}) ",
                         "value": item,
                     }
                     for item in tableau
@@ -65,7 +66,13 @@ class recherche(AbstractView):
             }
             
         ]
+        
         response = prompt(options)
         selected = response["selected_items"]
-
+        
+        needs = []
+        needs.append(critere)
+        needs.append(rayon)
+        shared_data.tab = needs
+        
         return selected_item_view(selected)

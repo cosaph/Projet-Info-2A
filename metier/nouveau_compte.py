@@ -3,6 +3,8 @@
 from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
+from dao.stageDAO import StageDao
+from metier.stage import Stage
 
 class creation:
 
@@ -24,3 +26,8 @@ class creation:
             UserDao().add_user(P)
 
     
+    def creer_stage(url_stage, titre, specialite, ville):
+        S = Stage(url_stage, titre, specialite, ville)
+        if StageDao().exist_id(S):
+            print("Le stage existe déjà")
+        StageDao().add(S)
