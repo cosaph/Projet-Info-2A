@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/26 12:21:04 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 21:07:29 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ from InquirerPy import prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 #from metier.userNonAuthentifie import UserNonAuthentifie
-from metier.nouveau_compte import creation
+from metier.nouveau_compte import Creation
 class Creation_compteView(AbstractView):
 
 
@@ -62,7 +62,7 @@ class Creation_compteView(AbstractView):
         alerte = answers["alerte"]
         type = answers["type"]
 
-        if creation.creer_compte(password, email, alerte, code_insee_residence, type):
+        if Creation(password, email, alerte, code_insee_residence, type).creer_compte():
             print("utilisateur crée")
         print("utilisateur pas crée")
 

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 20:39:51 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 20:52:01 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ from view.abstract_view import AbstractView
 from metier.stage import Stage
 from metier.critere import Critere
 import view.shared_data as shared_data
-from metier.nouveau_compte import creation
+#from metier.nouveau_compte import creation
 
 
 
@@ -50,7 +50,7 @@ class selected_item_view(AbstractView):
             location = selected_item['location']
             #rayon = shared_data.tab[0]
             specialite = shared_data.tab[1]
-            creation.creer_stage(url, title, specialite, location)
+            Stage.creer_stage(url, title, specialite, location)
 
                 # Do something with the url, title, and location
         elif choice == "En savoir plus sur le stage":

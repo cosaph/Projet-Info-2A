@@ -46,11 +46,17 @@ class Stage:
         if self.existe():
             StageDao().update(self)
     
-    def enregistrer_stage(self):
-        if not self.existe():
-            StageDao().add()
+    def creer_stage(self, url_stage, titre, specialite, ville):
+        """
+        Créer un stage
+        Le stage est ajouté à la base de données
+        
+        """
+        S = Stage(url_stage, titre, specialite, ville)
+        if S.existe():
+            print("Le stage existe déjà")
         else:
-            StageDao().update()
+            StageDao().add(S)
    
     """
     def __str__(self):
