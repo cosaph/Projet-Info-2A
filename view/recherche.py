@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/02 17:25:58 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 17:29:10 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,27 +67,5 @@ class recherche(AbstractView):
         ]
         response = prompt(options)
         selected = response["selected_items"]
-        print(selected)
-    
 
-
-        """ if len(selected) > 0:
-            selected_item = selected[0]  # Assuming only one item can be selected
-            print("Selected Item:")
-            print(f"Title: {selected_item['title']}")
-            print(f"URL: {selected_item['url']}")
-            print(f"Location: {selected_item['location']}")
-        else:
-            print("No item selected.") """
-
-
-
-
-
-
-        #response = prompt(options)
-        #selected = response["selected_items"]
-
-
-        #selected_item_view_instance = selected_item_view(selected)
-        #return selected_item_view_instance.make_choice()
+        return selected_item_view(selected)
