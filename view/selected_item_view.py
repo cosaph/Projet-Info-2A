@@ -1,15 +1,14 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    recherche_stage_poussee.py                         :+:      :+:    :+:    #
+#    selected_item_view.py                              :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/29 20:21:41 by marvin            #+#    #+#              #
-#    Updated: 2023/11/02 14:55:26 by cosaph           ###   ########.fr        #
+#    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
+#    Updated: 2023/11/02 17:26:06 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 from InquirerPy import prompt
 
@@ -19,9 +18,9 @@ from metier.critere import Critere
 import view.shared_data as shared_data
 
 
-class recherche_stage_poussee(AbstractView):
-    
-    def __init__(self):
+class selected_item_view(AbstractView):
+    def __init__(self, selected):
+        self.selected = selected
         self.__questions = [
             {
                 "type": "list",
@@ -30,21 +29,23 @@ class recherche_stage_poussee(AbstractView):
                 "choices": ["Ajouter à la liste d'envie", "En savoir plus sur le stage"]
             }
         ]
-    
-    def display_info(self):
-        print(f"Bonjour, veuillez choisir parmis les informations suivantes:")
 
+    def display_info(self):
+        print(f"Bonjour, veuillez choisir parmi les informations suivantes:")
 
     def make_choice(self):
         answers = prompt(self.__questions)
         choice = answers["choice"]
 
         if choice == "Ajouter à la liste d'envie":
-            Stage().enregistrer_stage(self)        
             pass
+
+                # Do something with the url, title, and location
         elif choice == "En savoir plus sur le stage":
-            # Code for learning more about the internship
-            pass   
+            pass  # Do something else
+             
+        
+
 
              
         

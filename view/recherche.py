@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/01 23:17:41 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 17:25:58 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,8 @@ from view.abstract_view import AbstractView
 
 from InquirerPy import prompt
 from metier.critere import Critere
-from view.recherche_stage_poussee  import recherche_stage_poussee
+from view.selected_item_view  import selected_item_view
 from metier.stage import Stage
-import view.shared_data as shared_data
 
 class recherche(AbstractView):
 
@@ -42,8 +41,8 @@ class recherche(AbstractView):
     def display_info(self):
         print(f"Bonjour, veuillez rentrer les informations suivantes:")
 
-    def make_choice(self):
 
+    def make_choice(self):
         answers = prompt(self.__questions)
         critere = answers["critère"]
         localisation = answers["localisation"]
@@ -52,20 +51,43 @@ class recherche(AbstractView):
 
         options = [
             {
-                "type": "checkbox",
+                "type": "list",
                 "name": "selected_items",
                 "message": "Select items:",
-                 "choices": [
-                {
-                    "name": f"{item['title']} - {item['location']} ({item['url']})",
-                    "value": item,
-                }
-                for item in tableau
-            ],
+                "choices": [
+                    {
+                        "name": f"{item['title']} - {item['location']} ({item['url']})",
+                        "value": item,
+                    }
+                    for item in tableau
+                    
+                ],
             }
+            
         ]
-        #return recherche_stage_poussee()
-        
+        response = prompt(options)
+        selected = response["selected_items"]
+        print(selected)
+    
 
-   
 
+        """ if len(selected) > 0:
+            selected_item = selected[0]  # Assuming only one item can be selected
+            print("Selected Item:")
+            print(f"Title: {selected_item['title']}")
+            print(f"URL: {selected_item['url']}")
+            print(f"Location: {selected_item['location']}")
+        else:
+            print("No item selected.") """
+
+
+
+
+
+
+        #response = prompt(options)
+        #selected = response["selected_items"]
+
+
+        #selected_item_view_instance = selected_item_view(selected)
+        #return selected_item_view_instance.make_choice()

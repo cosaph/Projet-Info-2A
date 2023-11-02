@@ -22,3 +22,5 @@ class creation:
             if UserDao().exist_id(P):
                 print("L'utilisateur existe déjà")
             UserDao().add_user(P)
+
+    
