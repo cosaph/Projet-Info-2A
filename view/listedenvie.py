@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 22:46:53 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 23:54:39 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,16 @@ from InquirerPy import prompt
 from metier.stage import Stage
 from dao.stageDAO import StageDao
 
-class historique(AbstractView):
+class listedenvie(AbstractView):
     
     def __init__(self):
         self.__questions = [
             {
                 "type": "list",
                 "name": "choix",
-                "message": "Historique",
+                "message": "liste d'envie",
                 "choices": [
-                    "Consulter l'historique",
+                    "Consulter la liste d'envie",
                     "Retour"
                 ],
             }
@@ -42,7 +42,7 @@ class historique(AbstractView):
             from view.menu_post_connection import post_connection
             return post_connection()
         
-        elif reponse["choix"] == "Consulter l'historique":
+        elif reponse["choix"] == "Consulter la liste d'envie":
             RealDictRow = StageDao().charger_stage()
             print(RealDictRow)
             

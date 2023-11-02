@@ -41,8 +41,8 @@ class post_connection(AbstractView):
 
             return recherche()
 
-        elif reponse["choix"] == "Historique":
-            from view.historique import historique
+        elif reponse["choix"] == "liste d'envie":
+            from view.listedenvie import listedenvie
 
-            return historique()
+            return listedenvie()
         
