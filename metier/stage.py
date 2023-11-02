@@ -46,7 +46,7 @@ class Stage:
         if self.existe():
             StageDao().update(self)
     
-    def creer_stage(self, url_stage, titre, specialite, ville):
+    def creer_stage(url_stage, titre, specialite, ville):
         """
         Créer un stage
         Le stage est ajouté à la base de données

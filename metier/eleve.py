@@ -39,7 +39,7 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
-    # modifiers
+    # modifier
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
@@ -126,12 +126,12 @@ class Eleve(UserNonAuthentifie):
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
 
-    def ajouter_stageAuser(self, unStage):
+    def ajouter_stageAuser(self, url, title, specialite, location):
+        unStage = Stage(url, title, specialite, location)
         if self.possede_stage(unStage):
             raise "L' utilisateur a déjà ce stage dans la liste envie"
         if not unStage.existe():
             unStage.enregistrer_stage()
-        self.list_envie.ajouter_stage(unStage)
         return AssoStageUserDao().add(unStage, self)
 
     def supprimer_stageAuser(self, unStage):

@@ -15,14 +15,13 @@ class AssoStageUserDao:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO projetInfo.association_stage_user(url_stage, email, date_recherche)"
+                        "INSERT INTO projetInfo.association_stage_user(url_stage, email)"
                         "VALUES       "                                              
-                        "(%(url_stage)s, %(email)s, %(date_recherche)s) "
+                        "(%(url_stage)s, %(email)s) "
                         "RETURNING email;    ",
                         {
                             "url_stage": unStage.url_stage,
                             "email": unUser.email,
-                            "date_recherche": uneDate
                         },
                     )
                     res = cursor.fetchone()
