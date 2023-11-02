@@ -115,15 +115,19 @@ class StageDao():
             trouve = True     
         return trouve
     
-    def charger_stage(self):
-        """ renvoie les stage de la bdd """
+    def charger_stage(self, url_stage):
+        """ Importe un stage de la bdd """
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.stage "
+                    "where url_stage = %(url_stage)s ;",
+                    {
+                        "url_stage": url_stage
+                    },
                 )
                 res = cursor.fetchone()
         if not res:
-            return False    
+            return False
         return res

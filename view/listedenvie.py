@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    historique.py                                      :+:      :+:    :+:    #
+#    listedenvie.py                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 23:54:39 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/02 23:58:27 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,9 @@ from view.abstract_view import AbstractView
 from InquirerPy import prompt
 from metier.stage import Stage
 from dao.stageDAO import StageDao
+from view.session import Session
+from metier.eleve import Eleve
+import view.shared_data as shared_data
 
 class listedenvie(AbstractView):
     
@@ -43,6 +46,6 @@ class listedenvie(AbstractView):
             return post_connection()
         
         elif reponse["choix"] == "Consulter la liste d'envie":
-            RealDictRow = StageDao().charger_stage()
+            RealDictRow = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(Session().user_email)
             print(RealDictRow)
             
