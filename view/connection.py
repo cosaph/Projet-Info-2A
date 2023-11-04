@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 19:09:49 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 19:45:15 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,14 @@ class ConnectionView(AbstractView):
     def __init__(self):
         self.__questions = [
             {
-                "type": "input",
-                "name": "Type",
-                "message": "Etes-vous un élève ou un professeur ou un Admin ? :"
+                "type": "list",
+                "name": "type",
+                "message": "Vous êtes :",
+                "choices": [
+                    "élève.e",
+                    "professeur.e",
+                    "administrateur.e"
+                ]
             },
             {
                 "type": "input",
@@ -42,16 +47,17 @@ class ConnectionView(AbstractView):
         ]
     
     def display_info(self):
-        print(f"Bonjour, veuillez rentrer les informations suivantes:")
+        with open("graphical_assets/art_connection.txt", "r", encoding="utf-8") as asset:
+            print(asset.read())
 
 
     def make_choice(self):
         answers = prompt(self.__questions)
         email = answers["email"]
         password = answers["password"]
-        type = answers["Type"]
+        type = answers["type"]
 
-        if type == 'Elève':
+        if type == 'élève.e':
             if Eleve.charger_user(email, password):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
@@ -60,7 +66,7 @@ class ConnectionView(AbstractView):
 
                 return post_connection()
         
-        elif type == 'Prof':
+        elif type == 'professeur.e':
             if Prof.charger_user(email, password):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
@@ -69,13 +75,13 @@ class ConnectionView(AbstractView):
 
                 return post_connection_prof()
 
-        elif type == 'Admin':
+        elif type == 'administrateur.e':
             if Admin.charger_user(email, password):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = "Bonjour Admin :)) " 
                 from view.menu_post_connection_admin import post_connection_admin
-
+                
                 return post_connection_admin()
         
         from view.start_view import StartView
