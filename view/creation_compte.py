@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 21:07:29 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 18:47:36 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,10 @@ class Creation_compteView(AbstractView):
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
-        from view.start_view import StartView
-        return StartView()
+        if type == 'eleve':
+            from view.menu_post_connection import post_connection
+            return post_connection()
+        else :
+            from view.menu_post_connection_prof import post_connection_prof
+            return post_connection_prof()
     
