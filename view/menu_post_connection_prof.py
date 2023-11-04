@@ -1,24 +1,28 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    start_view.py                                      :+:      :+:    :+:    #
+#    menu_post_connection_prof.py                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 18:13:20 by cosaph           ###   ########.fr        #
+#    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
+#    Updated: 2023/11/04 18:33:47 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from InquirerPy import prompt
 
-from view.abstract_view import *
+from view.abstract_view import AbstractView
 from view.session import Session
-from view.connection import ConnectionView
+from metier.eleve import Eleve
+from metier.prof import Prof
+from dao.userDao import UserDao
+from view.start_view import StartView
 
 
-class StartView(AbstractView):
 
+class post_connection_prof(AbstractView):
+    
     def __init__(self):
         self.__questions = [
             {
@@ -26,10 +30,10 @@ class StartView(AbstractView):
                 "name": "choix",
                 "message": f"Hello {Session().user_name}",
                 "choices": [
-                    "Connection",
-                    "Création Compte",
-                    "Administrateur.e",
-                    "Quit"
+                    "Recherche de stage",
+                    "liste d'envie",
+                    "Statistiques"
+                    "Retour"
                 ],
             }
         ]
@@ -40,20 +44,21 @@ class StartView(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Quit":
+        if reponse["choix"] == "Retour":
             pass 
         #Ici l'utilisateur fait le choix de se connecter?
-        if reponse["choix"] == "Connection": #pense a changer le if la.
-            from view.connection import ConnectionView
+        if reponse["choix"] == "Recherche de stage": 
+            from view.recherche import recherche
 
-            return ConnectionView()
+            return recherche()
 
-        elif reponse["choix"] == "Création Compte":
-            from view.creation_compte import Creation_compteView
+        elif reponse["choix"] == "liste d'envie":
+            from view.listedenvie import listedenvie
 
-            return Creation_compteView()
+            return listedenvie()
         
-        elif reponse["choix"] == "Administrateur.e":
-            from view.creation_compte import Creation_compteView
+        elif reponse["choix"] == "Statistiques":
+            pass
+            """ from view.statistiques import statistiques
 
-            return Creation_compteView()
+            return statistiques() """

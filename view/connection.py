@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 23:49:57 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 18:33:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,10 @@ class ConnectionView(AbstractView):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = email
+            from view.menu_post_connection_prof import post_connection_prof
+
+            return post_connection_prof()
+            
 
         from view.menu_post_connection import post_connection
 

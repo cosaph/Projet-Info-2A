@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 17:22:08 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 18:08:02 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ class selected_item_view(AbstractView):
             pass  # Do something else
 
         elif choice == "Retour":
-            from view.menu_post_connection import post_connection
+            from view.menu_post_connection_eleve import post_connection
             return post_connection()
              
         
