@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 19:28:05 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 20:00:04 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ class post_connection_admin(AbstractView):
         ]
 
     def display_info(self):
-        with open("graphical_assets/banner.txt", "r", encoding="utf-8") as asset:
+        with open("graphical_assets/art_admin.txt", "r", encoding="utf-8") as asset:
             print(asset.read())
 
     def make_choice(self):
