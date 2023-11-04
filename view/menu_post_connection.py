@@ -21,7 +21,7 @@ class post_connection(AbstractView):
                 "message": f"Hello {Session().user_name}",
                 "choices": [
                     "Recherche de stage",
-                    "Historique",
+                    "liste d'envie",
                     "Quit"
                 ],
             }

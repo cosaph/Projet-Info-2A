@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/02 23:58:27 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 17:16:46 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,5 @@ class listedenvie(AbstractView):
             return post_connection()
         
         elif reponse["choix"] == "Consulter la liste d'envie":
-            RealDictRow = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(Session().user_email)
-            print(RealDictRow)
-            
+            RealDictRow = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
+            return self.make_choice()

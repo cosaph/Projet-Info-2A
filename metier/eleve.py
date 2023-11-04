@@ -112,27 +112,33 @@ class Eleve(UserNonAuthentifie):
         res = AssoStageUserDao().unUser_all_url_stage(self)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"], verbose))
+            stage = Stage.charger_stage(k["url_stage"], verbose)
+            listStage.append(stage)
         return listStage
 
     @classmethod
     def charger_all_stage_mail(self, email):
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        #print(res)
         listStage = []
         for k in res:
             listStage.append(Stage.charger_stage(k["url_stage"]))
-        return listStage
+        # Print the url_stage from each element in listStage
+        for stage in listStage:
+            print(stage.url_stage)
+        #return listStage
 
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
 
     def ajouter_stageAuser(self, url, title, specialite, location):
         # ne pas toucher
-        if self.possede_stage(unStage):
+        S = Stage(url, title, specialite, location) 
+        if self.possede_stage(S):
             raise "L' utilisateur a déjà ce stage dans la liste envie"
-        if not unStage.existe():
-            unStage.enregistrer_stage()
-        return AssoStageUserDao().add(unStage, self)
+        if not S.existe():
+            Stage.creer_stage(url, title, specialite, location)
+        return AssoStageUserDao().add(S, self)
 
     def supprimer_stageAuser(self, unStage):
         if self.possede_stage(unStage):
