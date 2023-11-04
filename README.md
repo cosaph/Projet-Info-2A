@@ -5,3 +5,5 @@
 - revoir le fichier nouveau_compte.py
 
 - petit soucis dans spécialité
+
+- Réfléchir a Admin

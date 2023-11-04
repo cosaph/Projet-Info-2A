@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 18:33:54 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/04 19:09:49 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
 import view.shared_data as shared_data
+from metier.admin import Admin
 
 class ConnectionView(AbstractView):
     
@@ -26,7 +27,7 @@ class ConnectionView(AbstractView):
             {
                 "type": "input",
                 "name": "Type",
-                "message": "Etes-vous un élève ou un professeur ? :"
+                "message": "Etes-vous un élève ou un professeur ou un Admin ? :"
             },
             {
                 "type": "input",
@@ -55,18 +56,30 @@ class ConnectionView(AbstractView):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = email
+                from view.menu_post_connection import post_connection
+
+                return post_connection()
         
         elif type == 'Prof':
             if Prof.charger_user(email, password):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = email
-            from view.menu_post_connection_prof import post_connection_prof
+                from view.menu_post_connection_prof import post_connection_prof
 
-            return post_connection_prof()
-            
+                return post_connection_prof()
 
-        from view.menu_post_connection import post_connection
+        elif type == 'Admin':
+            if Admin.charger_user(email, password):
+                shared_data.tab_bis.append(email)
+                shared_data.tab_bis.append(password)
+                Session().user_name = "Bonjour Admin :)) " 
+                from view.menu_post_connection_admin import post_connection_admin
 
-        return post_connection()
+                return post_connection_admin()
+        
+        from view.start_view import StartView
+        return StartView()
+
+        
         
