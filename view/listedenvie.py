@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/06 09:38:45 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/06 10:30:26 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ from view.session import Session
 from metier.eleve import Eleve
 import view.shared_data as shared_data
 from metier.critere import Critere
+
 
 
 class listedenvie(AbstractView):
@@ -53,7 +54,6 @@ class listedenvie(AbstractView):
             return self.make_choice()
         
         elif reponse["choix"] == "Exporter la liste d'envie":
-
-            fichier_csv = Critere.exportation_csv(shared_data.tab[0], shared_data.tab[2], shared_data.tab[1])
+            Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_csv(shared_data.tab_bis[0])
             
             return self.make_choice()

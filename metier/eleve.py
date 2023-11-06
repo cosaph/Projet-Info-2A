@@ -9,6 +9,7 @@ from dao.stageDAO import StageDao
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 # from datetime import datetime
+import csv
 
 
 class Eleve(UserNonAuthentifie):
@@ -53,7 +54,6 @@ class Eleve(UserNonAuthentifie):
             mdp=res["mdp"],
         )
     @classmethod
-    
     def charger_user_bis(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
@@ -140,6 +140,33 @@ class Eleve(UserNonAuthentifie):
         for stage in listStage:
             print(stage.url_stage)
         #return listStage
+
+    import csv
+
+    def charger_all_stage_mail_csv(self, email):
+        res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"]))
+    
+        # Define the CSV file path
+        csv_file = 'all_stages.csv'
+    
+        # Prepare the CSV file headers
+        fieldnames = ['URL', 'Title', 'Location']
+    
+        # Write the data to the CSV file
+        with open(csv_file, 'w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+        
+            # Write the headers to the CSV file
+            writer.writeheader()
+        
+            # Write each stage data to the CSV file
+            for stage in listStage:
+                writer.writerow({'URL': stage.url_stage, 'Title': "", 'Location': ""})
+    
+        print(f"All stages exported to '{csv_file}' successfully.")
 
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
