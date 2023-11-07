@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/06 10:08:42 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 15:09:00 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,4 +76,7 @@ class recherche(AbstractView):
         needs.append(localisation)
         shared_data.tab = needs
         
-        return selected_item_view(selected)
+        if selected == None:
+            return self.make_choice()
+        else:
+            # faire une méthode pour supp la liste d'envie pour les users non identifiés

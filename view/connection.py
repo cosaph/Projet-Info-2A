@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 14:15:54 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 15:05:56 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ from metier.prof import Prof
 from dao.userDao import UserDao
 import view.shared_data as shared_data
 from metier.admin import Admin
-
+import view.shared_data as shared_data
 class ConnectionView(AbstractView):
     
     def __init__(self):
@@ -56,6 +56,7 @@ class ConnectionView(AbstractView):
         email = answers["email"]
         password = answers["password"]
         type = answers["type"]
+        shared_data.tab_ter.append(type)
 
         if type == 'élève.e':
             if Eleve.charger_user(email, password):
