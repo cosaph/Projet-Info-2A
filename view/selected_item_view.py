@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 16:49:18 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 20:32:27 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ class selected_item_view(AbstractView):
 
             title = selected_item['title']
             url = selected_item['url']
-            location = selected_item['location']
+            #location = selected_item['location']
+            location = shared_data.tab[2]
             #rayon = shared_data.tab[0]
             specialite = shared_data.tab[0]
 

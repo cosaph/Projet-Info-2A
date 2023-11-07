@@ -105,6 +105,7 @@ CREATE TABLE projetInfo.association_stage_user (
     url_stage text,
     email text,
     critere text,
+    ville text,
     CONSTRAINT pk_asso6 PRIMARY KEY (url_stage,email),
     CONSTRAINT fk_asso7 FOREIGN KEY (email)
         REFERENCES projetInfo.utilisateur(email),

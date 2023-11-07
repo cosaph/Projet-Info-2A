@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/07 16:09:04 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 20:21:46 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ class recherche(AbstractView):
         needs.append(critere)
         needs.append(rayon)
         needs.append(localisation)
+        needs.append(selected["title"])
         shared_data.tab = needs
         
         return selected_item_view(selected)

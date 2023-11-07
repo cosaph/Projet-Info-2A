@@ -135,7 +135,7 @@ class Eleve(UserNonAuthentifie):
         #print(res)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"]))
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
             print(stage.url_stage)
@@ -147,10 +147,10 @@ class Eleve(UserNonAuthentifie):
         listStage = []
         for k in res:
             # RAJOUTER LA LOCALISATION ici 
-            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"]))
+            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
-            print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage))
+            print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
         #return listStage
 
 
@@ -160,7 +160,7 @@ class Eleve(UserNonAuthentifie):
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"]))
+            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
     
         # Define the CSV file path
         csv_file = 'all_stages.csv'
