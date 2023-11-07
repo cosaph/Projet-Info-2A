@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 16:32:04 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 16:49:18 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,8 @@ class selected_item_view(AbstractView):
             specialite = shared_data.tab[0]
 
             try:
-                if not Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location):
-                    print("Vous n'avez pas accès a cette fonctionnalité")
-                else:
-                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
-                    return self.make_choice()
+                Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                return self.make_choice()
             except IndexError:
                 print("Vous n'avez pas accès a cette fonctionnalité")
             

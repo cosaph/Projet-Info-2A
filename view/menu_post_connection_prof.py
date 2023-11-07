@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 19:58:36 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 16:56:06 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ class post_connection_prof(AbstractView):
                 "choices": [
                     "Recherche de stage",
                     "liste d'envie",
-                    "Statistiques"
+                    "Statistiques",
+                    "Historique de recherche",
                     "Retour"
                 ],
             }
@@ -62,3 +63,7 @@ class post_connection_prof(AbstractView):
             """ from view.statistiques import statistiques
 
             return statistiques() """
+        elif reponse["choix"] == "Historique de recherche":
+            from view.historique import historique
+
+            return historique()
