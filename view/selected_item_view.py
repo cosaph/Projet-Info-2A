@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 14:34:05 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 16:32:04 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ class selected_item_view(AbstractView):
         choice = answers["choice"]
 
 
+
         if choice == "Ajouter à la liste d'envie":
 
             selected_item = self.selected
@@ -51,8 +52,15 @@ class selected_item_view(AbstractView):
             location = selected_item['location']
             #rayon = shared_data.tab[0]
             specialite = shared_data.tab[0]
-            Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
-            return self.make_choice()
+
+            try:
+                if not Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location):
+                    print("Vous n'avez pas accès a cette fonctionnalité")
+                else:
+                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    return self.make_choice()
+            except IndexError:
+                print("Vous n'avez pas accès a cette fonctionnalité")
             
         elif choice == "En savoir plus sur le stage":
             pass  # Do something else
