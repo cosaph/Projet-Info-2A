@@ -146,10 +146,11 @@ class Eleve(UserNonAuthentifie):
         #print(res)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"]))
+            # RAJOUTER LA LOCALISATION
+            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
-            print(stage.url_stage)
+            print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage))
         #return listStage
 
 

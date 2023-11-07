@@ -15,11 +15,12 @@ class AssoStageUserDao:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO projetInfo.association_stage_user(url_stage, email, critere)"
+                        "INSERT INTO projetInfo.association_stage_user(titre, url_stage, email, critere)"
                         "VALUES       "                                              
-                        "(%(url_stage)s, %(email)s, %(critere)s) "
+                        "(%(titre)s, %(url_stage)s, %(email)s, %(critere)s) "
                         "RETURNING email;    ",
                         {
+                            "titre": unStage.titre,
                             "url_stage": unStage.url_stage,
                             "email": unUser.email,
                             "critere" : unStage.specialite,

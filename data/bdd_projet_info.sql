@@ -101,6 +101,7 @@ CREATE TABLE projetInfo.association_critere_stage (
 DROP TABLE IF EXISTS projetInfo.association_stage_user CASCADE;
 
 CREATE TABLE projetInfo.association_stage_user (
+    titre text,
     url_stage text,
     email text,
     critere text,

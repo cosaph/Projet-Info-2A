@@ -24,8 +24,8 @@ class Stage:
         return StageDao().exist_id(self)
 
     @classmethod
-    def charger_stage(self, url_stage, verbose=False):
-        res = StageDao().charger_stage(url_stage)
+    def charger_stage(self, url_stage, titre, verbose=False):
+        res = StageDao().charger_stage(url_stage, titre)
         if not res:
             raise "Le stage n'existe pas"
         res = Stage(
