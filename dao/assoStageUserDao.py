@@ -15,13 +15,14 @@ class AssoStageUserDao:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO projetInfo.association_stage_user(url_stage, email)"
+                        "INSERT INTO projetInfo.association_stage_user(url_stage, email, critere)"
                         "VALUES       "                                              
-                        "(%(url_stage)s, %(email)s) "
+                        "(%(url_stage)s, %(email)s, %(critere)s) "
                         "RETURNING email;    ",
                         {
                             "url_stage": unStage.url_stage,
                             "email": unUser.email,
+                            "critere" : unStage.specialite,
                         },
                     )
                     res = cursor.fetchone()
@@ -179,6 +180,21 @@ class AssoStageUserDao:
                     "where email = %(email)s;",
                     {
                         "email": email,
+                    }
+                )
+                res = cursor.fetchall()
+        return res
+
+    def unUser_all_url_stage_mail_critere(self, email, critere):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "FROM projetinfo.association_stage_user "
+                    "where email = %(email)s AND critere = %(critere)s ;",
+                    {
+                        "email": email,
+                        "critere": critere
                     }
                 )
                 res = cursor.fetchall()

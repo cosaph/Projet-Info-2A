@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 18:47:36 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 14:15:51 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ from view.abstract_view import AbstractView
 from view.session import Session
 #from metier.userNonAuthentifie import UserNonAuthentifie
 from metier.nouveau_compte import Creation
+import view.shared_data as shared_data
+
 class Creation_compteView(AbstractView):
 
 
@@ -70,9 +72,13 @@ class Creation_compteView(AbstractView):
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
         if type == 'eleve':
+            shared_data.tab_bis.append(email)
+            shared_data.tab_bis.append(password)
             from view.menu_post_connection import post_connection
             return post_connection()
         else :
+            shared_data.tab_bis.append(email)
+            shared_data.tab_bis.append(password)
             from view.menu_post_connection_prof import post_connection_prof
             return post_connection_prof()
     

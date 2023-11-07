@@ -141,6 +141,18 @@ class Eleve(UserNonAuthentifie):
             print(stage.url_stage)
         #return listStage
 
+    def charger_all_stage_mail_critere(email, critere):
+        res = AssoStageUserDao().unUser_all_url_stage_mail_critere(email, critere)
+        #print(res)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"]))
+        # Print the url_stage from each element in listStage
+        for stage in listStage:
+            print(stage.url_stage)
+        #return listStage
+
+
     import csv
 
     def charger_all_stage_mail_csv(self, email):

@@ -103,7 +103,7 @@ DROP TABLE IF EXISTS projetInfo.association_stage_user CASCADE;
 CREATE TABLE projetInfo.association_stage_user (
     url_stage text,
     email text,
-    date_recherche date,
+    critere text,
     CONSTRAINT pk_asso6 PRIMARY KEY (url_stage,email),
     CONSTRAINT fk_asso7 FOREIGN KEY (email)
         REFERENCES projetInfo.utilisateur(email),

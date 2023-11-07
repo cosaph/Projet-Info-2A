@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/06 12:16:25 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 14:34:05 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ class selected_item_view(AbstractView):
             url = selected_item['url']
             location = selected_item['location']
             #rayon = shared_data.tab[0]
-            specialite = shared_data.tab[1]
+            specialite = shared_data.tab[0]
             Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
             return self.make_choice()
             
