@@ -97,7 +97,7 @@ class Critere:
     def supprimer_critere(self):
         if self.existe():
             CritereDAO().delete(self)
-    
+
     @classmethod
     def charger_critere(self, id_crit, verbose=False):
         # rrrr A mon avis ca ne marche plus
@@ -114,4 +114,3 @@ class Critere:
         if verbose:
             print(res)
         return res
-

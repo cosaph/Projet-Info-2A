@@ -53,6 +53,7 @@ class Eleve(UserNonAuthentifie):
             email=res["email"],
             mdp=res["mdp"],
         )
+
     @classmethod
     def charger_user_bis(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
@@ -65,7 +66,6 @@ class Eleve(UserNonAuthentifie):
         if AssoCritUserDao().exist_email(email):
             listCritere = Eleve.charger_all_critere_mail(email)
         if AssoStageUserDao().exist_email(email):
-            listStage = Eleve.charger_all_stage_mail(email)
             listStage = Eleve.charger_all_stage_mail(email)
         return Eleve(
             email=res["email"],
@@ -131,18 +131,18 @@ class Eleve(UserNonAuthentifie):
     @classmethod
     def charger_all_stage_mail(self, email):
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
-        #print(res)
+        # print(res)
         listStage = []
         for k in res:
             listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
             print(stage.url_stage)
-        #return listStage
+        # return listStage
 
     def charger_all_stage_mail_critere(email, critere):
         res = AssoStageUserDao().unUser_all_url_stage_mail_critere(email, critere)
-        #print(res)
+        # print(res)
         listStage = []
         for k in res:
 
@@ -150,7 +150,7 @@ class Eleve(UserNonAuthentifie):
         # Print the url_stage from each element in listStage
         for stage in listStage:
             print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
-        #return listStage
+        # return listStage
 
 
     import csv
