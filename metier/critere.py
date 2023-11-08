@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 from dao.critereDAO import CritereDAO
-from metier.stage import Stage
+# from metier.stage import Stage
 
 
 class Critere:
@@ -18,25 +18,23 @@ class Critere:
         self,
         localisation: str,
         rayon: float,
-        critere: str,
-        #duree_min: int,
-        #duree_max: int
+        critere: str
+        # duree_min : float
+        # duree_max : float
             ):
         ''' Constructeur d'un objet Critere'''
         self.localisation = localisation
         # convertion en majuscule
         self.critere = critere.upper()
-        #self.duree_min = duree_min
-        #self.duree_max = duree_max
         self.rayon = rayon
         self.id_crit = CritereDAO().calcul_id(self)
-    
-    """
-    def __str__(self):
-        res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.ville_cible, self.specialite, self.duree_min, self.duree_max)
-        return res
-    """
-    
+        # self.duree_min = duree_min
+        # self.duree_max = duree_max
+
+    # def __str__(self):
+    #     res = "id_crit: {} \nCommune cible: {} \nSpecialite du stage: {} \nDurée minimum du stage: {} \nDurée maximum du stage: {}".format(self.id_crit, self.ville_cible, self.specialite, self.duree_min, self.duree_max)
+    #     return res
+
     def __eq__(self, other):
         return self.id_crit == other.id_crit
         
@@ -59,14 +57,13 @@ class Critere:
 
             for link_element in link_elements:
                 tableau.append({
-                    'url' : link_element['href'],
+                    'url': link_element['href'],
                     'title': link_element.text,
                     'location': location_element
                 })
 
-        return(tableau)
+        return tableau
             
-
     def exportation_csv(critere, localisation, rayon):
         # Perform the job search and retrieve the data
         tableau = Critere.recherche_stage(critere, localisation, rayon)
@@ -90,8 +87,6 @@ class Critere:
 
         print(f"Job offers exported to '{csv_file}' successfully.")
 
-
-    
     def existe(self):
         return CritereDAO().exist_id(self)
 
@@ -105,10 +100,17 @@ class Critere:
     
     @classmethod
     def charger_critere(self, id_crit, verbose=False):
+        # rrrr A mon avis ca ne marche plus
         res = CritereDAO().charger_critere(id_crit)
         if not res:
             raise "L'identifiant n'existe pas"
-        res = Critere(res["ville_cible"], res["rayon_km"], res["specialite"], res["duree_min"], res["duree_max"])
+        res = Critere(
+            localisation=res["ville_cible"],
+            rayon=res["rayon_km"],
+            critere=res["specialite"],
+            duree_min=res["duree_min"],
+            duree_max=res["duree_max"]
+            )
         if verbose:
             print(res)
         return res
