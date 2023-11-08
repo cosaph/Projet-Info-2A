@@ -145,7 +145,7 @@ class Eleve(UserNonAuthentifie):
         #print(res)
         listStage = []
         for k in res:
-            # RAJOUTER LA LOCALISATION ici 
+
             listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:

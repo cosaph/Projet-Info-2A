@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 16:40:41 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 08:47:23 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,25 +29,33 @@ class Creation_compteView(AbstractView):
                 "message": "Quel est votre email ?",
             },
             {
-                "type": "input",  # Utilisez "password" pour masquer la saisie du mot de passe
+                "type": "password",  
                 "name": "password",
                 "message": "Choisissez un mot de passe :",
             },
             {
-                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "type": "input",  
                 "name": "code postal",
                 "message": "donnes nous ton code postal:",
             },
             {
-                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "type": "list",  
                 "name": "alerte",
-                "message": "Souhaites-tu être alerté? (TRUE/FALSE)",
+                "message": "Souhaites-tu être alerté? (oui/non)",
+                "choices": [
+                    "TRUE",
+                    "FALSE"
+                ]
             },
             {
-                "type": "input",  # Utilisez "confirm" pour obtenir "oui" ou "non"
+                "type": "list",
                 "name": "type",
-                "message": "eleve ou prof",
-            }
+                "message": "Vous êtes :",
+                "choices": [
+                    "élève.e",
+                    "professeur.e"
+                ]
+            },
         ]
 
     def display_info(self):
@@ -71,7 +79,7 @@ class Creation_compteView(AbstractView):
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
-        if type == 'eleve':
+        if type == 'élève.e':
             shared_data.tab_bis.append(email)
             shared_data.tab_bis.append(password)
             from view.menu_post_connection import post_connection

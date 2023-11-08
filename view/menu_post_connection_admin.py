@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/04 20:00:04 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 09:48:31 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ from metier.prof import Prof
 from dao.userDao import UserDao
 from view.start_view import StartView
 from metier.admin import Admin
+import view.shared_data as shared_data
 
 
 
@@ -31,7 +32,7 @@ class post_connection_admin(AbstractView):
                 "name": "choix",
                 "message": f"Hello Admin :)",
                 "choices": [
-                    "Modifier utilisateurs.es",
+                    "Utilisateurs.es",
                     "Statistiques",
                     "Quit"
                 ],
@@ -47,9 +48,22 @@ class post_connection_admin(AbstractView):
         if reponse["choix"] == "Quit":
             pass 
         #Ici l'utilisateur fait le choix de se connecter?
-        if reponse["choix"] == "Modifier utilisateurs.es": 
-            pass
+        if reponse["choix"] == "Utilisateurs.es": 
+            from view.modifier_utilisateur import modifier_utilisateur
+            return modifier_utilisateur()
 
         elif reponse["choix"] == "Statistiques":
             pass
+
+"""
+    def crea_role_prof(self, email, mdp):
+        answers = prompt(self.__questions)
+        Session().user_name = answers["email"]
+        email = answers["email"]
+        password = answers["password"]
+        type = answers["prof"]
+        alerte = answers["alerte"]
+
+        UserNonAuthentifie.creer_compte(email, password, alerte, type)
+"""
         

@@ -98,7 +98,7 @@ class Admin(Prof):
             return None
         listRes = []
         for res in listDic:
-            listRes.append(self.chargerUnAutreUser(res["email"]))
+            listRes.append(res["email"])
         return listRes
 
     def modifier_user(self, unUser: Eleve):

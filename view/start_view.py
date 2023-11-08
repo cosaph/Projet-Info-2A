@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 15:02:46 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 09:24:59 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ class StartView(AbstractView):
                     "Recherche de stage",
                     "Création Compte",
                     "Administrateur.e",
-                    "Nous quitter :("
+                    "Quitter"
                 ],
             }
         ]
@@ -41,7 +41,7 @@ class StartView(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Nous quitter :(":
+        if reponse["choix"] == "Quitter":
             pass 
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Connection": #pense a changer le if la.
@@ -59,4 +59,5 @@ class StartView(AbstractView):
             return recherche()
         
         elif reponse["choix"] == "Administrateur.e":
-            pass
+            from view.administrateur import ConnectionView_admin
+            return ConnectionView_admin()
