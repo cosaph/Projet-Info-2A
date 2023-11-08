@@ -11,6 +11,7 @@ from view.start_view import StartView
 
 
 
+
 class post_connection(AbstractView):
     
     def __init__(self):
@@ -21,14 +22,15 @@ class post_connection(AbstractView):
                 "message": f"Hello {Session().user_name}",
                 "choices": [
                     "Recherche de stage",
-                    "Historique",
+                    "liste d'envie",
+                    "Historique de recherche",
                     "Quit"
                 ],
             }
         ]
 
     def display_info(self):
-        with open("graphical_assets/banner.txt", "r", encoding="utf-8") as asset:
+        with open("graphical_assets/art_recherche.txt", "r", encoding="utf-8") as asset:
             print(asset.read())
 
     def make_choice(self):
@@ -41,7 +43,12 @@ class post_connection(AbstractView):
 
             return recherche()
 
-        elif reponse["choix"] == "Historique":
+        elif reponse["choix"] == "liste d'envie":
+            from view.listedenvie import listedenvie
+
+            return listedenvie()
+        
+        elif reponse["choix"] == "Historique de recherche":
             from view.historique import historique
 
             return historique()

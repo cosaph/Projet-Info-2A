@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 16:45:45 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 15:02:46 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,13 @@ class StartView(AbstractView):
             {
                 "type": "list",
                 "name": "choix",
-                "message": f"Hello {Session().user_name}",
+                "message": f"Salut {Session().user_name}",
                 "choices": [
                     "Connection",
+                    "Recherche de stage",
                     "Création Compte",
                     "Administrateur.e",
-                    "Quit"
+                    "Nous quitter :("
                 ],
             }
         ]
@@ -40,7 +41,7 @@ class StartView(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Quit":
+        if reponse["choix"] == "Nous quitter :(":
             pass 
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Connection": #pense a changer le if la.
@@ -50,10 +51,12 @@ class StartView(AbstractView):
 
         elif reponse["choix"] == "Création Compte":
             from view.creation_compte import Creation_compteView
-
             return Creation_compteView()
         
-        elif reponse["choix"] == "Administrateur.e":
-            from view.creation_compte import Creation_compteView
 
-            return Creation_compteView()
+        elif reponse["choix"] == "Recherche de stage":
+            from view.recherche import recherche
+            return recherche()
+        
+        elif reponse["choix"] == "Administrateur.e":
+            pass

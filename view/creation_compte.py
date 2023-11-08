@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/26 12:21:04 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/07 16:40:41 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ from InquirerPy import prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 #from metier.userNonAuthentifie import UserNonAuthentifie
-from metier.nouveau_compte import creation
+from metier.nouveau_compte import Creation
+import view.shared_data as shared_data
+
 class Creation_compteView(AbstractView):
 
 
@@ -62,13 +64,21 @@ class Creation_compteView(AbstractView):
         alerte = answers["alerte"]
         type = answers["type"]
 
-        if creation.creer_compte(password, email, alerte, code_insee_residence, type):
+        if Creation(password, email, alerte, code_insee_residence, type).creer_compte():
             print("utilisateur crée")
         print("utilisateur pas crée")
 
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
-        from view.start_view import StartView
-        return StartView()
+        if type == 'eleve':
+            shared_data.tab_bis.append(email)
+            shared_data.tab_bis.append(password)
+            from view.menu_post_connection import post_connection
+            return post_connection()
+        else :
+            shared_data.tab_bis.append(email)
+            shared_data.tab_bis.append(password)
+            from view.menu_post_connection_prof import post_connection_prof
+            return post_connection_prof()
     

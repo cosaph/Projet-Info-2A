@@ -3,21 +3,28 @@
 from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
+from dao.stageDAO import StageDao
+from metier.stage import Stage
 
-class creation:
-    def creer_compte(mdp, email, souhaite_alertes, code_insee_residence, type):
-        # Vérifiez si l'utilisateur existe déjà
-        # if UserDao().exist_id(id):
-        #     raise Exception("L'utilisateur a déjà un compte")
-        
-        # Chiffrez le mot de passe
-        if type == 'eleve':
-            E = Eleve(email, mdp, [], [], code_insee_residence, souhaite_alertes)
+class Creation:
+    
+    def __init__(self, mdp, email, souhaite_alertes, code_insee_residence, type):
+        self.mdp = mdp
+        self.email = email
+        self.souhaite_alertes = souhaite_alertes
+        self.code_insee_residence = code_insee_residence
+        self.type = type
+    
+    def creer_compte(self):
+        if self.type == 'eleve':
+            E = Eleve(self.email, self.mdp, [], [], self.code_insee_residence, self.souhaite_alertes)
             if UserDao().exist_id(E):
                 print("L'utilisateur existe déjà")
-            UserDao().add_user(E)
+            else:
+                UserDao().add_user(E)
         else:
-            P = Prof(email, mdp, [], [], code_insee_residence, souhaite_alertes)
+            P = Prof(self.email, self.mdp, [], [], self.code_insee_residence, self.souhaite_alertes)
             if UserDao().exist_id(P):
                 print("L'utilisateur existe déjà")
-            UserDao().add_user(P)
+            else:
+                UserDao().add_user(P)

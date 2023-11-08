@@ -59,22 +59,38 @@ class Critere:
 
             for link_element in link_elements:
                 tableau.append({
+                    'url' : link_element['href'],
                     'title': link_element.text,
                     'location': location_element
                 })
 
         return(tableau)
-            # rrrrrrrrrrrrrrrrrrrrrrrrrr
+            
 
-        # for link_element in link_elements:
-        #     title = link_element.text
-        #     url = link_element['href']
-        #     tableau.append([title, url, location_element])
-        # with open('jobs.csv', 'w', newline='') as fichier_csv:
-        #     writer = csv.writer(fichier_csv)
-        #     writer.writerow(['Titre', 'URL', 'Location'])
-        #     writer.writerows(tableau)
-        # print("Exportation vers le fichier CSV terminée.")
+    def exportation_csv(critere, localisation, rayon):
+        # Perform the job search and retrieve the data
+        tableau = Critere.recherche_stage(critere, localisation, rayon)
+    
+        # Define the CSV file path
+        csv_file = 'job_offers.csv'
+    
+        # Prepare the CSV file headers
+        fieldnames = ['URL', 'Title', 'Location']
+    
+        # Write the data to the CSV file
+        with open(csv_file, 'w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+        
+            # Write the headers to the CSV file
+            writer.writeheader()
+        
+            #  Write each job offer data to the CSV file
+            for item in tableau:
+                writer.writerow({'URL': item['url'], 'Title': item['title'], 'Location': item['location']})
+
+        print(f"Job offers exported to '{csv_file}' successfully.")
+
+
     
     def existe(self):
         return CritereDAO().exist_id(self)

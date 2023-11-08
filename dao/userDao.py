@@ -31,19 +31,17 @@ class UserDao(metaclass=Singleton):
                 cursor.execute(
                     "INSERT INTO "
                     "projetInfo.utilisateur(email, mdp, "
-                    "souhaite_alertes, profil,stage_trouve )"
+                    "souhaite_alertes, profil)"
                     "VALUES "                                              
                     "(%(email)s, %(mdp)s, " 
                     "%(souhaite_alertes)s, "
-                    "%(profil)s,"
-                    "%(stage_trouve)s)"
-                    "RETURNING email;    ",
+                    "%(profil)s)"
+                    "RETURNING email;   ",
                     {
                         "email": unUser.email,
                         "mdp": self.mdp_chiffre,
                         "souhaite_alertes": unUser.souhaite_alertes,
                         "profil": str(type(unUser)),
-                        "stage_trouve": unUser.stage_trouve,
                         
                     },
                 )

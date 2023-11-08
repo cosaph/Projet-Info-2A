@@ -14,25 +14,18 @@ class Stage:
         titre,
         specialite,
         ville,
-        date_debut=None,
-        date_fin=None,
-        contact_employeur=None
             ):
-
         self.url_stage = url_stage
         self.titre = titre,
         self.specialite = specialite
-        self.ville = ville
-        self.date_debut = date_debut
-        self.date_fin = date_fin
-        self.contact_employeur = contact_employeur
+        self.ville = ville,
 
     def existe(self):
         return StageDao().exist_id(self)
 
     @classmethod
-    def charger_stage(self, url_stage, verbose=False):
-        res = StageDao().charger_stage(url_stage)
+    def charger_stage(self, url_stage, titre, ville, verbose=False):
+        res = StageDao().charger_stage(url_stage, titre, ville)
         if not res:
             raise "Le stage n'existe pas"
         res = Stage(
@@ -40,8 +33,6 @@ class Stage:
             titre=res["titre"],
             specialite=res["specialite"],
             ville=res["ville"],
-            date_debut=res["date_debut"],
-            date_fin=res["date_fin"]
             )
         if verbose:
             print(res)
@@ -55,15 +46,23 @@ class Stage:
         if self.existe():
             StageDao().update(self)
     
-    def enregistrer_stage(self):
-        if not self.existe():
-            StageDao().add(self)
+    def creer_stage(url_stage, titre, specialite, ville):
+        """
+        Créer un stage
+        Le stage est ajouté à la base de données
+        
+        """
+        S = Stage(url_stage, titre, specialite, ville)
+        if S.existe():
+            print("Le stage existe déjà")
         else:
-            StageDao().update(self)
-
+            StageDao().add(S)
+   
+    """
     def __str__(self):
         res = "Specialite du stage: {} \nurl: {} \nLibellé du stage: {} \nLieu du stage: {}".format(self.specialite,self.url_stage, self.titre, self.ville)
         return res
+    """
 
     def sauvegarder_dans_listeenvie(self, idUser):
         pass

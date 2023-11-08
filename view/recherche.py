@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    recherche.py                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/10/28 19:53:45 by marvin           ###   ########.fr        #
+#    Updated: 2023/11/07 20:21:46 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ from view.abstract_view import AbstractView
 
 from InquirerPy import prompt
 from metier.critere import Critere
-from view.recherche_stage_poussee  import recherche_stage_poussee
+from view.selected_item_view  import selected_item_view
+from metier.stage import Stage
+import view.shared_data as shared_data
 
 class recherche(AbstractView):
 
@@ -40,6 +42,7 @@ class recherche(AbstractView):
     def display_info(self):
         print(f"Bonjour, veuillez rentrer les informations suivantes:")
 
+
     def make_choice(self):
         answers = prompt(self.__questions)
         critere = answers["critère"]
@@ -49,17 +52,29 @@ class recherche(AbstractView):
 
         options = [
             {
-                "type": "checkbox",
+                "type": "list",
                 "name": "selected_items",
                 "message": "Select items:",
-                "choices": [{"name": f"{item['title']} - {item['location']}", "value": item} for item in tableau],
+                "choices": [
+                    {
+                        "name": f"{item['title']} - {item['location']} ({item['url']}) ",
+                        "value": item,
+                    }
+                    for item in tableau
+                    
+                ],
             }
+            
         ]
-
-        selected_answers = prompt(options)
-        selected_items = selected_answers["selected_items"]
         
-        return recherche_stage_poussee()
-             
+        response = prompt(options)
+        selected = response["selected_items"]
         
-
+        needs = []
+        needs.append(critere)
+        needs.append(rayon)
+        needs.append(localisation)
+        needs.append(selected["title"])
+        shared_data.tab = needs
+        
+        return selected_item_view(selected)

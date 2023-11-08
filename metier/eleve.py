@@ -9,6 +9,7 @@ from dao.stageDAO import StageDao
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 # from datetime import datetime
+import csv
 
 
 class Eleve(UserNonAuthentifie):
@@ -39,14 +40,29 @@ class Eleve(UserNonAuthentifie):
         self.souhaite_alertes = souhaite_alertes
         self.stage_trouve = False
 
+<<<<<<< HEAD
     @classmethod
     def exist_email(self, email):
         if not isinstance(email, str):
             raise "email doit etre str"
         return UserDao().exist_id(email)
+=======
+    # modifier
+>>>>>>> 21840bf4c57b8a26a3423e22d7dcdfaf4b157396
 
     @classmethod
     def charger_user(self, email, mdp):
+        res = UserDao().charger_user(email, mdp)
+        if not res:
+            raise ValueError("Email or password incorrect")
+        if "Eleve" not in res["profil"]:
+            raise ValueError("The user is not a student")
+        return Eleve(
+            email=res["email"],
+            mdp=res["mdp"],
+        )
+    @classmethod
+    def charger_user_bis(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise ValueError("Email or password incorrect")
@@ -116,27 +132,73 @@ class Eleve(UserNonAuthentifie):
         res = AssoStageUserDao().unUser_all_url_stage(self)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"], verbose))
+            stage = Stage.charger_stage(k["url_stage"], verbose)
+            listStage.append(stage)
         return listStage
 
     @classmethod
     def charger_all_stage_mail(self, email):
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        #print(res)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"]))
-        return listStage
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
+        # Print the url_stage from each element in listStage
+        for stage in listStage:
+            print(stage.url_stage)
+        #return listStage
+
+    def charger_all_stage_mail_critere(email, critere):
+        res = AssoStageUserDao().unUser_all_url_stage_mail_critere(email, critere)
+        #print(res)
+        listStage = []
+        for k in res:
+            # RAJOUTER LA LOCALISATION ici 
+            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
+        # Print the url_stage from each element in listStage
+        for stage in listStage:
+            print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
+        #return listStage
+
+
+    import csv
+
+    def charger_all_stage_mail_csv(self, email):
+        res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
+    
+        # Define the CSV file path
+        csv_file = 'all_stages.csv'
+    
+        # Prepare the CSV file headers
+        fieldnames = ['URL', 'Title', 'Location']
+    
+        # Write the data to the CSV file
+        with open(csv_file, 'w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+        
+            # Write the headers to the CSV file
+            writer.writeheader()
+        
+            # Write each stage data to the CSV file
+            for stage in listStage:
+                writer.writerow({'URL': stage.url_stage, 'Title': "", 'Location': ""})
+    
+        print(f"All stages exported to '{csv_file}' successfully.")
 
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
 
-    def ajouter_stageAuser(self, unStage):
-        if self.possede_stage(unStage):
+    def ajouter_stageAuser(self, url, title, specialite, location):
+        # ne pas toucher
+        S = Stage(url, title, specialite, location) 
+        if self.possede_stage(S):
             raise "L' utilisateur a déjà ce stage dans la liste envie"
-        if not unStage.existe():
-            unStage.enregistrer_stage()
-        self.list_envie.ajouter_stage(unStage)
-        return AssoStageUserDao().add(unStage, self)
+        if not S.existe():
+            Stage.creer_stage(url, title, specialite, location)
+        return AssoStageUserDao().add(S, self)
 
     def supprimer_stageAuser(self, unStage):
         if self.possede_stage(unStage):
