@@ -38,20 +38,20 @@ class Admin(Prof):
             raise "email ou mdp incorrect"
         if "Admin" not in res["profil"]:
             raise "L'utilisateur n'est pas un administrateur"
-        listStage = []
-        listCritere = []
-        if AssoCritUserDao().exist_email(email):
+        #listStage = []
+        #listCritere = []
+        #if AssoCritUserDao().exist_email(email):
             listCritere = Admin.charger_all_critere_mail(email)
         #     print(len(listCritere))
         # print(AssoStageUserDao().exist_email(email))
-        if AssoStageUserDao().exist_email(email):
+        #if AssoStageUserDao().exist_email(email):
             listStage = Admin.charger_all_stage_mail(email)
    
         return Admin(
                     email=res["email"],
                     mdp=res["mdp"],
-                    critere=listCritere,
-                    list_envie=listStage,
+                    critere=None,
+                    list_envie=None,
                     code_insee_residence=res["code_insee_residence"],
                     souhaite_alertes=res["souhaite_alertes"]
                     )
