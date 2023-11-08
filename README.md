@@ -1,9 +1,13 @@
 # TRAVAIL RESTANT
 
-- faire le fichier connection_bdd (demander au tuteur sous quel resource)
+- faire le fichier connection_bdd (demander au tuteur sous quel ressource)
+- Ne surtout pas oublier de mettre dans le fichier main de créer une fonction qui crér automatiquement un admin.
 
-- revoir le fichier nouveau_compte.py
 
-- petit soucis dans spécialité
+- Réfléchir a Admin (dans l'idée : faire en sorte qu'ils puissent modifier eleve, prof (ex: si jamais un élève c'est inscrit en temps que prof.))
 
-- Réfléchir a Admin
+
+- Pour les statistiques Prof: on va faire une moyenne sur le nombre d'élève inscrit (on rajoute 2A/3A????)
+- Pour les statistiques Admin: les remplacer par un espèce de boite msg dans lequel les élèves et les profs pourront parler de leurs soucis techniques.
+
+- FAIRE LES TESTS.

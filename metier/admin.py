@@ -101,8 +101,8 @@ class Admin(Prof):
             return None
         listRes = []
         for res in listDic:
-            listRes.append(self.chargerUnAutreUser(res["email"]))
-        return listRes
+            listRes.append(res["email"])
+        return(listRes)
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():

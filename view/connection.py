@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 15:05:56 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 09:23:42 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ class ConnectionView(AbstractView):
                 "choices": [
                     "élève.e",
                     "professeur.e",
-                    "administrateur.e"
                 ]
             },
             {
@@ -75,7 +74,7 @@ class ConnectionView(AbstractView):
                 from view.menu_post_connection_prof import post_connection_prof
 
                 return post_connection_prof()
-
+        """
         elif type == 'administrateur.e':
             if Admin.charger_user(email, password):
                 shared_data.tab_bis.append(email)
@@ -84,7 +83,7 @@ class ConnectionView(AbstractView):
                 from view.menu_post_connection_admin import post_connection_admin
                 
                 return post_connection_admin()
-        
+        """
         from view.start_view import StartView
         return StartView()
 

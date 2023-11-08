@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 08:44:06 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 09:24:59 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,4 +59,5 @@ class StartView(AbstractView):
             return recherche()
         
         elif reponse["choix"] == "Administrateur.e":
-            pass
+            from view.administrateur import ConnectionView_admin
+            return ConnectionView_admin()
