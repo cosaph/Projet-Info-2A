@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 19:52:57 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 09:50:44 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 13:38:18 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,13 +42,21 @@ class selected_item_view_admin(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        print(self.selected)
+        dic = self.selected
+        tableau = []
+        tableau.append(dic["email"])
+        tableau.append(dic["url_stage"])
+
         choice = answers["choice"]
 
         if choice == "Supprimer l'utilisateur.e":
-             E = Eleve(self.selected, " ")
+            E = Eleve(tableau[0], None)
              # trouver un moyen de faire apparaître l'url.
-             Admin(shared_data.tab[0], shared_data.tab[1]).supprime_user(E)
+            Admin(shared_data.tab[0], shared_data.tab[1]).supprime_user(E, tableau[1])
+
+            from view.modifier_utilisateur import modifier_utilisateur
+            return modifier_utilisateur()
+             
         if choice == "Retour":
             from view.modifier_utilisateur import modifier_utilisateur
             return modifier_utilisateur()

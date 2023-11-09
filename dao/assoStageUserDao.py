@@ -32,7 +32,7 @@ class AssoStageUserDao:
                 caPasse = True
         return caPasse
     
-    def delete(self, unUser):
+    def delete(self, unUser, url_stage):
         """
         supprime un couple
         """
@@ -45,6 +45,7 @@ class AssoStageUserDao:
                     "RETURNING email; ",
                     {
                         "email": unUser.email,
+                        "url_stage": url_stage
                     },
                 )
                 res = cursor.fetchone()

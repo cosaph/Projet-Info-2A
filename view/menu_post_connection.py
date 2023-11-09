@@ -23,7 +23,7 @@ class post_connection(AbstractView):
                 "choices": [
                     "Recherche de stage",
                     "liste d'envie",
-                    "Historique de recherche",
+                    "Historique de recherche par critère",
                     "Quit"
                 ],
             }
@@ -48,7 +48,7 @@ class post_connection(AbstractView):
 
             return listedenvie()
         
-        elif reponse["choix"] == "Historique de recherche":
+        elif reponse["choix"] == "Historique de recherche par critère":
             from view.historique import historique
 
             return historique()

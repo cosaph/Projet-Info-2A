@@ -106,13 +106,19 @@ class Admin(Prof):
     
     def chargerTout(self):
         listDic = UserDao().tous()
+        print(listDic)
+
         if len(listDic) == 0:
             return None
+    
         listRes = []
         for res in listDic:
-            listRes.append(res["email"])
-            listRes.append(res["url_stage"])
-        return(listRes)
+            email = res["email"]
+            url_stage = res["url_stage"]
+            listRes.append({"email": email, "url_stage": url_stage})
+    
+        return (listRes)
+    
 
     def modifier_user(self, unUser: Eleve):
         if unUser.existe():
@@ -144,10 +150,11 @@ class Admin(Prof):
         else:
             print("Le stage {} est déjà enregistré".format(unStage.url_stage))
 
-    def supprime_user(self, unUser: Eleve):
+    def supprime_user(self, unUser: Eleve, url_stage):
         if unUser.existe():
-            unUser.supprimer_compte()
-            AssoStageUserDao().delete(unUser)
+            AssoStageUserDao().delete(unUser, url_stage)
+            #unUser.supprimer_compte()
+            
         else:
             print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
 

@@ -15,5 +15,4 @@
 
 - historique (la liste des critères)
 - en savoir plus : redirection url
-- administrateur -> creation compte prof. 
-- deplacer recherche_stage : stage
+- administrateur -> creation compte prof. création compte admin.
