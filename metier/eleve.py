@@ -47,13 +47,14 @@ class Eleve(UserNonAuthentifie):
         res = UserDao().charger_user(email, mdp)
         if not res:
             raise ValueError("Email or password incorrect")
-        if "Eleve" not in res["profil"]:
-            raise ValueError("The user is not a student")
+        #if "élève.e" not in res["profil"]:
+            #raise ValueError("The user is not a student")
         return Eleve(
             email=res["email"],
             mdp=res["mdp"],
         )
     @classmethod
+
     def charger_user_bis(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
         if not res:

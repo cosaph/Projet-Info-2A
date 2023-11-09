@@ -23,7 +23,7 @@ CREATE TABLE projetInfo.critere (
 DROP TABLE IF EXISTS projetInfo.utilisateur CASCADE ;
 CREATE TABLE projetInfo.utilisateur (
     email text PRIMARY KEY,
-    mdp text NOT NULL,
+    mdp text PRIMARY KEY,
     code_insee_residence text,
     souhaite_alertes boolean,
     stage_trouve boolean,

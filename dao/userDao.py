@@ -193,3 +193,13 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchall()
         return res
+    
+    def tous(self):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * "
+                    "FROM projetInfo.association_stage_user;",
+                )
+                res = cursor.fetchall()
+        return res

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 09:48:31 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/08 21:07:20 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ class post_connection_admin(AbstractView):
         reponse = prompt(self.__questions)
         if reponse["choix"] == "Quit":
             pass 
-        #Ici l'utilisateur fait le choix de se connecter?
+
         if reponse["choix"] == "Utilisateurs.es": 
             from view.modifier_utilisateur import modifier_utilisateur
             return modifier_utilisateur()

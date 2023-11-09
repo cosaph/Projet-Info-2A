@@ -38,10 +38,12 @@ class Stage:
             print(res)
         return res
 
+    # pas utilisé 
     def supprimer_stage(self):
         if self.existe():
             StageDao().delete(self)
 
+    # pas utilisé 
     def modifier_stage(self):
         if self.existe():
             StageDao().update(self)
@@ -64,5 +66,6 @@ class Stage:
         return res
     """
 
+    # pas utilisé 
     def sauvegarder_dans_listeenvie(self, idUser):
         pass

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:03:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 09:55:32 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 09:50:47 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,8 @@ class modifier_utilisateur(AbstractView):
                     "message": f"Hello Admin :)",
                     "choices": [
                         "Chargez la liste des utilisateurs.es",
-                        "Supprimer un utilisateur",
                         "Modifier un.e admin",
-                        "Messages"
+                        "Messages",
                         "Quit"
                     ],
                 }
@@ -56,7 +55,7 @@ class modifier_utilisateur(AbstractView):
                 options = [
                 {
                     "type": "list",
-                    "name": "selected_items",
+                    "name": "email",
                     "message": "Select items:",
                     "choices": [
                         {
@@ -70,11 +69,13 @@ class modifier_utilisateur(AbstractView):
             
             ]
                 res = prompt(options)
-                print(res)
-                
-    
-            elif reponse["choix"] == "Supprimer un utilisateur":
-                pass
+                selected = res["email"]
+                need_admin = []
+                need_admin.append(res['email'])
+                shared_data.tab_bis = need_admin
+                from view.selected_item_view_admin import selected_item_view_admin
+                return selected_item_view_admin(selected)
+                 
             
             elif reponse["choix"] == "Modifier un.e admin":
                 pass
