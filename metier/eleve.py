@@ -214,9 +214,8 @@ class Eleve(UserNonAuthentifie):
         else:
             self.modifier()
     
-    def supprimer_compte(self):
-        if self.existe():
-            UserDao().delete_user(self)
+    def supprimer_compte():
+            UserDao().delete_user()
 
     def __str__(self):
         res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)

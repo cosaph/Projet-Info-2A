@@ -16,3 +16,8 @@
 - historique (la liste des critères)
 - en savoir plus : redirection url
 - administrateur -> creation compte prof. création compte admin.
+
+DETAILS:
+
+- Ajouter stage à la liste d'envie -> revenir sur la recherche (si possible)
+- Historique par critère : - améliorer l'output et revenir à un menu.

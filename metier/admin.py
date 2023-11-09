@@ -114,8 +114,8 @@ class Admin(Prof):
         listRes = []
         for res in listDic:
             email = res["email"]
-            url_stage = res["url_stage"]
-            listRes.append({"email": email, "url_stage": url_stage})
+            #url_stage = res["url_stage"]
+            listRes.append({"email": email})
     
         return (listRes)
     
@@ -150,11 +150,11 @@ class Admin(Prof):
         else:
             print("Le stage {} est déjà enregistré".format(unStage.url_stage))
 
-    def supprime_user(self, unUser: Eleve, url_stage):
+    def supprime_user(self, unUser: Eleve):
         if unUser.existe():
-            AssoStageUserDao().delete(unUser, url_stage)
-            unUser.supprimer_compte()
-            
+            AssoStageUserDao().delete(unUser) 
+            UserDao().delete_user(unUser)
+                
         else:
             print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
 

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 08:47:23 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 18:08:09 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ class Creation_compteView(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        Session().user_name = answers["email"]
+        #Session().user_name = answers["email"]
         email = answers["email"]
         code_insee_residence = answers["code postal"]
         password = answers["password"]
@@ -82,11 +82,11 @@ class Creation_compteView(AbstractView):
         if type == 'élève.e':
             shared_data.tab_bis.append(email)
             shared_data.tab_bis.append(password)
-            from view.menu_post_connection import post_connection
-            return post_connection()
+            from view.start_view import StartView
+            return StartView()
         else :
             shared_data.tab_bis.append(email)
             shared_data.tab_bis.append(password)
-            from view.menu_post_connection_prof import post_connection_prof
-            return post_connection_prof()
+            from view.start_view import StartView
+            return StartView()
     

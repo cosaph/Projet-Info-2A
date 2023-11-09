@@ -32,7 +32,7 @@ class AssoStageUserDao:
                 caPasse = True
         return caPasse
     
-    def delete(self, unUser, url_stage):
+    def delete(self, unUser):
         """
         supprime un couple
         """
@@ -41,11 +41,10 @@ class AssoStageUserDao:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "delete from projetinfo.association_stage_user "
-                    "where email = %(email)s and url_stage = %(url_stage)s"
+                    "where email = %(email)s"
                     "RETURNING email; ",
                     {
-                        "email": unUser.email,
-                        "url_stage": url_stage
+                        "email": unUser.email
                     },
                 )
                 res = cursor.fetchone()
