@@ -66,6 +66,5 @@ class Stage:
         return res
     """
 
-    # pas utilisé 
     def sauvegarder_dans_listeenvie(self, idUser):
         pass
