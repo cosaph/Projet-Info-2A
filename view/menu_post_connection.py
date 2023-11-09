@@ -22,8 +22,9 @@ class post_connection(AbstractView):
                 "message": f"Hello {Session().user_name}",
                 "choices": [
                     "Recherche de stage",
-                    "liste d'envie",
+                    "Liste d'envie",
                     "Historique de recherche par critère",
+                    "Questionnaire",
                     "Quit"
                 ],
             }
@@ -43,7 +44,7 @@ class post_connection(AbstractView):
 
             return recherche()
 
-        elif reponse["choix"] == "liste d'envie":
+        elif reponse["choix"] == "Liste d'envie":
             from view.listedenvie import listedenvie
 
             return listedenvie()
@@ -52,4 +53,10 @@ class post_connection(AbstractView):
             from view.historique import historique
 
             return historique()
+        
+        elif reponse["choix"] == "Questionnaire":
+            from view.questionnaire import questionnaire
+
+            return questionnaire()
+            
         

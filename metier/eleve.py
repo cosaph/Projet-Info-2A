@@ -235,6 +235,7 @@ class Eleve(UserNonAuthentifie):
     # l'éleve informe qu'il a trouvé un stage
     def set_stage_trouve(self, reponse: bool):
         self.stage_trouve = reponse
+        UserDao().insert_stage_trouve(self, reponse)
     
     def rechercher_stage(self, critereChoix=None, verbose=False):
         """ 

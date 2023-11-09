@@ -8,3 +8,4 @@ requests
 bs4
 psycopg2-binary
 csv
+import webbrowser (déjà intégré à python ??)

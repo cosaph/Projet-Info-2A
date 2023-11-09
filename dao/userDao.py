@@ -203,3 +203,20 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchall()
         return res
+    
+    def insert_stage_trouve(self, unUser, alerte):
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "update projetinfo.utilisateur "
+                    "set "
+                    "stage_trouve =  %(stage_trouve)s "
+                    "where email = %(email)s "
+                    "RETURNING email;",
+                    {
+                        "stage_trouve": alerte,
+                        "email": unUser.email
+                    },
+                )
+                res = cursor.fetchone()
+        return res

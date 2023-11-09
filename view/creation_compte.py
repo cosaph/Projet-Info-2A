@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 18:08:09 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 21:32:44 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ class Creation_compteView(AbstractView):
                 "name": "type",
                 "message": "Vous êtes :",
                 "choices": [
-                    "élève.e",
+                    "élève",
                     "professeur.e"
                 ]
             },
@@ -79,7 +79,7 @@ class Creation_compteView(AbstractView):
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.
 
-        if type == 'élève.e':
+        if type == 'élève':
             shared_data.tab_bis.append(email)
             shared_data.tab_bis.append(password)
             from view.start_view import StartView
