@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 20:32:27 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 20:22:53 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ from metier.critere import Critere
 import view.shared_data as shared_data
 from metier.eleve import Eleve
 #from metier.nouveau_compte import creation
+import webbrowser
 
 
 
@@ -40,6 +41,8 @@ class selected_item_view(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
         choice = answers["choice"]
+        selected_item = self.selected
+        url = selected_item['url']
 
 
 
@@ -49,6 +52,7 @@ class selected_item_view(AbstractView):
 
             title = selected_item['title']
             url = selected_item['url']
+            
             #location = selected_item['location']
             location = shared_data.tab[2]
             #rayon = shared_data.tab[0]
@@ -61,7 +65,7 @@ class selected_item_view(AbstractView):
                 print("Vous n'avez pas accès a cette fonctionnalité")
             
         elif choice == "En savoir plus sur le stage":
-            pass  # Do something else
+            webbrowser.open(url) 
 
         elif choice == "Retour":
             from view.menu_post_connection import post_connection
