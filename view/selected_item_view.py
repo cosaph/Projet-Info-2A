@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 20:22:53 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 21:03:36 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,8 @@ class selected_item_view(AbstractView):
             
         elif choice == "En savoir plus sur le stage":
             webbrowser.open(url) 
+            from view.menu_post_connection import post_connection
+            return post_connection()
 
         elif choice == "Retour":
             from view.menu_post_connection import post_connection

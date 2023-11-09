@@ -16,6 +16,7 @@
 - historique (la liste des critères)
 - en savoir plus : redirection url
 - administrateur -> creation compte prof. création compte admin.
+- attention pb liste d'envie
 
 DETAILS:
 

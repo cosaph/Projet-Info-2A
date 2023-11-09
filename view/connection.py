@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 09:23:42 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 20:56:10 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ class ConnectionView(AbstractView):
             {
                 "type": "list",
                 "name": "type",
-                "message": "Vous êtes :",
+                "message": "Vous êtes ",
                 "choices": [
-                    "élève.e",
+                    "élève",
                     "professeur.e",
                 ]
             },
@@ -57,7 +57,7 @@ class ConnectionView(AbstractView):
         type = answers["type"]
         shared_data.tab_ter.append(type)
 
-        if type == 'élève.e':
+        if type == 'élève':
             if Eleve.charger_user(email, password):
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)

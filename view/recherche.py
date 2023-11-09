@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/09 13:11:38 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/09 21:02:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ class recherche(AbstractView):
             {
                 "type": "input",
                 "name": "critère",
-                "message": "Entrez le type de stage que vous recherchez : :"
+                "message": "Entrez le type de stage que vous recherchez :"
             },
             {
                 "type": "input",
