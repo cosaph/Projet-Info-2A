@@ -188,8 +188,8 @@ class Eleve(UserNonAuthentifie):
     def ajouter_stageAuser(self, url, title, specialite, location):
         # ne pas toucher
         S = Stage(url, title, specialite, location) 
-        if self.possede_stage(S):
-            raise "L' utilisateur a déjà ce stage dans la liste envie"
+        #if self.possede_stage(S):
+            #raise "L' utilisateur a déjà ce stage dans la liste envie"
         if not S.existe():
             Stage.creer_stage(url, title, specialite, location)
         return AssoStageUserDao().add(S, self)

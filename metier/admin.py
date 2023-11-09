@@ -153,7 +153,7 @@ class Admin(Prof):
     def supprime_user(self, unUser: Eleve, url_stage):
         if unUser.existe():
             AssoStageUserDao().delete(unUser, url_stage)
-            #unUser.supprimer_compte()
+            unUser.supprimer_compte()
             
         else:
             print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
