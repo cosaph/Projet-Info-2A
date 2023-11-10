@@ -175,13 +175,13 @@ class Admin(Prof):
 
     def envoi_mail(self, mail):
 
+        message = input("Entrez votre message : ")
         sender = "stagefinderensai@outlook.com"
-        message = "IT WORKS"
 
         email = EmailMessage()
         email["From"] = sender
         email["To"] = mail
-        email["Subject"] = "Test Email"
+        email["Subject"] = "Mail administrateur StageFinder"
         email.set_content(message)
 
         smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)

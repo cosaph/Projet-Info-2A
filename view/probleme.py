@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 15:08:31 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 21:40:54 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:50:59 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,9 @@ class probleme(AbstractView):
             mail = selected["email"]
             # verifer que l'utilisateur veut bien se faire id.
             Admin(shared_data.tab[0], shared_data.tab[1]).envoi_mail(mail)
+            print("Mail envoyé")
+            from view.menu_post_connection_admin import post_connection_admin
+            return post_connection_admin()
 
 
 
