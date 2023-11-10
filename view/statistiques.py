@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    menu_post_connection_prof.py                       :+:      :+:    :+:    #
+#    statistiques.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 10:14:51 by cosaph           ###   ########.fr        #
+#    Created: 2023/11/10 09:52:23 by cosaph            #+#    #+#              #
+#    Updated: 2023/11/10 10:20:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,7 @@ from metier.prof import Prof
 from dao.userDao import UserDao
 from view.start_view import StartView
 
-
-
-class post_connection_prof(AbstractView):
+class statistiques(AbstractView):
     
     def __init__(self):
         self.__questions = [
@@ -30,40 +28,21 @@ class post_connection_prof(AbstractView):
                 "name": "choix",
                 "message": f"Hello {Session().user_name}",
                 "choices": [
-                    "Recherche de stage",
-                    "liste d'envie",
-                    "Statistiques",
-                    "Historique de recherche",
+                    "Liste d'élève qui ont trouvé un stage",
                     "Retour"
                 ],
             }
         ]
 
     def display_info(self):
-        with open("graphical_assets/art_menu.txt", "r", encoding="utf-8") as asset:
+        with open("graphical_assets/art_statistiques.txt", "r", encoding="utf-8") as asset:
             print(asset.read())
 
     def make_choice(self):
         reponse = prompt(self.__questions)
         if reponse["choix"] == "Retour":
             pass 
-        #Ici l'utilisateur fait le choix de se connecter?
-        if reponse["choix"] == "Recherche de stage": 
-            from view.recherche import recherche
-
-            return recherche()
-
-        elif reponse["choix"] == "liste d'envie":
-            from view.listedenvie import listedenvie
-
-            return listedenvie()
-        
-        elif reponse["choix"] == "Statistiques":
-            from view.statistiques import statistiques
-
-            return statistiques()
-        
-        elif reponse["choix"] == "Historique de recherche":
-            from view.historique import historique
-
-            return historique()
+        if reponse["choix"] == "Liste d'élève qui ont trouvé un stage": 
+            UserDao.tout_mail_stage_touve()
+            from view.menu_post_connection_prof import post_connection_prof
+            return post_connection_prof()

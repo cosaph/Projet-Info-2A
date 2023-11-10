@@ -204,10 +204,11 @@ class Eleve(UserNonAuthentifie):
     def existe(self):
         return UserDao().exist_id(self)
 
+    #on utilise pas
     def modifier(self):
         if self.existe():
             UserDao().update_user(self)
-            
+    #on utilise pas       
     def enregistrer(self):
         if not self.existe():
             UserDao().add_user(self)
@@ -263,12 +264,11 @@ class Eleve(UserNonAuthentifie):
             self.ajouter_critereAuser(critereChoix)
         return critereChoix.recherche_stage(verbose)
 
+    #on utilise pas
     def postule(self, unStage: Stage):
         pass
 
-    def exporter_list_envie(self):
-        pass
-
+    
 
 
 

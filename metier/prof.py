@@ -36,19 +36,19 @@ class Prof(Eleve):
             raise "email ou mdp incorrect"
         if "Prof" not in res["profil"]:
             raise "L'utilisateur n'est pas un professeur"
-        listStage = []
-        listCritere = []
-        if AssoCritUserDao().exist_email(email):
-            listCritere = Prof.charger_all_critere_mail(email)
+        #listStage = []
+        #listCritere = []
+        #if AssoCritUserDao().exist_email(email):
+            #listCritere = Prof.charger_all_critere_mail(email)
         #     print(len(listCritere))
         # print(AssoStageUserDao().exist_email(email))
-        if AssoStageUserDao().exist_email(email):
-            listStage = Prof.charger_all_stage_mail(email) 
+        #if AssoStageUserDao().exist_email(email):
+            #listStage = Prof.charger_all_stage_mail(email) 
         return Prof(
                     email=res["email"],
                     mdp=res["mdp"],
-                    critere=listCritere,
-                    list_envie=listStage,
+                    critere=None,
+                    list_envie=None,
                     souhaite_alertes=res["souhaite_alertes"],
                     code_insee_residence=res["code_insee_residence"]
                     )

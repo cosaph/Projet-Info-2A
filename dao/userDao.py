@@ -220,3 +220,15 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchone()
         return res
+    
+    def tout_mail_stage_touve():
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur "
+                    "WHERE stage_trouve = True;",
+                )
+                res = cursor.fetchall()
+        for k in res:
+            print(k["email"])
