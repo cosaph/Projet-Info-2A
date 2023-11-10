@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 19:52:57 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 18:41:48 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 22:16:36 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,7 @@ class selected_item_view_admin(AbstractView):
         answers = prompt(self.__questions)
         dic = self.selected
         tableau = []
-        print(dic["email"])
-        tableau.append(dic["email"])
+        tableau.append(dic)
         #tableau.append(dic["url_stage"])
         print(tableau)
 

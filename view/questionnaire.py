@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 21:10:34 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 21:30:03 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:58:19 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,11 @@ class questionnaire(AbstractView):
         if alerte == "TRUE":
             print("Merci d'avoir utilisé notre application")
             Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).set_stage_trouve(alerte)
+            from view.menu_post_connection import post_connection
+            return post_connection()
         else:
             print("Nous sommes désolés que notre application n'ait pas pu vous aider")
+            from view.menu_post_connection import post_connection
+            return post_connection()
+
                     

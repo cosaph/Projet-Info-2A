@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:34:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 12:28:17 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:57:09 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,12 @@ class historique(AbstractView):
         ]
 
     def display_info(self):
-        with open("graphical_assets/art_recherche.txt", "r", encoding="utf-8") as asset:
+        with open("graphical_assets/art_historique.txt", "r", encoding="utf-8") as asset:
             print(asset.read())
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Quit":
+        if reponse["choix"] == "Retour":
             from view.menu_post_connection import post_connection
             return post_connection()
         #Ici l'utilisateur fait le choix de se connecter?

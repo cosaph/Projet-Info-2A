@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:03:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 21:36:03 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 22:18:17 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ class modifier_utilisateur(AbstractView):
                     "choices": [
                         "Chargez la liste des utilisateurs.es",
                         "Modifier un.e admin",
-                        "Quit"
+                        "Messages",
+                        "Retour"
                     ],
                 }
             ]
@@ -45,9 +46,9 @@ class modifier_utilisateur(AbstractView):
             
             reponse = prompt(self.__questions)
             
-            if reponse["choix"] == "Quit":
-                from view.start_view import StartView
-                return StartView()
+            if reponse["choix"] == "Retour":
+                from view.menu_post_connection_admin import post_connection_admin
+                return post_connection_admin()
 
             if reponse["choix"] == "Chargez la liste des utilisateurs.es": 
                 tableau = Admin(shared_data.tab[0], shared_data.tab[1]).chargerTout()
@@ -66,7 +67,7 @@ class modifier_utilisateur(AbstractView):
                     ],
                 }
             
-            ]
+                ]
                 res = prompt(options)
                 selected = res["email"]
                 need_admin = []
@@ -80,3 +81,5 @@ class modifier_utilisateur(AbstractView):
             elif reponse["choix"] == "Modifier un.e admin":
                 pass
 
+            elif reponse["choix"] == "Messages":
+                pass

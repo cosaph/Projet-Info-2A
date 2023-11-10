@@ -37,7 +37,8 @@ class post_connection(AbstractView):
     def make_choice(self):
         reponse = prompt(self.__questions)
         if reponse["choix"] == "Quit":
-            pass 
+            from view.start_view import StartView
+            return StartView()
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Recherche de stage": 
             from view.recherche import recherche

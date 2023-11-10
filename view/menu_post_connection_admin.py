@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 15:19:11 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 22:18:45 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ class post_connection_admin(AbstractView):
                     "Utilisateurs.es",
                     "Statistiques",
                     "Envoyer un mail à un.e élève",
-                    "Quit"
+                    "Retour"
                 ],
             }
         ]
@@ -46,8 +46,9 @@ class post_connection_admin(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Quit":
-            pass 
+        if reponse["choix"] == "Retour":
+            from view.start_view import StartView
+            return StartView()
 
         if reponse["choix"] == "Utilisateurs.es": 
             from view.modifier_utilisateur import modifier_utilisateur

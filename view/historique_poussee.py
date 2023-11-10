@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:41:38 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 12:24:34 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:56:04 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ class historique_poussee(AbstractView):
         ]
 
     def display_info(self):
-        with open("graphical_assets/art_connection.txt", "r", encoding="utf-8") as asset:
+        with open("graphical_assets/art_historique.txt", "r", encoding="utf-8") as asset:
             print(asset.read())
 
     def make_choice(self):

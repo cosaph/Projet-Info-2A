@@ -109,7 +109,6 @@ class Admin(Prof):
     
     def chargerTout(self):
         listDic = UserDao().tous()
-        print(listDic)
 
         if len(listDic) == 0:
             return None
@@ -118,7 +117,7 @@ class Admin(Prof):
         for res in listDic:
             email = res["email"]
             #url_stage = res["url_stage"]
-            listRes.append({"email": email})
+            listRes.append(email)
     
         return (listRes)
     
