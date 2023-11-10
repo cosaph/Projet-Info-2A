@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 10:14:51 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 12:26:06 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,3 @@ class post_connection_prof(AbstractView):
             from view.statistiques import statistiques
 
             return statistiques()
-        
-        elif reponse["choix"] == "Historique de recherche":
-            from view.historique import historique
-
-            return historique()

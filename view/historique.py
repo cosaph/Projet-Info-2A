@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:34:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/07 14:17:52 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 12:28:17 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ class historique(AbstractView):
     def make_choice(self):
         reponse = prompt(self.__questions)
         if reponse["choix"] == "Quit":
-            pass 
+            from view.menu_post_connection import post_connection
+            return post_connection()
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Consulter l'historique de recherche":
             from view.historique_poussee import historique_poussee
