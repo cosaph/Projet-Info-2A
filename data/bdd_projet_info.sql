@@ -23,7 +23,7 @@ CREATE TABLE projetInfo.critere (
 DROP TABLE IF EXISTS projetInfo.utilisateur CASCADE ;
 CREATE TABLE projetInfo.utilisateur (
     email text PRIMARY KEY,
-    mdp text PRIMARY KEY,
+    mdp text,
     code_insee_residence text,
     souhaite_alertes boolean,
     stage_trouve boolean,
@@ -112,3 +112,10 @@ CREATE TABLE projetInfo.association_stage_user (
     CONSTRAINT fk_asso8 FOREIGN KEY (url_stage)
         REFERENCES projetInfo.stage(url_stage));
         
+
+       
+ --------------------------------------------------------------
+-- Initialisation de l'admin
+--------------------------------------------------------------
+
+

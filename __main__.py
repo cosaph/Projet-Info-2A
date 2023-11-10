@@ -12,11 +12,37 @@
 # **************************************************************************** #
 
 import dotenv
+import psycopg2
 
 from view.start_view import StartView
+from dao.userDao import UserDao
 #from loguru import logger
 
-# This script is the entry point of your application
+# This script is the entry point of the application
+
+database = input(" Le nom de votre base de donnée : ")
+user = input(" Le nom de votre user : ")
+host = input(" Le nom de votre host : ")
+password = input(" Le mot de passe de votre base de donnée : ")
+
+def create_tables():
+    conn = psycopg2.connect(database="postgres", user="postgres", host="localhost", password = "01062000")
+    cursor = conn.cursor()
+
+    with open("data/bdd_projet_info.sql", "r") as f:
+        sql = f.read()
+        cursor.execute(sql)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+create_tables()
+
+UserDao().creer_un_admin()
+
+
+# This script launch the application
 
 if __name__ == "__main__":
     dotenv.load_dotenv(override=True)
@@ -39,4 +65,9 @@ if __name__ == "__main__":
         "graphical_assets/suprised_pikachu.txt", "r", encoding="utf-8"
     ) as asset:
         print(asset.read()) 
+
+
+
+
+
 

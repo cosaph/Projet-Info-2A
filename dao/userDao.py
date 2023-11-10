@@ -232,3 +232,28 @@ class UserDao(metaclass=Singleton):
                 res = cursor.fetchall()
         for k in res:
             print(k["email"])
+
+    def creer_un_admin(self):
+        
+        mdp_chiffre = self.chiffrer_mdp("m","m")
+
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO "
+                    "projetInfo.utilisateur(email, mdp, "
+                    "souhaite_alertes, profil)"
+                    "VALUES "                                              
+                    "(%(email)s, %(mdp)s, " 
+                    "%(souhaite_alertes)s, "
+                    "%(profil)s)"
+                    "RETURNING email;   ",
+                    {
+                        "email": "m",
+                        "mdp": mdp_chiffre,
+                        "souhaite_alertes": False,
+                        "profil": "<class 'metier.admin.Admin'>",
+                    }
+                )
+                res = cursor.fetchone()
+            return res
