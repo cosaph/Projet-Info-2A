@@ -7,6 +7,9 @@ from metier.listEnvie import ListEnvie
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
 
+from email.message import EmailMessage
+import smtplib
+
 
 class Admin(Prof):
     """ Un Admin hérite de la classe Prof 
@@ -169,3 +172,20 @@ class Admin(Prof):
             unStage.supprimer_stage()
         else:
             print("Le stage {} n'est pas enregistré".format(unStage.url_stage))
+
+    def envoi_mail(self, mail):
+
+        sender = "stagefinderensai@outlook.com"
+        message = "IT WORKS"
+
+        email = EmailMessage()
+        email["From"] = sender
+        email["To"] = mail
+        email["Subject"] = "Test Email"
+        email.set_content(message)
+
+        smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
+        smtp.starttls()
+        smtp.login(sender, "123456abc@@@")
+        smtp.sendmail(sender, mail, email.as_string())
+        smtp.quit()

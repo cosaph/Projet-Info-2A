@@ -4,8 +4,7 @@
 from metier.critere import Critere
 # from scr.userDao import UserDao
 from dao.userDao import UserDao
-#from metier.eleve import Eleve
-#from metier.prof import Prof
+
 
 
 class UserNonAuthentifie():
@@ -18,21 +17,6 @@ class UserNonAuthentifie():
         self.critere = unCritere
         #self.critere = self.critere.append(unCritere)
 
-    def creer_compte(mdp, email, souhaite_alertes, code_insee_residence, type):
-        # Vérifiez si l'utilisateur existe déjà
-        #if UserDao().exist_id(id):
-            #raise Exception("L'utilisateur a déjà un compte")
-        # Chiffrez le mot de passe
-        if type == 'eleve':
-            E = Eleve( email, mdp, [], [], code_insee_residence, souhaite_alertes)
-            if UserDao().exist_id(E):
-                    print("l'utilisateur existe déjà")
-        # Ajoutez l'utilisateur à la base de données
-            UserDao.add_user(E) 
-        P = Prof( email, mdp, [], [], code_insee_residence, souhaite_alertes)
-        if UserDao().exist_id(P):
-            print("l'utilisateur existe déjà")
-        UserDao.add_user(P)
         
     
     def supprimer_critereAuser(self, id_crit):

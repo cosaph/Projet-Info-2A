@@ -16,7 +16,7 @@ class Creation:
         self.type = type
     
     def creer_compte(self):
-        if self.type == 'eleve':
+        if self.type == 'élève':
             E = Eleve(self.email, self.mdp, [], [], self.code_insee_residence, self.souhaite_alertes)
             if UserDao().exist_id(E):
                 print("L'utilisateur existe déjà")

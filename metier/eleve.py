@@ -12,6 +12,7 @@ from dao.assoStageUserDao import AssoStageUserDao
 import csv
 
 
+
 class Eleve(UserNonAuthentifie):
     """
     Un EleveAuthentifie hérite de la classe Eleve NonAuthentifie.
@@ -269,6 +270,3 @@ class Eleve(UserNonAuthentifie):
         pass
 
     
-
-
-

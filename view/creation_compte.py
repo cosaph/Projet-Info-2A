@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 09:51:32 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:31:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ from InquirerPy import prompt
 
 from view.abstract_view import AbstractView
 from view.session import Session
-#from metier.userNonAuthentifie import UserNonAuthentifie
+from metier.userNonAuthentifie import UserNonAuthentifie
 from metier.nouveau_compte import Creation
 import view.shared_data as shared_data
 
@@ -71,10 +71,9 @@ class Creation_compteView(AbstractView):
         password = answers["password"]
         alerte = answers["alerte"]
         type = answers["type"]
-
+        
         if Creation(password, email, alerte, code_insee_residence, type).creer_compte():
             print("utilisateur crée")
-        print("utilisateur pas crée")
 
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
         # Vous pouvez utiliser email et password pour créer un compte utilisateur dans votre système.

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:03:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 13:28:47 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/10 21:36:03 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ class modifier_utilisateur(AbstractView):
                     "choices": [
                         "Chargez la liste des utilisateurs.es",
                         "Modifier un.e admin",
-                        "Messages",
                         "Quit"
                     ],
                 }
@@ -81,5 +80,3 @@ class modifier_utilisateur(AbstractView):
             elif reponse["choix"] == "Modifier un.e admin":
                 pass
 
-            elif reponse["choix"] == "Messages":
-                pass

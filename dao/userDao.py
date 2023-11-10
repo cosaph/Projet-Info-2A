@@ -199,7 +199,7 @@ class UserDao(metaclass=Singleton):
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
-                    "FROM projetInfo.association_stage_user;",
+                    "FROM projetInfo.utilisateur;",
                 )
                 res = cursor.fetchall()
         return res
