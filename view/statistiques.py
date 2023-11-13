@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 09:52:23 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 10:28:02 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/13 16:25:04 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
 from view.start_view import StartView
+import view.shared_data as shared_data
 
 class statistiques(AbstractView):
     
@@ -41,8 +42,17 @@ class statistiques(AbstractView):
     def make_choice(self):
         reponse = prompt(self.__questions)
         if reponse["choix"] == "Retour":
-            pass 
+            if shared_data.tab_ter[0] == 'professeur.e':
+                from view.menu_post_connection_prof import post_connection_prof
+                return post_connection_prof()
+            else:
+                from view.menu_post_connection_admin import post_connection_admin
+                return post_connection_admin()
         if reponse["choix"] == "Liste d'élève qui ont trouvé un stage": 
             UserDao.tout_mail_stage_touve()
-            from view.menu_post_connection_prof import post_connection_prof
-            return post_connection_prof()
+            if shared_data.tab_ter[0] == 'professeur.e':
+                from view.menu_post_connection_prof import post_connection_prof
+                return post_connection_prof()
+            else:
+                from view.menu_post_connection_admin import post_connection_admin
+                return post_connection_admin()

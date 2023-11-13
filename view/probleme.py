@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 15:08:31 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 23:21:25 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/13 16:02:32 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ class probleme(AbstractView):
                 "message": f"Hello Admin :)",
                 "choices": [
                     "Envoyer un mail",
-                    "Quit"
+                    "Retour"
                 ],
             }
         ]
@@ -43,7 +43,7 @@ class probleme(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Quit":
+        if reponse["choix"] == "Retour":
             from view.menu_post_connection_admin import post_connection_admin
             return post_connection_admin()
         #Ici l'utilisateur fait le choix de se connecter?

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 21:06:36 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/13 16:23:53 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,14 +64,27 @@ class selected_item_view(AbstractView):
             except IndexError:
                 print("Vous n'avez pas accès a cette fonctionnalité")
             
-        elif choice == "En savoir plus sur le stage":
+        if choice == "En savoir plus sur le stage":
             webbrowser.open(url) 
-            from view.menu_post_connection import post_connection
-            return post_connection()
+            if shared_data.tab_ter[0] == 'élève':
+                from view.menu_post_connection import post_connection
+                return post_connection()
+            elif shared_data.tab_ter[0] == 'professeur.e':
+                from view.menu_post_connection_prof import post_connection_prof
+                return post_connection_prof()
+            else:
+                print("Vous n'avez pas accès a cette fonctionnalité")
 
-        elif choice == "Retour":
-            from view.menu_post_connection import post_connection
-            return post_connection()
+        if choice == "Retour":
+            if shared_data.tab_ter[0] == 'élève':
+                from view.menu_post_connection import post_connection
+                return post_connection()
+            elif shared_data.tab_ter[0] == 'professeur.e':
+                from view.menu_post_connection_prof import post_connection_prof
+                return post_connection_prof()
+            else:
+                from view.start_view import StartView
+                return StartView()
              
         
 
