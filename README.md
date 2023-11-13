@@ -10,11 +10,17 @@ There are two types of authenticated users: "student" and "professor." An "admin
 
 ## Features ✨
 The following features are required for the INTERNMATCH application. The numbering indicates the features but does not imply any specific order:
+
 __F1:__ Search Functionality: Users can search for internship results on a selected internship platform such as Hellowork or welcometothejungle. 🔍🔎
+
 __F2:__ Authentication and User/Admin Profile Management: Users can authenticate themselves and manage their user profiles. The application also provides an administrative profile for managing the application and its users. 🔒👤👥
+
 __F3:__ Data Import/Export: Authenticated users can import and export their current searches and preferences in a chosen text format. 📥📤
+
 __F4:__ Search History Management: The application keeps a record of user search history, allowing users to review their past searches. 📚🔍📆
+
 __F5:__ Category/Filter-based Search: Users can perform searches based on categories or apply filters to refine their search results. 🗂🔍
+
 ## Getting Started 🚀
 
 To use INTERNMATCH, follow these instructions:
@@ -28,9 +34,13 @@ Once the application is running, you can use the following commands:
 The first menu will give you 4 possibilities :
 
 - Creation Compte (if you don't have one yet)
+
 - Connection (if you're already registered)
+
 - Recherche Stage (if you want to search for a stage without having a account the application)
+
 - Admnistrator (if you're an admin, this menu is for you !)
+
 - Quit (to quit from the application)
 ...
 
