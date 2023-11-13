@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:03:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 22:18:17 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/13 14:38:08 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,6 @@ class modifier_utilisateur(AbstractView):
                     "message": f"Hello Admin :)",
                     "choices": [
                         "Chargez la liste des utilisateurs.es",
-                        "Modifier un.e admin",
-                        "Messages",
                         "Retour"
                     ],
                 }
@@ -77,9 +75,3 @@ class modifier_utilisateur(AbstractView):
                 from view.selected_item_view_admin import selected_item_view_admin
                 return selected_item_view_admin(selected)
                  
-            
-            elif reponse["choix"] == "Modifier un.e admin":
-                pass
-
-            elif reponse["choix"] == "Messages":
-                pass

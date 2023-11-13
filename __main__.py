@@ -18,7 +18,7 @@ from view.start_view import StartView
 from dao.userDao import UserDao
 #from loguru import logger
 
-# This script is the entry point of the application
+#This script is the entry point of the application
 
 # database = input(" Le nom de votre base de donnée : ")
 # user = input(" Le nom de votre user : ")
