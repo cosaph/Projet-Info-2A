@@ -257,3 +257,55 @@ class UserDao(metaclass=Singleton):
                 )
                 res = cursor.fetchone()
             return res
+        
+    def creer_deux_exemeple(self):
+        
+        #premier utilisateur
+        mdp_chiffre_1 = self.chiffrer_mdp("a","a")
+        #deuxieme utilisateur
+        mdp_chiffre_2 = self.chiffrer_mdp("b","b")
+
+
+        #premier utilisateur
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO "
+                    "projetInfo.utilisateur(email, mdp, "
+                    "souhaite_alertes, profil)"
+                    "VALUES "                                              
+                    "(%(email)s, %(mdp)s, " 
+                    "%(souhaite_alertes)s, "
+                    "%(profil)s)"
+                    "RETURNING email;   ",
+                    {
+                        "email": "a",
+                        "mdp": mdp_chiffre_1,
+                        "souhaite_alertes": False,
+                        "profil": "<class 'metier.eleve.Eleve'>",
+                    }
+                )
+                res1 = cursor.fetchone()
+        
+        #deuxieme utilisateur
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO "
+                    "projetInfo.utilisateur(email, mdp, "
+                    "souhaite_alertes, profil)"
+                    "VALUES "                                              
+                    "(%(email)s, %(mdp)s, " 
+                    "%(souhaite_alertes)s, "
+                    "%(profil)s)"
+                    "RETURNING email;   ",
+                    {
+                        "email": "b",
+                        "mdp": mdp_chiffre_2,
+                        "souhaite_alertes": False,
+                        "profil": "<class 'metier.eleve.Eleve'>",
+                    }
+                )
+                res2 = cursor.fetchone()
+
+            return res1, res2
