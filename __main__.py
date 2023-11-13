@@ -26,7 +26,7 @@ host = input(" Le nom de votre host : ")
 password = input(" Le mot de passe de votre base de donnée : ")
 
 def create_tables():
-    conn = psycopg2.connect(database="postgres", user="postgres", host="localhost", password = "01062000")
+    conn = psycopg2.connect(database, user, host, password)
     cursor = conn.cursor()
 
     with open("data/bdd_projet_info.sql", "r") as f:
@@ -39,6 +39,10 @@ def create_tables():
 
 create_tables()
 
+
+# Création d'un admin et de deux utilisateurs pour les tests de l'application 
+# L'admin est créé avec l'adresse mail et le mot de passe suivant : "m", "m"
+# Les deux utilisateurs sont créés avec les adresses mails et les mots de passe suivants : "a", "a" et "b", "b"
 UserDao().creer_un_admin()
 
 UserDao().creer_deux_exemeple()

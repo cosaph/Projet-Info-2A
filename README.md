@@ -24,9 +24,13 @@ __F5:__ Category/Filter-based Search: Users can perform searches based on catego
 ## Getting Started 🚀
 
 To use INTERNMATCH, follow these instructions:
+
 Clone the repository to your local machine.
+
 Install the required dependencies using the provided requirements.txt file.
+
 Run the main.py file
+
 Follow what it's asking and ENJOY !!! 🎉❤️
 
 ## Usage 📖

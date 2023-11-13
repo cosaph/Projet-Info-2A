@@ -12,10 +12,11 @@ import smtplib
 
 
 class Admin(Prof):
-    """ Un Admin hérite de la classe Prof 
-    il a les même varactéristique qu'un Prof et dispose de fonctions
-    supplémentaires
+    """ 
+    The Admin class inherits from the Prof class and has the same characteristics as a Prof,
+    but also includes additional functions.
     """
+
     def __init__(
         self,
         email,
@@ -24,7 +25,18 @@ class Admin(Prof):
         code_insee_residence=None,
         list_envie=[],
         souhaite_alertes=False
-            ):
+    ):
+        """
+        Initializes an instance of the Admin class.
+
+        Args:
+            email (str): The email address of the admin.
+            mdp (str): The password of the admin.
+            critere (str, optional): The search criteria of the admin. Defaults to None.
+            code_insee_residence (str, optional): The residence code of the admin. Defaults to None.
+            list_envie (list, optional): The list of preferences of the admin. Defaults to an empty list.
+            souhaite_alertes (bool, optional): Indicates whether the admin wishes to receive alerts. Defaults to False.
+        """
         super().__init__(
             critere=critere,
             list_envie=list_envie,
@@ -32,58 +44,84 @@ class Admin(Prof):
             mdp=mdp,
             code_insee_residence=code_insee_residence,
             souhaite_alertes=souhaite_alertes
-            )
-    
+        )
+
     @classmethod
-    def charger_user(self, email, mdp):
+    def charger_user(cls, email, mdp):
+        """
+        Loads an admin user from the database based on the provided email and password.
+
+        Args:
+            email (str): The email address of the admin.
+            mdp (str): The password of the admin.
+
+        Returns:
+            Admin: An instance of the Admin class.
+
+        Raises:
+            Exception: If the email or password is incorrect.
+            Exception: If the user is not an admin.
+        """
         res = UserDao().charger_user(email, mdp)
         if not res:
-            raise "email ou mdp incorrect"
+            raise Exception("Email or password is incorrect")
         if "Admin" not in res["profil"]:
-            raise "L'utilisateur n'est pas un administrateur"
-        return Admin(
-                    email=res["email"],
-                    mdp=res["mdp"],
-                    critere=None,
-                    list_envie=None,
-                    code_insee_residence=res["code_insee_residence"],
-                    souhaite_alertes=res["souhaite_alertes"]
-                    )
+            raise Exception("The user is not an administrator")
+        return cls(
+            email=res["email"],
+            mdp=res["mdp"],
+            critere=None,
+            list_envie=None,
+            code_insee_residence=res["code_insee_residence"],
+            souhaite_alertes=res["souhaite_alertes"]
+        )
 
-    
     def chargerTout(self):
+        """
+        Retrieves the list of all users from the database.
+
+        Returns:
+            list: A list of email addresses of all users.
+        """
         listDic = UserDao().tous()
 
         if len(listDic) == 0:
             return None
-    
+
         listRes = []
         for res in listDic:
             email = res["email"]
-            #url_stage = res["url_stage"]
             listRes.append(email)
-    
-        return (listRes)
-    
+
+        return listRes
 
     def supprime_user(self, unUser: Eleve):
-        if unUser.existe():
-            AssoStageUserDao().delete(unUser) 
-            UserDao().delete_user(unUser)
-                
-        else:
-            print("L' utilisateur {} n'est pas enregistré".format(unUser.email))
+        """
+        Deletes a user from the database.
 
+        Args:
+            unUser (Eleve): An instance of the Eleve class representing the user to be deleted.
+        """
+        if unUser.existe():
+            AssoStageUserDao().delete(unUser)
+            UserDao().delete_user(unUser)
+        else:
+            print("The user {} is not registered".format(unUser.email))
 
     def envoi_mail(self, mail):
+        """
+        Sends an email to the specified recipient.
 
-        message = input("Entrez votre message : ")
+        Args:
+            mail (str): The email address of the recipient.
+        """
+        message = input("Enter your message: ")
         sender = "stagefinderensai@outlook.com"
 
         email = EmailMessage()
         email["From"] = sender
         email["To"] = mail
-        email["Subject"] = "Mail administrateur StageFinder"
+        email["Subject"] = "StageFinder Administrator Mail"
         email.set_content(message)
 
         smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
