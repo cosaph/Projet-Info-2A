@@ -16,6 +16,7 @@ __F3:__ Data Import/Export: Authenticated users can import and export their curr
 __F4:__ Search History Management: The application keeps a record of user search history, allowing users to review their past searches. 📚🔍📆
 __F5:__ Category/Filter-based Search: Users can perform searches based on categories or apply filters to refine their search results. 🗂🔍
 ## Getting Started 🚀
+
 To use INTERNMATCH, follow these instructions:
 Clone the repository to your local machine.
 Install the required dependencies using the provided requirements.txt file.
@@ -24,9 +25,13 @@ Follow what it's asking and ENJOY !!! 🎉❤️
 
 ## Usage 📖
 Once the application is running, you can use the following commands:
-[Command 1]
-[Command 2]
-[Command 3]
+The first menu will give you 4 possibilities :
+
+- Creation Compte (if you don't have one yet)
+- Connection (if you're already registered)
+- Recherche Stage (if you want to search for a stage without having a account the application)
+- Admnistrator (if you're an admin, this menu is for you !)
+- Quit (to quit from the application)
 ...
 
 ## Contact 📞
