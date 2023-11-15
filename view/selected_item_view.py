@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 16:23:53 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/15 11:09:18 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ class selected_item_view(AbstractView):
                 return self.make_choice()
             except IndexError:
                 print("Vous n'avez pas accès a cette fonctionnalité")
+                return self.make_choice()
             
         if choice == "En savoir plus sur le stage":
             webbrowser.open(url) 

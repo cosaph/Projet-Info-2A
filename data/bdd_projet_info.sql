@@ -1,20 +1,6 @@
 DROP SCHEMA IF EXISTS projetInfo CASCADE;
 CREATE SCHEMA projetInfo;
 
---------------------------------------------------------------
--- Critere
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.critere CASCADE;
-
-CREATE TABLE projetInfo.critere (
-    id_crit integer PRIMARY KEY,
-    ville_cible text,
-    rayon_km float,
-    specialite text,
-    duree_min integer,
-    duree_max integer
-);
 
 --------------------------------------------------------------
 -- Les utilisateurs
@@ -31,36 +17,6 @@ CREATE TABLE projetInfo.utilisateur (
 );
 
 
---------------------------------------------------------------
--- associationCritereUser
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.association_critere_user CASCADE;
-
-CREATE TABLE projetInfo.association_critere_user (
-    id_crit integer,
-    email text,
-    date_recherche date,
-    CONSTRAINT pk_asso PRIMARY KEY (id_crit,email),
-    CONSTRAINT fk_asso1 FOREIGN KEY (id_crit)
-        REFERENCES projetInfo.critere(id_crit),
-    CONSTRAINT fk_asso2 FOREIGN KEY (email)
-        REFERENCES projetInfo.utilisateur(email));
-
---------------------------------------------------------------
--- contactEmployeur
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.contact_employeur CASCADE;
-
-CREATE TABLE projetInfo.contact_employeur (
-    email text PRIMARY KEY,
-    prenom text,
-    nom text,
-    tel text
-);
-
-
 
 --------------------------------------------------------------
 -- Stage
@@ -72,26 +28,8 @@ CREATE TABLE projetInfo.stage  (
     url_stage text PRIMARY KEY, 
     titre text,
     specialite text,
-    ville text,
-    date_debut text,
-    date_fin text,
-    email_employeur text REFERENCES projetInfo.contact_employeur(email)
+    ville text
 );
-
---------------------------------------------------------------
--- associationCitereStage
---------------------------------------------------------------
-
-DROP TABLE IF EXISTS projetInfo.association_critere_stage CASCADE;
-
-CREATE TABLE projetInfo.association_critere_stage (
-    id_crit integer,
-    url_stage text,
-    CONSTRAINT pk_asso2 PRIMARY KEY (id_crit,url_stage),
-    CONSTRAINT fk_asso3 FOREIGN KEY (id_crit)
-        REFERENCES projetInfo.critere(id_crit),
-    CONSTRAINT fk_asso4 FOREIGN KEY (url_stage)
-        REFERENCES projetInfo.stage(url_stage));
 
        
  --------------------------------------------------------------
@@ -112,10 +50,3 @@ CREATE TABLE projetInfo.association_stage_user (
     CONSTRAINT fk_asso8 FOREIGN KEY (url_stage)
         REFERENCES projetInfo.stage(url_stage));
         
-
-       
- --------------------------------------------------------------
--- Initialisation de l'admin
---------------------------------------------------------------
-
-

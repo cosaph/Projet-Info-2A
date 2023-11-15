@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 21:31:54 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/15 11:13:32 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ class Creation_compteView(AbstractView):
         if type == 'élève':
             shared_data.tab_bis.append(email)
             shared_data.tab_bis.append(password)
+    
             from view.start_view import StartView
             return StartView()
         else :

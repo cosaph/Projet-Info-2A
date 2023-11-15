@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 20:56:27 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/15 11:06:01 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ class post_connection_admin(AbstractView):
             return modifier_utilisateur()
 
         elif reponse["choix"] == "Statistiques":
+            shared_data.tab_ter.append("admin")
             from view.statistiques import statistiques
             return statistiques()
 
