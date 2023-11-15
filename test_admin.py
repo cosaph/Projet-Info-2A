@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 14:47:19 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 15:36:13 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/15 14:40:20 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ class TestAdmin(unittest.TestCase):
         
         # GIVEN
         expected_result = None
-        mail = "coralie.cottet@hotmail.fr"
+        mail = "coralie.cottet@eleve.ensai.fr"
 
         # WHEN
         result = self.admin.envoi_mail(mail)
