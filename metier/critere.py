@@ -65,6 +65,17 @@ class Critere:
                 })
 
         return(tableau)
+
+    def scrap_description(self, other):
+        params = {'q': critere, 'l': localisation, 'stage': critere, 'location': localisation, 'radius': rayon}
+        url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        description_element = soup.find('div', class_='job-description__content')
+        description = description_element.text
+
+        return(description)
             
 
     def exportation_csv(critere, localisation, rayon):

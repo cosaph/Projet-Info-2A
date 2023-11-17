@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/09 21:02:54 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/17 14:32:33 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ class recherche(AbstractView):
         localisation = answers["localisation"]
         rayon = answers["rayon"]
         tableau = Critere.recherche_stage(critere, localisation, rayon)
+        tab = Critere.scrap_description(critere, localisation, rayon)
+        print(tab)
 
         options = [
             {

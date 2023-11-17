@@ -25,19 +25,20 @@ from dao.userDao import UserDao
 #host = input(" Le nom de votre host : ")
 #password = input(" Le mot de passe de votre base de donnée : ")
 
-def create_tables():
-    conn = psycopg2.connect(database= "postgres", user = "postgres", host = "localhost", password = "01062000")
-    cursor = conn.cursor()
 
-    with open("data/bdd_projet_info.sql", "r") as f:
-        sql = f.read()
-        cursor.execute(sql)
+# def create_tables():
+#     conn = psycopg2.connect(database= "postgres", user = "postgres", host = "localhost", password = "01062000")
+#     cursor = conn.cursor()
 
-    conn.commit()
-    cursor.close()
-    conn.close()
+#     with open("data/bdd_projet_info.sql", "r") as f:
+#         sql = f.read()
+#         cursor.execute(sql)
 
-create_tables()
+#     conn.commit()
+#     cursor.close()
+#     conn.close()
+
+# create_tables()
 
 
 # Création d'un admin et de deux utilisateurs pour les tests de l'application 
