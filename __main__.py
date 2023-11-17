@@ -20,10 +20,10 @@ from dao.userDao import UserDao
 
 #This script is the entry point of the application
 
-database = input(" Le nom de votre base de donnée : ")
-user = input(" Le nom de votre user : ")
-host = input(" Le nom de votre host : ")
-password = input(" Le mot de passe de votre base de donnée : ")
+#database = input(" Le nom de votre base de donnée : ")
+#user = input(" Le nom de votre user : ")
+#host = input(" Le nom de votre host : ")
+#password = input(" Le mot de passe de votre base de donnée : ")
 
 def create_tables():
     conn = psycopg2.connect(database= "postgres", user = "postgres", host = "localhost", password = "01062000")
