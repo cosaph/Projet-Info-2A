@@ -44,9 +44,9 @@ from dao.userDao import UserDao
 # Création d'un admin et de deux utilisateurs pour les tests de l'application 
 # L'admin est créé avec l'adresse mail et le mot de passe suivant : "m", "m"
 # Les deux utilisateurs sont créés avec les adresses mails et les mots de passe suivants : "a", "a" et "b", "b"
-UserDao().creer_un_admin()
+#UserDao().creer_un_admin()
 
-UserDao().creer_deux_exemeple()
+#UserDao().creer_deux_exemeple()
 
 
 # This script launch the application
