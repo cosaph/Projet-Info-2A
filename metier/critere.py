@@ -75,7 +75,7 @@ class Critere:
         csv_file = 'job_offers.csv'
     
         # Prepare the CSV file headers
-        fieldnames = ['URL', 'Title', 'Location']
+        fieldnames = ['URL']
     
         # Write the data to the CSV file
         with open(csv_file, 'w', newline='', encoding='utf-8') as file:
@@ -86,7 +86,7 @@ class Critere:
         
             #  Write each job offer data to the CSV file
             for item in tableau:
-                writer.writerow({'URL': item['url'], 'Title': item['title'], 'Location': item['location']})
+                writer.writerow({'URL': item['url']})
 
         print(f"Job offers exported to '{csv_file}' successfully.")
 
