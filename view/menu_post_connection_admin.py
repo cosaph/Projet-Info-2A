@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/18 17:24:03 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/18 18:15:31 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ class post_connection_admin(AbstractView):
                     "Statistiques",
                     "Recherche de Stage",
                     "Envoyer un mail à un.e élève",
+                    "Modifier Compte",
                     "Retour"
                 ],
             }
@@ -67,6 +68,11 @@ class post_connection_admin(AbstractView):
         elif reponse["choix"] == "Recherche de Stage":
             from view.recherche import recherche
             return recherche()
+        
+        elif reponse["choix"] == "Modifier Compte":
+            Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).modifier()
+            print("Votre compte a bien été modifié")
+            return post_connection_admin()
 
 
 """

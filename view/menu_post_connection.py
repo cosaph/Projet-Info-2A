@@ -8,7 +8,7 @@ from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
 from view.start_view import StartView
-
+import view.shared_data as shared_data
 
 
 
@@ -25,6 +25,7 @@ class post_connection(AbstractView):
                     "Liste d'envie",
                     "Historique de recherche par critère",
                     "Questionnaire",
+                    "Modifier compte",
                     "Retour"
                 ],
             }
@@ -59,5 +60,10 @@ class post_connection(AbstractView):
             from view.questionnaire import questionnaire
 
             return questionnaire()
+        
+        elif reponse["choix"] == "Modifier compte":
+            Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).modifier()
+            print("Votre compte a bien été modifié")
+            return post_connection()
             
         

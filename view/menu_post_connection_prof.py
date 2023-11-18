@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 16:26:43 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/18 18:09:37 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ from metier.eleve import Eleve
 from metier.prof import Prof
 from dao.userDao import UserDao
 from view.start_view import StartView
+import view.shared_data as shared_data
 
 
 
@@ -34,6 +35,7 @@ class post_connection_prof(AbstractView):
                     "liste d'envie",
                     "Statistiques",
                     "Historique de recherche",
+                    "Modifier Compte",
                     "Retour"
                 ],
             }
@@ -68,3 +70,7 @@ class post_connection_prof(AbstractView):
             from view.historique import historique
 
             return historique()
+        if reponse["choix"] == "Modifier Compte":
+            Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).modifier()
+            print("Votre compte a bien été modifié")
+            return post_connection_prof()

@@ -104,14 +104,12 @@ class UserDao(metaclass=Singleton):
         """
         Modifier un utilisateur dans la base de données
         """
+        nouvo_mdp = input("Nouveau mot de passe : ")
+        self.mdp_chiffre = self.chiffrer_mdp(nouvo_mdp, unUser.email)
 
-        self.mdp_chiffre = self.chiffrer_mdp(unUser.mdp, unUser.email)
-
-        if unUser.critere is not None:
-            if not CritereDAO().exist_id(unUser.critere):
-                CritereDAO().add(unUser.critere)
-            if not AssoCritUserDao().existe_user_crit(unUser, unUser.critere):
-                AssoCritUserDao().add(unUser.critere, unUser)
+        #if unUser.critere is not None:
+            #if not AssoCritUserDao().existe_user_crit(unUser, unUser.critere):
+                #AssoCritUserDao().add(unUser.critere, unUser)
         
         caPasse = "Echec modification"
         
@@ -128,7 +126,7 @@ class UserDao(metaclass=Singleton):
                     {
                         "mdp": self.mdp_chiffre,
                         "souhaite_alertes": unUser.souhaite_alertes,
-                        "stage_trouve": unUser.stage_trouve,
+                        "stage_trouve": None,
                         "email": unUser.email
                     },
                 )

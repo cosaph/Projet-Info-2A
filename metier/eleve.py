@@ -205,7 +205,6 @@ class Eleve(UserNonAuthentifie):
     def existe(self):
         return UserDao().exist_id(self)
 
-    #on utilise pas
     def modifier(self):
         if self.existe():
             UserDao().update_user(self)
