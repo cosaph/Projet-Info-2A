@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/17 16:54:22 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/18 17:53:17 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ from metier.eleve import Eleve
 #from metier.nouveau_compte import creation
 import webbrowser
 from view.menu_post_connection import post_connection
+from metier.admin import Admin
+from metier.prof import Prof
 
 
 
@@ -60,8 +62,22 @@ class selected_item_view(AbstractView):
             specialite = shared_data.tab[0]
 
             try:
-                Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
-                return self.make_choice()
+
+                if shared_data.tab_ter[0] == 'élève':
+                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    print("Stage ajouté à votre liste d'envie")
+                    from view.menu_post_connection import post_connection
+                    return post_connection()
+                elif shared_data.tab_ter[0] == 'professeur.e':
+                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    print("Stage ajouté à votre liste d'envie")
+                    from view.menu_post_connection_prof import post_connection_prof
+                    return post_connection_prof()
+                elif shared_data.tab_ter[2] == 'Administrateur.e':
+                    Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).ajouter_stageAuser(url, title, specialite, location)
+                    print("Stage ajouté à votre liste d'envie")
+                    from view.menu_post_connection_admin import post_connection_admin
+                    return post_connection_admin()
             except IndexError:
                 print("Vous n'avez pas accès a cette fonctionnalité")
                 return self.make_choice()
@@ -92,9 +108,9 @@ class selected_item_view(AbstractView):
             elif shared_data.tab_ter[0] == 'professeur.e':
                 from view.menu_post_connection_prof import post_connection_prof
                 return post_connection_prof()
-            else:
-                from view.start_view import StartView
-                return StartView()
+            elif shared_data.tab_ter[2] == 'Administrateur.e':
+                from view.menu_post_connection_admin import post_connection_admin
+                return post_connection_admin()
              
         
 

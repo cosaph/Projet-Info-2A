@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 19:06:07 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/15 11:06:01 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/18 17:24:03 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ class post_connection_admin(AbstractView):
                 "choices": [
                     "Utilisateurs.es",
                     "Statistiques",
+                    "Recherche de Stage",
                     "Envoyer un mail à un.e élève",
                     "Retour"
                 ],
@@ -62,6 +63,10 @@ class post_connection_admin(AbstractView):
         elif reponse["choix"] == "Envoyer un mail à un.e élève":
             from view.probleme import probleme
             return probleme()
+
+        elif reponse["choix"] == "Recherche de Stage":
+            from view.recherche import recherche
+            return recherche()
 
 
 """

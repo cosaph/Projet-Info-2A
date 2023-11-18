@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:49:32 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 20:38:45 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/18 17:43:47 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,9 +46,10 @@ class ConnectionView_admin(AbstractView):
         answers = prompt(self.__questions)
         email = answers["email"]
         password = answers["password"]
-        shared_data.tab.append(email)
-        shared_data.tab.append(password)
+        shared_data.tab_ter.append(email)
+        shared_data.tab_ter.append(password)
         type = "Administrateur.e"
+        shared_data.tab_ter.append(type)
 
         Admin.charger_user(email, password)
         from view.menu_post_connection_admin import post_connection_admin
