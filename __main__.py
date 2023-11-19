@@ -62,8 +62,8 @@ if __name__ == "__main__":
     # while current_view is not none, the application is still running
     while current_view:
         # clear the terminal
-        import os
-        os.system("clear")
+        #import os
+        #os.system("clear")
 
         # a border between view
         #with open("graphical_assets/banner.txt", "r", encoding="utf-8") as asset:

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/18 17:53:17 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 12:12:31 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,18 +66,14 @@ class selected_item_view(AbstractView):
                 if shared_data.tab_ter[0] == 'élève':
                     Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
                     print("Stage ajouté à votre liste d'envie")
-                    from view.menu_post_connection import post_connection
-                    return post_connection()
+                    return self.make_choice()
                 elif shared_data.tab_ter[0] == 'professeur.e':
                     Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
-                    print("Stage ajouté à votre liste d'envie")
-                    from view.menu_post_connection_prof import post_connection_prof
-                    return post_connection_prof()
+                    return self.make_choice()
                 elif shared_data.tab_ter[2] == 'Administrateur.e':
                     Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).ajouter_stageAuser(url, title, specialite, location)
                     print("Stage ajouté à votre liste d'envie")
-                    from view.menu_post_connection_admin import post_connection_admin
-                    return post_connection_admin()
+                    return self.make_choice()
             except IndexError:
                 print("Vous n'avez pas accès a cette fonctionnalité")
                 return self.make_choice()
@@ -92,27 +88,44 @@ class selected_item_view(AbstractView):
             tab = Critere.scrap_description(url)
             if tab == []:
                 print("Pas de description disponible pour ce stage, possibilité de redirection vers l'url") 
-            for i in tab:
-                print(i)
-                print("\n")
-                
-            #webbrowser.open(url) 
-            from view.menu_post_connection import post_connection
-            return post_connection()
+                return self.make_choice()
+            print("Description du stage :")
+            print(tab[0])
+            try:
+
+                if shared_data.tab_ter[0] == 'élève':
+                    from view.menu_post_connection import post_connection
+                    return post_connection()
+                elif shared_data.tab_ter[0] == 'professeur.e':
+                    from view.menu_post_connection_prof import post_connection_prof
+                    return post_connection_prof()
+                elif shared_data.tab_ter[2] == 'Administrateur.e':
+                    from view.menu_post_connection_admin import post_connection_admin
+                    return post_connection_admin()
+                else:
+                    return self.make_choice()
+            except IndexError:
+                return self.make_choice()
+
 
 
         elif choice == "Retour":
-            if shared_data.tab_ter[0] == 'élève':
-                from view.menu_post_connection import post_connection
-                return post_connection()
-            elif shared_data.tab_ter[0] == 'professeur.e':
-                from view.menu_post_connection_prof import post_connection_prof
-                return post_connection_prof()
-            elif shared_data.tab_ter[2] == 'Administrateur.e':
-                from view.menu_post_connection_admin import post_connection_admin
-                return post_connection_admin()
-             
-        
+            try:
+                if shared_data.tab_ter[0] == 'élève':
+                    from view.menu_post_connection import post_connection
+                    return post_connection()
+                elif shared_data.tab_ter[0] == 'professeur.e':
+                    from view.menu_post_connection_prof import post_connection_prof
+                    return post_connection_prof()
+                elif shared_data.tab_ter[2] == 'Administrateur.e':
+                    from view.menu_post_connection_admin import post_connection_admin
+                    return post_connection_admin()
+                from view.start_view import StartView
+                return StartView()
+            except IndexError:
+                from view.start_view import StartView
+                return StartView()
+                
 
              
         
