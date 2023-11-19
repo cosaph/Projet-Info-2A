@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 15:08:31 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 16:02:32 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 14:14:59 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ class probleme(AbstractView):
         elif reponse["choix"] == "Envoyer un mail": 
 
             # il faut charger une liste d'user
-            tableau = Admin(shared_data.tab[0], shared_data.tab[1]).chargerTout()
+            tableau = Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).chargerTout()
             print(tableau)
             options = [
                 {
@@ -72,7 +72,7 @@ class probleme(AbstractView):
 
             selected = res["email"]
             # verifer que l'utilisateur veut bien se faire id.
-            Admin(shared_data.tab[0], shared_data.tab[1]).envoi_mail(selected)
+            Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).envoi_mail(selected)
             print("Mail envoyé")
             from view.menu_post_connection_admin import post_connection_admin
             return post_connection_admin()

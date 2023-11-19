@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:03:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 14:38:08 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 12:43:40 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ class modifier_utilisateur(AbstractView):
                 return post_connection_admin()
 
             if reponse["choix"] == "Chargez la liste des utilisateurs.es": 
-                tableau = Admin(shared_data.tab[0], shared_data.tab[1]).chargerTout()
+                tableau = Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).chargerTout()
                 options = [
                 {
                     "type": "list",

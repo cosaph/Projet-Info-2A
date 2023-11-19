@@ -4,6 +4,7 @@ from dao.userDao import UserDao
 from metier.listEnvie import ListEnvie
 from dao.assoCritUserDAO import AssoCritUserDao
 from dao.assoStageUserDao import AssoStageUserDao
+from metier.stage import Stage
 
 
 class Prof(Eleve):

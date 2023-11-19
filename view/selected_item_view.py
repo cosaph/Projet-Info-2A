@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 12:12:31 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 13:49:03 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,8 @@ class selected_item_view(AbstractView):
                     print("Stage ajouté à votre liste d'envie")
                     return self.make_choice()
                 elif shared_data.tab_ter[0] == 'professeur.e':
-                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    print("Stage ajouté à votre liste d'envie")
                     return self.make_choice()
                 elif shared_data.tab_ter[2] == 'Administrateur.e':
                     Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).ajouter_stageAuser(url, title, specialite, location)
@@ -95,13 +96,13 @@ class selected_item_view(AbstractView):
 
                 if shared_data.tab_ter[0] == 'élève':
                     from view.menu_post_connection import post_connection
-                    return post_connection()
+                    return self.make_choice()
                 elif shared_data.tab_ter[0] == 'professeur.e':
                     from view.menu_post_connection_prof import post_connection_prof
-                    return post_connection_prof()
+                    return self.make_choice()
                 elif shared_data.tab_ter[2] == 'Administrateur.e':
                     from view.menu_post_connection_admin import post_connection_admin
-                    return post_connection_admin()
+                    return self.make_choice()
                 else:
                     return self.make_choice()
             except IndexError:

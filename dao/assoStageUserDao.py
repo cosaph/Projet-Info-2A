@@ -9,7 +9,6 @@ class AssoStageUserDao:
         """
         Rajouter un couple utilisateur stage dans la base de données
         """
-        uneDate = datetime.now()
         caPasse = False
         if unStage is not None:
             with DBConnection().connection as connection:

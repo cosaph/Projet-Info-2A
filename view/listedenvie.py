@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/17 10:26:38 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 14:06:56 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ from view.session import Session
 from metier.eleve import Eleve
 import view.shared_data as shared_data
 from metier.critere import Critere
+from metier.admin import Admin
+from metier.prof import Prof
 
 
 
@@ -46,14 +48,43 @@ class listedenvie(AbstractView):
         reponse = prompt(self.__questions)
 
         if reponse["choix"] == "Retour":
-            from view.menu_post_connection import post_connection
-            return post_connection()
+            if shared_data.tab_ter[0] == "élève":
+                from view.menu_post_connection import post_connection
+                return post_connection()
+            elif shared_data.tab_ter[0] == "professeur.e":
+                from view.menu_post_connection_prof import post_connection_prof
+                return post_connection_prof()
+            elif shared_data.tab_ter[2] == "Administrateur.e":
+                from view.menu_post_connection_admin import post_connection_admin
+                return post_connection_admin()
         
         elif reponse["choix"] == "Consulter la liste d'envie":
-            RealDictRow = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
-            return self.make_choice()
+            try:
+                if shared_data.tab_ter[0] == "élève":
+                    RealDictRow= Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
+                    return self.make_choice()
+                if shared_data.tab_ter[0] == "professeur.e":
+                    RealDictRow = Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
+                    return self.make_choice()
+                if shared_data.tab_ter[2] == "Administrateur.e":
+                    RealDictRow = Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).charger_all_stage_mail(shared_data.tab_ter[0])
+                    return self.make_choice()
+            except:
+                print("Vous n'avez pas de liste d'envie")
+                return self.make_choice()
         
         elif reponse["choix"] == "Exporter la liste d'envie":
-            Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_csv(shared_data.tab_bis[0])
-            
-            return self.make_choice()
+            try:
+                if shared_data.tab_ter[0] == "élève":
+                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0])
+                    return self.make_choice()
+                elif shared_data.tab_ter[0] == "professeur.e":
+                    Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0])
+                    return self.make_choice()
+                elif shared_data.tab_ter[2] == "Administrateur.e":
+                    Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).charger_all_stage_mail_json(shared_data.tab_ter[0])
+                    return self.make_choice()
+            except:
+                print(Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0]))
+                print("Vous n'avez pas de liste d'envie")
+                return self.make_choice()

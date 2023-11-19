@@ -159,32 +159,27 @@ class Eleve(UserNonAuthentifie):
         #return listStage
 
 
-    import csv
-
-    def charger_all_stage_mail_csv(self, email):
+    def charger_all_stage_mail_json(self, email):
+        import json
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
-    
-        # Define the CSV file path
-        csv_file = 'all_stages.csv'
-    
-        # Prepare the CSV file headers
-        fieldnames = ['URL', 'Title', 'Location']
-    
-        # Write the data to the CSV file
-        with open(csv_file, 'w', newline='', encoding='utf-8') as file:
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-        
-            # Write the headers to the CSV file
-            writer.writeheader()
-        
-            # Write each stage data to the CSV file
-            for stage in listStage:
-                writer.writerow({'URL': stage.url_stage, 'Title': "", 'Location': ""})
-    
-        print(f"All stages exported to '{csv_file}' successfully.")
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
+
+        # Define the JSON file path
+        json_file = 'all_stages.json'
+
+        # Prepare the JSON data
+        json_data = []
+        for stage in listStage:
+            json_data.append({'URL': stage.url_stage, 'Title': stage.titre, 'Location': stage.ville})
+
+        # Write the data to the JSON file
+        with open(json_file, 'w', encoding='utf-8') as file:
+            json.dump(json_data, file, ensure_ascii=False, indent=4)
+
+        print(f"All stages exported to '{json_file}' successfully.")
+
 
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
