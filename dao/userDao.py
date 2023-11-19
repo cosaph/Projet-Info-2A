@@ -231,6 +231,17 @@ class UserDao(metaclass=Singleton):
         for k in res:
             print(k["email"])
 
+    def tout_mail_stage_touve_bis():
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT email "
+                    "FROM projetinfo.utilisateur "
+                    "WHERE stage_trouve = True;",
+                )
+                res = cursor.fetchall()
+        return res
+
     def creer_un_admin(self):
         
         mdp_chiffre = self.chiffrer_mdp("m","m")
