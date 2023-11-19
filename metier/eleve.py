@@ -46,10 +46,9 @@ class Eleve(UserNonAuthentifie):
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
+        #print(res)
         if res == False:
             print("Mauvais identifiants veuillez recommencer")
-            from view.start_view import StartView
-            return StartView()
         #if "élève.e" not in res["profil"]:
             #raise ValueError("The user is not a student")
         else :
@@ -57,6 +56,7 @@ class Eleve(UserNonAuthentifie):
                 email=res["email"],
                 mdp=res["mdp"],
             )
+        return(res)
     @classmethod
 
     def charger_user_bis(self, email, mdp):
@@ -143,7 +143,7 @@ class Eleve(UserNonAuthentifie):
             listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
-            print(stage.url_stage)
+            print(stage.url_stage, stage.titre, stage.ville)
         #return listStage
 
     def charger_all_stage_mail_critere(email, critere):
@@ -159,8 +159,8 @@ class Eleve(UserNonAuthentifie):
         #return listStage
 
 
+
     def charger_all_stage_mail_json(self, email):
-        import json
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
         listStage = []
         for k in res:
@@ -180,6 +180,20 @@ class Eleve(UserNonAuthentifie):
 
         print(f"All stages exported to '{json_file}' successfully.")
 
+    def charger_all_stage_mail_f(self, email):
+        res = AssoStageUserDao().unUser_all_url_stage_mail(email)
+        #print(res)
+        listStage = []
+        for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
+        # Print the url_stage from each element in listStage
+        liste = []
+        for stage in listStage:
+            liste.append(str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
+        
+        return liste
+        
+        #return listStage  
 
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)

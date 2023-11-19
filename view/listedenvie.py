@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 14:06:56 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 21:28:50 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ import view.shared_data as shared_data
 from metier.critere import Critere
 from metier.admin import Admin
 from metier.prof import Prof
+
 
 
 
@@ -76,15 +77,24 @@ class listedenvie(AbstractView):
         elif reponse["choix"] == "Exporter la liste d'envie":
             try:
                 if shared_data.tab_ter[0] == "élève":
-                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0])
+                    message = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_f(shared_data.tab_bis[0])
+                    chaine =""
+                    for item in message:
+                        chaine += item + "\n"
+
+                    Admin("m", "m").envoi_mail_envie(shared_data.tab_bis[0], chaine)
+                    print("Votre liste d'envie a été envoyé à votre adresse mail.")
+
                     return self.make_choice()
+
                 elif shared_data.tab_ter[0] == "professeur.e":
                     Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0])
                     return self.make_choice()
+
                 elif shared_data.tab_ter[2] == "Administrateur.e":
                     Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).charger_all_stage_mail_json(shared_data.tab_ter[0])
                     return self.make_choice()
+
             except:
-                print(Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0]))
                 print("Vous n'avez pas de liste d'envie")
                 return self.make_choice()

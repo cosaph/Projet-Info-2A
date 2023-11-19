@@ -33,26 +33,17 @@ class Prof(Eleve):
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
-        if not res:
-            raise "email ou mdp incorrect"
-        if "Prof" not in res["profil"]:
-            raise "L'utilisateur n'est pas un professeur"
-        #listStage = []
-        #listCritere = []
-        #if AssoCritUserDao().exist_email(email):
-            #listCritere = Prof.charger_all_critere_mail(email)
-        #     print(len(listCritere))
-        # print(AssoStageUserDao().exist_email(email))
-        #if AssoStageUserDao().exist_email(email):
-            #listStage = Prof.charger_all_stage_mail(email) 
-        return Prof(
-                    email=res["email"],
-                    mdp=res["mdp"],
-                    critere=None,
-                    list_envie=None,
-                    souhaite_alertes=res["souhaite_alertes"],
-                    code_insee_residence=res["code_insee_residence"]
-                    )
+        #print(res)
+        if res == False:
+            print("Mauvais identifiants veuillez recommencer")
+        #if "élève.e" not in res["profil"]:
+            #raise ValueError("The user is not a student")
+        else :
+            return Prof(
+                email=res["email"],
+                mdp=res["mdp"],
+            )
+        return(res)
 
     def envoyer_offre(self, mail: str, unStage: Stage):
         pass

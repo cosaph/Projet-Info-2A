@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 12:26:16 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 22:05:02 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ from dao.userDao import UserDao
 import view.shared_data as shared_data
 from metier.admin import Admin
 import view.shared_data as shared_data
+
+
 class ConnectionView(AbstractView):
     
     def __init__(self):
@@ -59,20 +61,29 @@ class ConnectionView(AbstractView):
 
         if type == 'élève':
             if Eleve.charger_user(email, password):
+                #print(Eleve.charger_user(email, password))
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = email
                 from view.menu_post_connection import post_connection
                 return post_connection()
+            else :
+                from view.connection import ConnectionView
+                return ConnectionView()
         
         elif type == 'professeur.e':
             if Prof.charger_user(email, password):
+                print(Prof.charger_user(email, password))
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 Session().user_name = email
                 from view.menu_post_connection_prof import post_connection_prof
 
                 return post_connection_prof()
+            else :
+                from view.connection import ConnectionView
+                return ConnectionView()
+        
         
         """
         elif type == 'administrateur.e':

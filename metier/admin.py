@@ -121,7 +121,28 @@ class Admin(Prof):
         email = EmailMessage()
         email["From"] = sender
         email["To"] = mail
-        email["Subject"] = "StageFinder Administrator Mail"
+        email["Subject"] = "Internmatch Administrator Mail"
+        email.set_content(message)
+
+        smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
+        smtp.starttls()
+        smtp.login(sender, "123456abc@@@")
+        smtp.sendmail(sender, mail, email.as_string())
+        smtp.quit()
+
+    def envoi_mail_envie(self, mail, message):
+        """
+        Sends an email to the specified recipient with its prefered internship.
+
+        Args:
+            mail (str): The email address of the recipient.
+        """
+        sender = "stagefinderensai@outlook.com"
+
+        email = EmailMessage()
+        email["From"] = sender
+        email["To"] = mail
+        email["Subject"] = "InternMatch Liste d'envie"
         email.set_content(message)
 
         smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
