@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 20:00:47 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/09 21:31:01 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 19:17:56 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,3 +27,12 @@ def create_tables():
     conn.close()
 
 create_tables()
+
+# Création d'un admin et de deux utilisateurs pour les tests de l'application 
+
+# L'admin est créé avec l'adresse mail et le mot de passe suivant : "m", "m"
+
+# Les deux utilisateurs sont créés avec les adresses mails et les mots de passe suivants : "a", "a" et "b", "b"
+UserDao().creer_un_admin()
+
+UserDao().creer_deux_exemeple()
