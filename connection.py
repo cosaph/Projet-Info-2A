@@ -6,12 +6,13 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 20:00:47 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 19:17:56 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/19 20:11:40 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 import psycopg2
+from dao.userDao import UserDao
 
 
 def create_tables():
