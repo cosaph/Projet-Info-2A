@@ -33,11 +33,11 @@ class Prof(Eleve):
     @classmethod
     def charger_user(self, email, mdp):
         res = UserDao().charger_user(email, mdp)
-        #print(res)
         if res == False:
             print("Mauvais identifiants veuillez recommencer")
-        #if "élève.e" not in res["profil"]:
-            #raise ValueError("The user is not a student")
+        elif "<class 'metier.prof.Prof'>" not in res["profil"]:
+            print("Vous n'êtes pas un.e professeur.e")
+            res = False
         else :
             return Prof(
                 email=res["email"],
