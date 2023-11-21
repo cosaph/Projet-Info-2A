@@ -40,8 +40,8 @@ class Critere:
     def __eq__(self, other):
         return self.id_crit == other.id_crit
         
-    def recherche_stage(critere, localisation, rayon):
-        params = {'q': critere, 'l': localisation, 'stage': critere, 'location': localisation, 'radius': rayon}
+    def recherche_stage(critere, localisation, rayon, categorie):
+        params = {'q': critere, 'l': localisation, 'stage': critere, 'location': localisation, 'radius': rayon, 'categories[]': categorie}
         url = requests.Request('GET', 'https://www.stage.fr/jobs/', params=params).prepare().url
         """ url = requests.Request('GET', 'https://emploi.lefigaro.fr/', params=params).prepare().url """
 

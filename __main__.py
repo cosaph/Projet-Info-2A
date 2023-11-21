@@ -31,11 +31,11 @@ if __name__ == "__main__":
     # run the Start View
     current_view = StartView()
 
+
     # while current_view is not none, the application is still running
     while current_view:
         # clear the terminal
-        #import os
-        #os.system("clear")
+        
 
         # a border between view
         #with open("graphical_assets/banner.txt", "r", encoding="utf-8") as asset:
@@ -44,6 +44,8 @@ if __name__ == "__main__":
         current_view.display_info()
         # ask user for a choice
         current_view = current_view.make_choice()
+        #import os
+        #os.system("clear")
 
     with open(
         "graphical_assets/suprised_pikachu.txt", "r", encoding="utf-8"

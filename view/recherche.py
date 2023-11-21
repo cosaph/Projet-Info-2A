@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 19:53:45 by marvin            #+#    #+#              #
-#    Updated: 2023/11/21 12:30:34 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 13:34:27 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,11 @@ class recherche(AbstractView):
                 "type": "input",
                 "name": "critère",
                 "message": "Entrez le type de stage que vous recherchez :"
+            },
+            {
+                "type": "input", # voir s'il existe pas un type pour les int sinon renvoie une erreur.
+                "name": "categorie",
+                "message": "Dans quelle catégorie?",
             },
             {
                 "type": "input",
@@ -48,7 +53,8 @@ class recherche(AbstractView):
         critere = answers["critère"]
         localisation = answers["localisation"]
         rayon = answers["rayon"]
-        tableau = Critere.recherche_stage(critere, localisation, rayon)
+        categorie = answers["categorie"]
+        tableau = Critere.recherche_stage(critere, localisation, rayon, categorie)
     
 
         options = [
@@ -76,6 +82,7 @@ class recherche(AbstractView):
         needs.append(rayon)
         needs.append(localisation)
         needs.append(selected["title"])
+        needs.append(categorie)
         shared_data.tab = needs
         
         return selected_item_view(selected)

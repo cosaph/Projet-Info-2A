@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 19:52:57 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/10 22:16:36 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 14:50:51 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ class selected_item_view_admin(AbstractView):
         if choice == "Supprimer l'utilisateur.e":
             E = Eleve(tableau[0], None)
              # trouver un moyen de faire apparaître l'url.
-            Admin(shared_data.tab[0], shared_data.tab[1]).supprime_user(E)
+            Admin("m", "m").supprime_user(E)
 
             from view.modifier_utilisateur import modifier_utilisateur
             return modifier_utilisateur()

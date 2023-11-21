@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 11:10:06 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 14:55:49 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ class listedenvie(AbstractView):
                     RealDictRow = Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
                     return self.make_choice()
                 if shared_data.tab_ter[2] == "Administrateur.e":
-                    RealDictRow = Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).charger_all_stage_mail(shared_data.tab_ter[0])
+                    RealDictRow = Admin("m", "m").charger_all_stage_mail(shared_data.tab_ter[0])
                     return self.make_choice()
             except:
                 print("Vous n'avez pas de liste d'envie")
@@ -78,17 +78,25 @@ class listedenvie(AbstractView):
             try:
                 if shared_data.tab_ter[0] == "élève":
                     message = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_f(shared_data.tab_bis[0])
-                    chaine =""
+                    #print(message)
+                    chaine = ""
                     for item in message:
                         chaine += item + "\n"
-
+                    #print(chaine)
                     Admin("m", "m").envoi_mail_envie(shared_data.tab_bis[0], chaine)
                     print("Votre liste d'envie a été envoyé à votre adresse mail.")
 
                     return self.make_choice()
 
                 elif shared_data.tab_ter[0] == "professeur.e":
-                    Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_json(shared_data.tab_bis[0])
+                    message = Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail_f(shared_data.tab_bis[0])
+                    #print(message)
+                    chaine = ""
+                    for item in message:
+                        chaine += item + "\n"
+                    #print(chaine)
+                    Admin("m", "m").envoi_mail_envie(shared_data.tab_bis[0], chaine)
+                    print("Votre liste d'envie a été envoyé à votre adresse mail.")
                     return self.make_choice()
 
                 elif shared_data.tab_ter[2] == "Administrateur.e":

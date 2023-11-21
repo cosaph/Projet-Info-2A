@@ -28,7 +28,8 @@ CREATE TABLE projetInfo.stage  (
     url_stage text PRIMARY KEY, 
     titre text,
     specialite text,
-    ville text
+    ville text,
+    categorie text
 );
 
        
@@ -43,7 +44,8 @@ CREATE TABLE projetInfo.association_stage_user (
     url_stage text,
     email text,
     critere text,
-    ville text
+    ville text,
+    categorie text
 );
         
 -- CONSTRAINT pk_asso6 PRIMARY KEY (url_stage,email),

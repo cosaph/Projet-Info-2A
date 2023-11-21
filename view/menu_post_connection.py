@@ -19,7 +19,7 @@ class post_connection(AbstractView):
             {
                 "type": "list",
                 "name": "choix",
-                "message": f"Hello {Session().user_name}",
+                "message": f"Hello :)",
                 "choices": [
                     "Recherche de stage",
                     "Liste d'envie",

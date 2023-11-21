@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/18 18:09:37 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 14:56:42 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ class post_connection_prof(AbstractView):
             {
                 "type": "list",
                 "name": "choix",
-                "message": f"Hello {Session().user_name}",
+                "message": f"Hello :)",
                 "choices": [
                     "Recherche de stage",
                     "liste d'envie",

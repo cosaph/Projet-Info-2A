@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:41:38 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/13 16:15:16 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 15:06:20 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,6 @@ class historique_poussee(AbstractView):
     def make_choice(self):
         response = prompt(self.__questions)
         liste = Eleve.charger_all_stage_mail_critere(shared_data.tab_bis[0], response["critere"])
-        print(liste)
+        #print(liste)
         from view.historique import historique
         return historique()

@@ -11,14 +11,15 @@ class StageDao():
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO projetInfo.stage (url_stage, titre, specialite, ville) "
-                    "VALUES (%(url_stage)s, %(titre)s, %(specialite)s, %(ville)s) "
+                    "INSERT INTO projetInfo.stage (url_stage, titre, specialite, ville, categorie) "
+                    "VALUES (%(url_stage)s, %(titre)s, %(specialite)s, %(ville)s, %(categorie)s) "
                     "RETURNING url_stage;",
                     {
                         "url_stage": unStage.url_stage,
                         "titre": unStage.titre,
                         "specialite": unStage.specialite,
                         "ville": unStage.ville,
+                        "categorie": unStage.categorie,
                     },
                 )
                 res = cursor.fetchone()
@@ -115,18 +116,19 @@ class StageDao():
             trouve = True     
         return trouve
     
-    def charger_stage(self, url_stage, titre, ville):
+    def charger_stage(self, url_stage, titre, ville,categorie):
         """ Importe un stage de la bdd """
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.stage "
-                    "where url_stage = %(url_stage)s and titre = %(titre)s  and ville = %(ville)s;",
+                    "where url_stage = %(url_stage)s and titre = %(titre)s  and ville = %(ville)s and categorie = %(categorie)s;",
                     {
                         "url_stage": url_stage,
                         "titre": titre,
-                        "ville": ville               
+                        "ville": ville,
+                        "categorie": categorie,              
                     },
                 )
                 res = cursor.fetchone()

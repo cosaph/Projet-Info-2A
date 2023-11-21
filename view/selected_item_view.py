@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 15:11:45 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 14:33:19 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 15:00:30 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,19 +60,22 @@ class selected_item_view(AbstractView):
             location = shared_data.tab[2]
             #rayon = shared_data.tab[0]
             specialite = shared_data.tab[0]
+            categorie = shared_data.tab[4]
+
+            # RAJOUTER categorie.
 
             try:
 
                 if shared_data.tab_ter[0] == 'élève':
-                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location,categorie)
                     print("Stage ajouté à votre liste d'envie")
                     return self.make_choice()
                 elif shared_data.tab_ter[0] == 'professeur.e':
-                    Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location)
+                    Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).ajouter_stageAuser(url, title, specialite, location, categorie)
                     print("Stage ajouté à votre liste d'envie")
                     return self.make_choice()
                 elif shared_data.tab_ter[2] == 'Administrateur.e':
-                    Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).ajouter_stageAuser(url, title, specialite, location)
+                    Admin(shared_data.tab_ter[0], shared_data.tab_ter[1]).ajouter_stageAuser(url, title, specialite, location, categorie)
                     print("Stage ajouté à votre liste d'envie")
                     return self.make_choice()
             except IndexError:
@@ -92,6 +95,7 @@ class selected_item_view(AbstractView):
                 return self.make_choice()
             print("Description du stage :")
             print(tab[0])
+            return self.make_choice()
             try:
 
                 if shared_data.tab_ter[0] == 'élève':

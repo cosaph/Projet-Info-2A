@@ -141,25 +141,64 @@ class Eleve(UserNonAuthentifie):
     @classmethod
     def charger_all_stage_mail(self, email):
         res = AssoStageUserDao().unUser_all_url_stage_mail(email)
-        #print(res)
+        
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"], k["categorie"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
-            print(stage.url_stage, stage.titre, stage.ville)
+            #print(len(listStage))
+            print ("*********************************************************************************************************")
+            print("Stage numéro:", listStage.index(stage) + 1, str("/"), str(len(listStage)))
+            
+            titre = str(stage.titre).strip("(),'")
+            print("Titre :")
+            print("------------------------------------------------------------------------")
+            print(titre)
+            print("------------------------------------------------------------------------")
+            ville = str(stage.ville).strip("(),'")
+            print("Ville :")
+            print("------------------------------------------------------------------------")
+            print(ville)
+            print("------------------------------------------------------------------------")
+            print("URL :")
+            print("------------------------------------------------------------------------")
+            print(f"{stage.url_stage}\n\n")
+            print("------------------------------------------------------------------------")
+            print("Catégorie :")
+            print("------------------------------------------------------------------------")
+            print(f"{stage.categorie}\n\n")
         #return listStage
 
     def charger_all_stage_mail_critere(email, critere):
         res = AssoStageUserDao().unUser_all_url_stage_mail_critere(email, critere)
-        #print(res)
         listStage = []
         for k in res:
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"], k["categorie"]))
 
-            listStage.append(Stage.charger_stage(k["url_stage"],k["titre"], k["ville"]))
-        # Print the url_stage from each element in listStage
+        # Afficher les résultats sous forme de tableau
         for stage in listStage:
-            print( str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
+            #print(len(listStage))
+            print ("*********************************************************************************************************")
+            print("Stage numéro:", listStage.index(stage) + 1, str("/"), str(len(listStage)))
+            
+            titre = str(stage.titre).strip("(),'")
+            print("Titre :")
+            print("------------------------------------------------------------------------")
+            print(titre)
+            print("------------------------------------------------------------------------")
+            ville = str(stage.ville).strip("(),'")
+            print("Ville :")
+            print("------------------------------------------------------------------------")
+            print(ville)
+            print("------------------------------------------------------------------------")
+            print("URL :")
+            print("------------------------------------------------------------------------")
+            print(f"{stage.url_stage}\n\n")
+            print("------------------------------------------------------------------------")
+            print("Catégorie :")
+            print("------------------------------------------------------------------------")
+            print(f"{stage.categorie}\n\n")
         #return listStage
 
 
@@ -189,12 +228,12 @@ class Eleve(UserNonAuthentifie):
         #print(res)
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"]))
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"], k["categorie"]))
         # Print the url_stage from each element in listStage
         liste = []
         for stage in listStage:
-            liste.append(str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville))
-        
+            liste.append(str(stage.titre) + " disponible à l'adresse " + str(stage.url_stage) + "à" + str(stage.ville) + " dans la catégorie " + str(stage.categorie))
+
         return liste
         
         #return listStage  
@@ -202,13 +241,13 @@ class Eleve(UserNonAuthentifie):
     def possede_stage(self, unStage):
         return AssoStageUserDao().existe_user_stage(self, unStage)
 
-    def ajouter_stageAuser(self, url, title, specialite, location):
+    def ajouter_stageAuser(self, url, title, specialite, location, categorie):
         # ne pas toucher
-        S = Stage(url, title, specialite, location) 
+        S = Stage(url, title, specialite, location, categorie) 
         #if self.possede_stage(S):
             #raise "L' utilisateur a déjà ce stage dans la liste envie"
         if not S.existe():
-            Stage.creer_stage(url, title, specialite, location)
+            Stage.creer_stage(url, title, specialite, location,categorie)
         return AssoStageUserDao().add(S, self)
 
     def supprimer_stageAuser(self, unStage):

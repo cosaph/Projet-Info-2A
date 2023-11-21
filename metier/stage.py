@@ -14,18 +14,20 @@ class Stage:
         titre,
         specialite,
         ville,
+        categorie
             ):
         self.url_stage = url_stage
         self.titre = titre,
         self.specialite = specialite
         self.ville = ville,
+        self.categorie = categorie
 
     def existe(self):
         return StageDao().exist_id(self)
 
     @classmethod
-    def charger_stage(self, url_stage, titre, ville, verbose=False):
-        res = StageDao().charger_stage(url_stage, titre, ville)
+    def charger_stage(self, url_stage, titre, ville, categorie, verbose=False):
+        res = StageDao().charger_stage(url_stage, titre, ville, categorie)
         if not res:
             raise "Le stage n'existe pas"
         res = Stage(
@@ -33,6 +35,7 @@ class Stage:
             titre=res["titre"],
             specialite=res["specialite"],
             ville=res["ville"],
+            categorie=res["categorie"]
             )
         if verbose:
             print(res)
@@ -48,13 +51,13 @@ class Stage:
         if self.existe():
             StageDao().update(self)
     
-    def creer_stage(url_stage, titre, specialite, ville):
+    def creer_stage(url_stage, titre, specialite, ville, categorie):
         """
         Créer un stage
         Le stage est ajouté à la base de données
         
         """
-        S = Stage(url_stage, titre, specialite, ville)
+        S = Stage(url_stage, titre, specialite, ville, categorie)
         if S.existe():
             print("Le stage existe déjà")
         else:
