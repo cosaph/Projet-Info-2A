@@ -77,6 +77,7 @@ class Critere:
             description = div.get_text(strip=True)
             descriptions.append(description)
         return(descriptions)
+        
             
 
     def exportation_csv(critere, localisation, rayon):

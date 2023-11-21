@@ -63,18 +63,17 @@ class Admin(Prof):
             Exception: If the user is not an admin.
         """
         res = UserDao().charger_user(email, mdp)
-        if not res:
-            raise Exception("Email or password is incorrect")
-        if "Admin" not in res["profil"]:
-            raise Exception("The user is not an administrator")
-        return cls(
-            email=res["email"],
-            mdp=res["mdp"],
-            critere=None,
-            list_envie=None,
-            code_insee_residence=res["code_insee_residence"],
-            souhaite_alertes=res["souhaite_alertes"]
-        )
+        if res == False:
+            print("Mauvais identifiants veuillez recommencer")
+        elif "<class 'metier.admin.Admin'>" not in res["profil"]:
+            print("Vous n'êtes pas un.e administrateur.e")
+            res = False
+        else :
+            return Admin(
+                email=res["email"],
+                mdp=res["mdp"],
+            )
+        return(res)
 
     def chargerTout(self):
         """

@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:49:32 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 11:20:55 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 12:41:30 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,13 +46,16 @@ class ConnectionView_admin(AbstractView):
         answers = prompt(self.__questions)
         email = answers["email"]
         password = answers["password"]
-        shared_data.tab_ter.append(email)
-        shared_data.tab_ter.append(password)
+        
         type = "Administrateur.e"
-        shared_data.tab_ter.append(type)
-        shared_data.tab_type.append(type)
+        if Admin.charger_user(email, password):
+            shared_data.tab_ter.append(email)
+            shared_data.tab_ter.append(password)
+            shared_data.tab_ter.append(type)
+            shared_data.tab_type.append(type)
+            from view.menu_post_connection_admin import post_connection_admin
 
-        Admin.charger_user(email, password)
-        from view.menu_post_connection_admin import post_connection_admin
-
-        return post_connection_admin()
+            return post_connection_admin()
+        else :
+            from view.administrateur import ConnectionView_admin
+            return ConnectionView_admin()
