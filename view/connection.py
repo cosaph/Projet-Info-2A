@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 11:20:24 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 11:24:36 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ class ConnectionView(AbstractView):
         
         elif type == 'professeur.e':
             if Prof.charger_user(email, password):
-                print(Prof.charger_user(email, password))
+                #print(Prof.charger_user(email, password))
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
                 #Session().user_name = email
