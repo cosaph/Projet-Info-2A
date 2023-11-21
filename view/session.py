@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:59:36 by cosaph            #+#    #+#              #
-#    Updated: 2023/10/25 11:59:40 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 17:45:40 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,4 +22,4 @@ class Session(metaclass=Singleton):
         ref:type = valeur
         permet de donner le type des variables. Utile pour l'autocompletion.
         """
-        self.user_name: str = "unknown"
+        self.user_name: str = ":)"
