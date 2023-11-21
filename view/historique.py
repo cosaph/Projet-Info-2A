@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:34:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 17:44:51 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 18:19:28 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ class historique(AbstractView):
             {
                 "type": "list",
                 "name": "choix",
-                "message": f"Hello :) }",
+                "message": f"Hello :)",
                 "choices": [
                     "Consulter l'historique de recherche",
                     "Retour"
