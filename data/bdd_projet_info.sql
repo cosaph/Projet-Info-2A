@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS projetInfo.utilisateur CASCADE ;
 CREATE TABLE projetInfo.utilisateur (
     email text PRIMARY KEY,
     mdp text,
-    code_insee_residence text,
     souhaite_alertes boolean,
     stage_trouve boolean,
     profil text

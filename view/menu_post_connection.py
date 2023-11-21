@@ -26,7 +26,7 @@ class post_connection(AbstractView):
                     "Historique de recherche par critère",
                     "Questionnaire",
                     "Modifier compte",
-                    "Retour"
+                    "Quitter"
                 ],
             }
         ]
@@ -37,9 +37,8 @@ class post_connection(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Retour":
-            from view.start_view import StartView
-            return StartView()
+        if reponse["choix"] == "Quitter":
+            pass
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Recherche de stage": 
             from view.recherche import recherche

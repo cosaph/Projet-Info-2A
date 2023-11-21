@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/04 18:09:12 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 14:56:42 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 15:19:54 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ class post_connection_prof(AbstractView):
                     "Statistiques",
                     "Historique de recherche",
                     "Modifier Compte",
-                    "Retour"
+                    "Quitter"
                 ],
             }
         ]
@@ -47,9 +47,8 @@ class post_connection_prof(AbstractView):
 
     def make_choice(self):
         reponse = prompt(self.__questions)
-        if reponse["choix"] == "Retour":
-            from view.start_view import StartView
-            return StartView()
+        if reponse["choix"] == "Quitter":
+            pass
         #Ici l'utilisateur fait le choix de se connecter?
         if reponse["choix"] == "Recherche de stage": 
             from view.recherche import recherche

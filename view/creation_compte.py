@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:35 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/15 14:40:01 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 15:16:23 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,6 @@ class Creation_compteView(AbstractView):
                 "type": "password",  
                 "name": "password",
                 "message": "Choisissez un mot de passe :",
-            },
-            {
-                "type": "input",  
-                "name": "code postal",
-                "message": "donnes nous ton code postal:",
             },
             {
                 "type": "list",  
@@ -67,12 +62,12 @@ class Creation_compteView(AbstractView):
         answers = prompt(self.__questions)
         #Session().user_name = answers["email"]
         email = answers["email"]
-        code_insee_residence = answers["code postal"]
+        #code_insee_residence = answers["code postal"]
         password = answers["password"]
         alerte = answers["alerte"]
         type = answers["type"]
         
-        if Creation(password, email, alerte, code_insee_residence, type).creer_compte():
+        if Creation(password, email, alerte, type).creer_compte():
             print("utilisateur crée")
 
         # Ici, vous pouvez enregistrer ces informations dans votre application pour la création de compte.
