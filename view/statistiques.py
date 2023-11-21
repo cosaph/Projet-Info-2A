@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 09:52:23 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 11:22:39 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 11:23:36 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ class statistiques(AbstractView):
         if reponse["choix"] == "Liste d'élève qui ont trouvé un stage": 
             #print(shared_data.tab_type[0])
             UserDao.tout_mail_stage_touve()
-            if shared_data.tab_ter[0] == 'professeur.e':
+            if shared_data.tab_type[0] == 'professeur.e':
                 from view.menu_post_connection_prof import post_connection_prof
                 return post_connection_prof()
             else:
@@ -65,8 +65,8 @@ class statistiques(AbstractView):
             for k in perso:
                 somme += 1
             print(f"Le nombre d'élèves qui ont trouvé un stage grâce à notre application est de {somme}")
-            print(shared_data.tab_ter[0])
-            if shared_data.tab_ter[0] == 'professeur.e':
+            #print(shared_data.tab_ter[0])
+            if shared_data.tab_type[0] == 'professeur.e':
                 from view.menu_post_connection_prof import post_connection_prof
                 return post_connection_prof()
             else:
