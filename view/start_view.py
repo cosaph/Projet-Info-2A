@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:57:13 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/08 09:24:59 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 11:14:28 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ class StartView(AbstractView):
             {
                 "type": "list",
                 "name": "choix",
-                "message": f"Salut {Session().user_name}",
+                "message": f"Salut :)",
                 "choices": [
                     "Connection",
                     "Recherche de stage",

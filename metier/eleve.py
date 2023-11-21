@@ -230,16 +230,16 @@ class Eleve(UserNonAuthentifie):
     def supprimer_compte():
             UserDao().delete_user()
 
-    def __str__(self):
-        res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
-        res3 = ""
-        if self.critere is not None:
-            if isinstance(self.critere, list):
-                for k in self.critere:
-                    res3 = res3 + k.__str__() + "\n"
-            else:
-                res3 = self.critere.__str__()
-        return "Les critères de l'utilisateur sont:\n{}Les caractéristiques de l'utilisateurs sont:\n{} ".format(res3, res)
+    # def __str__(self):
+    #     res = "email: {}\nListe de stages : {}\nCommune de résidence: {}\nSouhaite alerte: {}\nA trouvé un stage: {}".format(self.email, self.list_envie, self.code_insee_residence, self.souhaite_alertes, self.stage_trouve)
+    #     res3 = ""
+    #     if self.critere is not None:
+    #         if isinstance(self.critere, list):
+    #             for k in self.critere:
+    #                 res3 = res3 + k.__str__() + "\n"
+    #         else:
+    #             res3 = self.critere.__str__()
+    #     return "Les critères de l'utilisateur sont:\n{}Les caractéristiques de l'utilisateurs sont:\n{} ".format(res3, res)
 
     # ok pour les alertes ou pas
     def set_souhaite_alertes(self, reponse: bool):

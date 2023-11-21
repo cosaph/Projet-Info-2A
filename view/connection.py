@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/25 11:58:22 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 22:05:02 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/21 11:20:24 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,14 @@ class ConnectionView(AbstractView):
         password = answers["password"]
         type = answers["type"]
         shared_data.tab_ter.append(type)
+        shared_data.tab_type.append(type)
 
         if type == 'élève':
             if Eleve.charger_user(email, password):
                 #print(Eleve.charger_user(email, password))
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
-                Session().user_name = email
+                #Session().user_name = email
                 from view.menu_post_connection import post_connection
                 return post_connection()
             else :
@@ -76,7 +77,7 @@ class ConnectionView(AbstractView):
                 print(Prof.charger_user(email, password))
                 shared_data.tab_bis.append(email)
                 shared_data.tab_bis.append(password)
-                Session().user_name = email
+                #Session().user_name = email
                 from view.menu_post_connection_prof import post_connection_prof
 
                 return post_connection_prof()
