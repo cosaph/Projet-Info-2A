@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/13 14:47:19 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/15 14:40:20 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/23 14:17:00 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,10 @@ class TestAdmin(unittest.TestCase):
     def test_chargerTout(self):
         
         # GIVEN
-        expected_result = ["m", "a", "b"]
-
+        res = UserDao().tousLesEmails()
+        expected_result = []
+        for i in res:
+            expected_result.append(i["email"])
         # WHEN
         result = self.admin.chargerTout()
 

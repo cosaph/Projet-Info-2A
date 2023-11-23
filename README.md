@@ -34,6 +34,7 @@ Run the main.py file
 Follow what it's asking and ENJOY !!! 🎉❤️
 
 ## Usage 📖
+
 Once the application is running, you can use the following commands:
 The first menu will give you 4 possibilities :
 

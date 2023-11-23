@@ -42,7 +42,6 @@ class Admin(Prof):
             list_envie=list_envie,
             email=email,
             mdp=mdp,
-            code_insee_residence=code_insee_residence,
             souhaite_alertes=souhaite_alertes
         )
 
