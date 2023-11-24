@@ -144,7 +144,7 @@ class Eleve(UserNonAuthentifie):
         
         listStage = []
         for k in res:
-            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"], k["ville"], k["categorie"]))
+            listStage.append(Stage.charger_stage(k["url_stage"], k["titre"] ,k["ville"] ,k["categorie"]))
         # Print the url_stage from each element in listStage
         for stage in listStage:
             #print(len(listStage))

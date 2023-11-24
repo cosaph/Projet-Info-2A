@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 21:11:41 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/21 14:55:49 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/24 22:15:25 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ class listedenvie(AbstractView):
                 return post_connection_admin()
         
         elif reponse["choix"] == "Consulter la liste d'envie":
+
             try:
                 if shared_data.tab_ter[0] == "élève":
                     RealDictRow= Eleve(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
@@ -68,7 +69,8 @@ class listedenvie(AbstractView):
                     RealDictRow = Prof(shared_data.tab_bis[0], shared_data.tab_bis[1]).charger_all_stage_mail(shared_data.tab_bis[0])
                     return self.make_choice()
                 if shared_data.tab_ter[2] == "Administrateur.e":
-                    RealDictRow = Admin("m", "m").charger_all_stage_mail(shared_data.tab_ter[0])
+                    RealDictRow = Admin("m", "m").charger_all_stage_mail("m")
+
                     return self.make_choice()
             except:
                 print("Vous n'avez pas de liste d'envie")

@@ -33,9 +33,9 @@ class Stage:
         res = Stage(
             url_stage=res["url_stage"],
             titre=res["titre"],
-            specialite=res["specialite"],
             ville=res["ville"],
-            categorie=res["categorie"]
+            categorie=res["categorie"],
+            specialite=res["specialite"],
             )
         if verbose:
             print(res)

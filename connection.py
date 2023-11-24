@@ -6,7 +6,7 @@
 #    By: cosaph <cosaph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 20:00:47 by cosaph            #+#    #+#              #
-#    Updated: 2023/11/19 20:11:40 by cosaph           ###   ########.fr        #
+#    Updated: 2023/11/24 21:56:25 by cosaph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ from dao.userDao import UserDao
 
 
 def create_tables():
+    # changer les identifiants de connection.
     conn = psycopg2.connect(database="postgres", user="postgres", host="localhost", password = "01062000")
     cursor = conn.cursor()
 

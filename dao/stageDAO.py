@@ -123,7 +123,7 @@ class StageDao():
                 cursor.execute(
                     "SELECT * "
                     "from projetinfo.stage "
-                    "where url_stage = %(url_stage)s and titre = %(titre)s  and ville = %(ville)s and categorie = %(categorie)s;",
+                    "where url_stage = %(url_stage)s;",
                     {
                         "url_stage": url_stage,
                         "titre": titre,
